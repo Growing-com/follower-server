@@ -1,0 +1,23 @@
+spring:
+  flyway:
+    enabled: 'true'
+  datasource:
+    url: jdbc:mysql://localhost:33061/follower
+    username: user
+    password: password
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: validate
+    show-sql: 'true'
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
