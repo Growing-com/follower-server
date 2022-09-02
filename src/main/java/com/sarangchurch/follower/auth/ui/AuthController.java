@@ -1,7 +1,6 @@
-package com.sarangchurch.follower.auth;
+package com.sarangchurch.follower.auth.ui;
 
-import com.sarangchurch.follower.auth.dto.LoginRequest;
-import com.sarangchurch.follower.auth.dto.TokenResponse;
+import com.sarangchurch.follower.auth.JwtUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.authentication.AuthenticationManagerFactoryBean;
 import org.springframework.security.core.Authentication;

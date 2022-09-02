@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.auth;
+package com.sarangchurch.follower.auth.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

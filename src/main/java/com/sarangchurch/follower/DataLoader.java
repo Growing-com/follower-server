@@ -1,9 +1,9 @@
 package com.sarangchurch.follower;
 
-import com.sarangchurch.follower.auth.RoleType;
-import com.sarangchurch.follower.member.Member;
-import com.sarangchurch.follower.member.MemberRepository;
-import com.sarangchurch.follower.member.MemberRole;
+import com.sarangchurch.follower.auth.domain.RoleType;
+import com.sarangchurch.follower.member.domain.Member;
+import com.sarangchurch.follower.member.domain.MemberRepository;
+import com.sarangchurch.follower.member.domain.MemberRole;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 

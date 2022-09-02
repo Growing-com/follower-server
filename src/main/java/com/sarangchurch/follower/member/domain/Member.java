@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.member;
+package com.sarangchurch.follower.member.domain;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

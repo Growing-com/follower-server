@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.auth;
+package com.sarangchurch.follower.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

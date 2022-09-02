@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.member;
+package com.sarangchurch.follower.member.domain;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;

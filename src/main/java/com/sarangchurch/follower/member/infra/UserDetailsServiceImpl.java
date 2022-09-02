@@ -1,6 +1,8 @@
-package com.sarangchurch.follower.member;
+package com.sarangchurch.follower.member.infra;
 
-import com.sarangchurch.follower.auth.UserDetailsImpl;
+import com.sarangchurch.follower.auth.domain.UserDetailsImpl;
+import com.sarangchurch.follower.member.domain.Member;
+import com.sarangchurch.follower.member.domain.MemberRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
