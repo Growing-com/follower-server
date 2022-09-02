@@ -1,10 +1,12 @@
 spring:
   flyway:
     enabled: 'true'
+
   datasource:
     url: jdbc:mysql://localhost:33061/follower
     username: user
     password: password
+
   jpa:
     properties:
       hibernate:
@@ -13,6 +15,7 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: 'true'
+
 logging:
   level:
     org:
@@ -21,3 +24,7 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
+
+jwt:
+  secret: ajenrvianeiuniuv3284373523knmvnv1$#%!42vj284hv
+  valid-time-in-milliseconds: 86400000
