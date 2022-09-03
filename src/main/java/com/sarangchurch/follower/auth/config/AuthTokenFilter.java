@@ -1,6 +1,6 @@
 package com.sarangchurch.follower.auth.config;
 
-import com.sarangchurch.follower.auth.JwtUtils;
+import com.sarangchurch.follower.auth.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

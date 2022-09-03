@@ -1,6 +1,11 @@
 package com.sarangchurch.follower.auth.ui;
 
-import com.sarangchurch.follower.auth.JwtUtils;
+import com.sarangchurch.follower.auth.application.RefreshTokenService;
+import com.sarangchurch.follower.auth.domain.UserDetailsImpl;
+import com.sarangchurch.follower.auth.ui.dto.LoginRequest;
+import com.sarangchurch.follower.auth.ui.dto.TokenRefreshRequest;
+import com.sarangchurch.follower.auth.ui.dto.TokenResponse;
+import com.sarangchurch.follower.auth.utils.JwtUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.authentication.AuthenticationManagerFactoryBean;
@@ -19,22 +24,32 @@ public class AuthController {
 
     private final AuthenticationManagerFactoryBean authenticationManagerFactoryBean;
     private final JwtUtils jwtUtils;
+    private final RefreshTokenService refreshTokenService;
 
-    public AuthController(AuthenticationManagerFactoryBean authenticationManagerFactoryBean, JwtUtils jwtUtils) {
+    public AuthController(AuthenticationManagerFactoryBean authenticationManagerFactoryBean, JwtUtils jwtUtils, RefreshTokenService refreshTokenService) {
         this.authenticationManagerFactoryBean = authenticationManagerFactoryBean;
         this.jwtUtils = jwtUtils;
+        this.refreshTokenService = refreshTokenService;
     }
 
-    @PostMapping("/token")
+    @PostMapping("/login")
     public TokenResponse login(@RequestBody @Valid LoginRequest request) throws Exception {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                 request.getUsername(),
                 request.getPassword()
         );
-
         Authentication authentication = authenticationManagerFactoryBean.getObject().authenticate(authToken);
+
         String accessToken = jwtUtils.generateJwtToken(authentication);
-        return new TokenResponse(accessToken);
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        String refreshToken = refreshTokenService.create(userDetails.getUsername());
+        return new TokenResponse(accessToken, refreshToken);
+    }
+
+    @PostMapping("/refresh")
+    public TokenResponse refresh(@RequestBody @Valid TokenRefreshRequest request) {
+        String refreshToken = request.getRefreshToken();
+        return refreshTokenService.refresh(refreshToken);
     }
 
     @GetMapping("/test")

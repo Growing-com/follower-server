@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.auth;
+package com.sarangchurch.follower.auth.utils;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -24,8 +24,8 @@ public class JwtUtils {
 
     @Value("${jwt.secret}")
     private String jwtSecret;
-    @Value("${jwt.valid-time-in-milliseconds}")
-    private long jwtExpirationMs;
+    @Value("${jwt.access-token-valid-time-in-milliseconds}")
+    private long accessTokenExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
@@ -34,7 +34,7 @@ public class JwtUtils {
                 .collect(Collectors.toList());
 
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + jwtExpirationMs);
+        Date expiration = new Date(now.getTime() + accessTokenExpirationMs);
 
         return Jwts.builder()
                 .claim(ROLE_KEY, roles.get(0))
@@ -47,7 +47,9 @@ public class JwtUtils {
 
     public boolean isValidToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            Jwts.parser()
+                    .setSigningKey(jwtSecret)
+                    .parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {
             log.error("Invalid JWT signature: {}", e.getMessage());
@@ -64,6 +66,10 @@ public class JwtUtils {
     }
 
     public String getUserNameFromToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parser()
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 }

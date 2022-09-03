@@ -1,6 +1,6 @@
 package com.sarangchurch.follower.auth.config;
 
-import com.sarangchurch.follower.auth.JwtUtils;
+import com.sarangchurch.follower.auth.utils.JwtUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
