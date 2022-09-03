@@ -37,15 +37,15 @@ public class RefreshToken {
         this.username = username;
     }
 
+    public boolean isExpired(LocalDateTime at) {
+        return expiryTime.isBefore(at);
+    }
+
     public String getToken() {
         return token;
     }
 
     public String getUsername() {
         return username;
-    }
-
-    public boolean isExpired(LocalDateTime at) {
-        return expiryTime.isBefore(at);
     }
 }

@@ -19,15 +19,12 @@ import static org.springframework.http.HttpMethod.POST;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-
     private final JwtUtils jwtUtils;
     private final UserDetailsService userDetailsService;
-    private final AuthenticationEntryPoint unauthorizedHandler;
 
-    public SecurityConfig(JwtUtils jwtUtils, UserDetailsService userDetailsService, AuthenticationEntryPoint unauthorizedHandler) {
+    public SecurityConfig(JwtUtils jwtUtils, UserDetailsService userDetailsService) {
         this.jwtUtils = jwtUtils;
         this.userDetailsService = userDetailsService;
-        this.unauthorizedHandler = unauthorizedHandler;
     }
 
     @Bean
@@ -39,7 +36,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler())
 
                 .and()
                 .authorizeRequests().antMatchers(POST, "/api/auth/**").permitAll()
@@ -54,12 +51,17 @@ public class SecurityConfig {
     }
 
     @Bean
+    AuthenticationEntryPoint unauthorizedHandler() {
+        return new AuthEntryPoint();
+    }
+
+    @Bean
     AuthenticationManagerFactoryBean authenticationManagerFactoryBean() {
         return new AuthenticationManagerFactoryBean();
     }
 
     @Bean
     PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(10);
     }
 }

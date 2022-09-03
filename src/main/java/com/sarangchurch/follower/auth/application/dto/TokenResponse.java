@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.auth.ui.dto;
+package com.sarangchurch.follower.auth.application.dto;
 
 public class TokenResponse {
     private final String accessToken;

@@ -4,7 +4,7 @@ import com.sarangchurch.follower.auth.domain.RefreshToken;
 import com.sarangchurch.follower.auth.domain.RefreshTokenRepository;
 import com.sarangchurch.follower.auth.domain.exception.RefreshTokenExpiredException;
 import com.sarangchurch.follower.auth.domain.exception.RefreshTokenNotFoundException;
-import com.sarangchurch.follower.auth.ui.dto.TokenResponse;
+import com.sarangchurch.follower.auth.application.dto.TokenResponse;
 import com.sarangchurch.follower.auth.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -58,24 +58,30 @@ public class RefreshTokenService {
             throw new RefreshTokenExpiredException();
         }
 
+        String accessToken = generateAccessToken(oldRefreshToken.getUsername());
+        RefreshToken newRefreshToken = replaceOldRefreshToken(oldRefreshToken);
+        return new TokenResponse(accessToken, newRefreshToken.getToken());
+    }
+
+    private String generateAccessToken(String username) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                null,
+                userDetails.getAuthorities()
+        );
+        return jwtUtils.generateAccessToken(authentication);
+    }
+
+    private RefreshToken replaceOldRefreshToken(RefreshToken oldRefreshToken) {
         RefreshToken newRefreshToken = new RefreshToken(
                 UUID.randomUUID().toString(),
                 now().plus(refreshTokenExpirationMs, MILLIS),
                 oldRefreshToken.getUsername()
         );
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(oldRefreshToken.getUsername());
-        Authentication authentication = new UsernamePasswordAuthenticationToken(
-                userDetails,
-                null,
-                userDetails.getAuthorities()
-        );
-        String accessToken = jwtUtils.generateJwtToken(authentication);
-
         refreshTokenRepository.delete(oldRefreshToken);
         refreshTokenRepository.flush();
-        refreshTokenRepository.save(newRefreshToken);
-
-        return new TokenResponse(accessToken, newRefreshToken.getToken());
+        return refreshTokenRepository.save(newRefreshToken);
     }
 }

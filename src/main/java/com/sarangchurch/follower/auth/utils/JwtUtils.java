@@ -27,7 +27,7 @@ public class JwtUtils {
     @Value("${jwt.access-token-valid-time-in-milliseconds}")
     private long accessTokenExpirationMs;
 
-    public String generateJwtToken(Authentication authentication) {
+    public String generateAccessToken(Authentication authentication) {
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
         List<String> roles = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
