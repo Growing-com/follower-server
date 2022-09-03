@@ -26,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("No username: %s", username)));
 
-        GrantedAuthority authority = new SimpleGrantedAuthority(member.role());
+        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + member.role());
 
         return new UserDetailsImpl(
                 member.getUsername(),

@@ -1,10 +1,11 @@
 package com.sarangchurch.follower.auth.ui;
 
 import com.sarangchurch.follower.auth.JwtUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.authentication.AuthenticationManagerFactoryBean;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,9 +33,13 @@ public class AuthController {
         );
 
         Authentication authentication = authenticationManagerFactoryBean.getObject().authenticate(authToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
         String accessToken = jwtUtils.generateJwtToken(authentication);
         return new TokenResponse(accessToken);
+    }
+
+    @GetMapping("/test")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String test() {
+        return "test pass";
     }
 }

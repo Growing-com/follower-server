@@ -1,6 +1,6 @@
 spring:
   flyway:
-    enabled: 'true'
+    enabled: false
 
   datasource:
     url: jdbc:mysql://localhost:33061/follower
