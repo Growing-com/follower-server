@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -20,6 +21,7 @@ import java.util.UUID;
 
 import static com.sarangchurch.follower.docs.ApiDocumentUtils.getDocumentRequest;
 import static com.sarangchurch.follower.docs.ApiDocumentUtils.getDocumentResponse;
+import static com.sarangchurch.follower.docs.DocumentFormatGenerator.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -28,6 +30,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@ActiveProfiles("test")
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "docs.follower.com", uriPort = 443)
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -56,7 +59,7 @@ class AuthControllerDocTest {
 
         // then
         result.andExpect(status().isOk())
-                .andDo(document("login",
+                .andDo(document("auth-login",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestFields(
@@ -89,16 +92,17 @@ class AuthControllerDocTest {
 
         // then
         result.andExpect(status().isOk())
-                .andDo(document("refreshToken",
+                .andDo(document("auth-refresh",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestFields(
-                                fieldWithPath("refreshToken").type(JsonFieldType.STRING).description("리프레쉬 토큰")
+                                fieldWithPath("refreshToken").type(JsonFieldType.STRING).description("리프레쉬 토큰").attributes(getUUIDFormat())
                         ),
                         responseFields(
                                 fieldWithPath("accessToken").type(JsonFieldType.STRING).description("엑세스 토큰"),
                                 fieldWithPath("refreshToken").type(JsonFieldType.STRING).description("리프레쉬 토큰")
                         )
                 ));
+
     }
 }

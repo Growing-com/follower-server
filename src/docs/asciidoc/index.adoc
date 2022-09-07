@@ -6,14 +6,14 @@
 :toclevels: 2
 :sectlinks:
 
-[[path]]
+[[auth]]
 
-== 팔로워 API
+== 권한 기능
 
 === 로그인
 
-operation::login[snippets='http-request,request-body,request-fields,response-body,response-fields']
+operation::auth-login[snippets='http-request,request-fields,http-response,response-fields']
 
 === 토큰 재발급
 
-operation::refreshToken[snippets='http-request,request-body,request-fields,response-body,response-fields']
+operation::auth-refresh[snippets='http-request,request-fields,http-response,response-fields']

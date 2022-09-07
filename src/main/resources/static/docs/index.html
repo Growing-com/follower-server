@@ -445,17 +445,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#auth">권한 기능</a>
 <ul class="sectlevel2">
-<li><a href="#path">로그인</a></li>
+<li><a href="#_로그인">로그인</a></li>
 <li><a href="#_토큰_재발급">토큰 재발급</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
+<div class="sect1">
+<h2 id="auth"><a class="link" href="#auth">권한 기능</a></h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="path"><a class="link" href="#path">로그인</a></h3>
+<h3 id="_로그인"><a class="link" href="#_로그인">로그인</a></h3>
 <div class="sect3">
-<h4 id="path_http_request"><a class="link" href="#path_http_request">HTTP request</a></h4>
+<h4 id="_로그인_http_request"><a class="link" href="#_로그인_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/auth/login HTTP/1.1
@@ -472,58 +479,72 @@ Host: docs.follower.com
 </div>
 </div>
 <div class="sect3">
-<h4 id="path_request_body"><a class="link" href="#path_request_body">Request body</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{
-  "username" : "admin",
-  "password" : "password"
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="path_request_fields"><a class="link" href="#path_request_fields">Request fields</a></h4>
+<h4 id="_로그인_request_fields"><a class="link" href="#_로그인_request_fields">Request fields</a></h4>
+<div class="sect4">
+<h5 id="_request_fields"><a class="link" href="#_request_fields">Request Fields</a></h5>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Path</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">필드명</th>
+<th class="tableblock halign-left valign-top">타입</th>
+<th class="tableblock halign-left valign-top">필수값</th>
+<th class="tableblock halign-left valign-top">양식</th>
+<th class="tableblock halign-left valign-top">설명</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>username</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">username</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">아이디</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">비밀번호</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
 <div class="sect3">
-<h4 id="path_response_body"><a class="link" href="#path_response_body">Response body</a></h4>
+<h4 id="_로그인_http_response"><a class="link" href="#_로그인_http_response">HTTP response</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{
-  "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNjYyNTQxODIyLCJleHAiOjE2NjI2MDE4MjJ9.TJ5RpxZCWatH-Sva9yrLZIPp7s_bQ51OrIqgVJi5QIybRfidbQ2oeqkxlpAbH79lTCkU2sPRKbVAvXqDk-0__w",
-  "refreshToken" : "3b60b423-194e-47b5-8c85-8e67407b37c6"
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+X-Frame-Options: DENY
+Content-Length: 283
+
+{
+  "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNjYyNTQ2NDUwLCJleHAiOjE2NjI2MDY0NTB9.cm-c1oMQDhHT5iY3Ld9L176-YocUMqj7nAD2jSfMrCd_Z6TZkCJBt5wdkmi_YcfMZPz9iDQc8AWDFw01KryrmA",
+  "refreshToken" : "8f79667e-4b34-43b1-a022-6aa72fcb0461"
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="path_response_fields"><a class="link" href="#path_response_fields">Response fields</a></h4>
+<h4 id="_로그인_response_fields"><a class="link" href="#_로그인_response_fields">Response fields</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -565,52 +586,65 @@ Content-Length: 61
 Host: docs.follower.com
 
 {
-  "refreshToken" : "61a4780d-dbb5-4749-905e-3214c2c47b4e"
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_토큰_재발급_request_body"><a class="link" href="#_토큰_재발급_request_body">Request body</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{
-  "refreshToken" : "61a4780d-dbb5-4749-905e-3214c2c47b4e"
+  "refreshToken" : "c33465d6-4eae-4c35-8fd6-7095b0f53921"
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_토큰_재발급_request_fields"><a class="link" href="#_토큰_재발급_request_fields">Request fields</a></h4>
+<div class="sect4">
+<h5 id="_request_fields"><a class="link" href="#_request_fields">Request Fields</a></h5>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Path</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">필드명</th>
+<th class="tableblock halign-left valign-top">타입</th>
+<th class="tableblock halign-left valign-top">필수값</th>
+<th class="tableblock halign-left valign-top">양식</th>
+<th class="tableblock halign-left valign-top">설명</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>refreshToken</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">refreshToken</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UUID</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">리프레쉬 토큰</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
 <div class="sect3">
-<h4 id="_토큰_재발급_response_body"><a class="link" href="#_토큰_재발급_response_body">Response body</a></h4>
+<h4 id="_토큰_재발급_http_response"><a class="link" href="#_토큰_재발급_http_response">HTTP response</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+X-Frame-Options: DENY
+Content-Length: 106
+
+{
   "accessToken" : "eyJhbGciOiJIUzUxMiJ9...",
-  "refreshToken" : "29171f57-c275-4f9b-8a83-8363f0acb601"
+  "refreshToken" : "a5cafcae-d22a-4e90-87ff-ca5c339ac181"
 }</code></pre>
 </div>
 </div>
@@ -646,10 +680,12 @@ Host: docs.follower.com
 </div>
 </div>
 </div>
+</div>
+</div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-09-07 18:09:59 +0900
+Last updated 2022-09-07 19:18:30 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

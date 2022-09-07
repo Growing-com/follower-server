@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-@Profile("local")
 @Component
+@Profile("test")
 public class DataLoader {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
