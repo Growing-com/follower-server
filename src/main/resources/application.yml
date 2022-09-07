@@ -27,5 +27,5 @@ logging:
 
 jwt:
   secret: ajenrvianeiuniuv3284373523knmvnv1$#%!42vj284hv
-  access-token-valid-time-in-milliseconds: 10000 # 600000 # 10 minutes
+  access-token-valid-time-in-milliseconds: 100000000 # 600000 # 10 minutes
   refresh-token-valid-time-in-milliseconds: 30000 # 604800000 # 1 week
