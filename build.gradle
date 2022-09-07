@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.7.2'
 	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
 	id 'org.flywaydb.flyway' version '8.2.0'
+	id "org.asciidoctor.jvm.convert" version "3.3.2"
 	id 'java'
 }
 
@@ -10,6 +11,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
+	asciidoctorExt
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
@@ -17,6 +19,36 @@ configurations {
 
 repositories {
 	mavenCentral()
+}
+
+ext {
+	asciidocVersion = "2.0.6.RELEASE"
+	snippetsDir = file('build/generated-snippets')
+}
+
+test {
+	useJUnitPlatform()
+	outputs.dir snippetsDir
+}
+
+asciidoctor {
+	inputs.dir snippetsDir
+	configurations 'asciidoctorExt'
+	dependsOn test
+}
+
+bootJar {
+	dependsOn asciidoctor
+	copy {
+		from asciidoctor.outputDir
+		into "src/main/resources/static/docs"
+	}
+}
+
+flyway {
+	url = 'jdbc:mysql://localhost:33061/follower'
+	user = 'user'
+	password = 'password'
 }
 
 dependencies {
@@ -30,23 +62,23 @@ dependencies {
 	implementation 'org.flywaydb:flyway-mysql'
 	runtimeOnly 'mysql:mysql-connector-java'
 
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
 	// Lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
+	// JWT
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// rest docs
+	asciidoctorExt "org.springframework.restdocs:spring-restdocs-asciidoctor:${asciidocVersion}"
+	testImplementation "org.springframework.restdocs:spring-restdocs-mockmvc:${asciidocVersion}"
+
+	// test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'io.rest-assured:rest-assured:4.2.0'
 	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'io.rest-assured:rest-assured'
+	testRuntimeOnly 'com.h2database:h2'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
-
-flyway {
-	url = 'jdbc:mysql://localhost:33061/follower'
-	user = 'user'
-	password = 'password'
-}
