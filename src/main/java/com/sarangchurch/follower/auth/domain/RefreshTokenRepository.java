@@ -1,11 +1,15 @@
 package com.sarangchurch.follower.auth.domain;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.Optional;
 
-public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long> {
+public interface RefreshTokenRepository {
+    RefreshToken save(RefreshToken token);
+
     Optional<RefreshToken> findByToken(String token);
 
+    void delete(RefreshToken token);
+
     void deleteByUsername(String username);
+
+    void flush();
 }

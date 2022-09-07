@@ -1,10 +1,10 @@
 package com.sarangchurch.follower.auth.application;
 
+import com.sarangchurch.follower.auth.application.dto.TokenResponse;
 import com.sarangchurch.follower.auth.domain.RefreshToken;
 import com.sarangchurch.follower.auth.domain.RefreshTokenRepository;
 import com.sarangchurch.follower.auth.domain.exception.RefreshTokenExpiredException;
 import com.sarangchurch.follower.auth.domain.exception.RefreshTokenNotFoundException;
-import com.sarangchurch.follower.auth.application.dto.TokenResponse;
 import com.sarangchurch.follower.auth.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
