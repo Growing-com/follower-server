@@ -13,3 +13,7 @@
 === 로그인
 
 operation::login[snippets='http-request,request-body,request-fields,response-body,response-fields']
+
+=== 토큰 재발급
+
+operation::refreshToken[snippets='http-request,request-body,request-fields,response-body,response-fields']
