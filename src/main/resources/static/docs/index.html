@@ -480,8 +480,6 @@ Host: docs.follower.com
 </div>
 <div class="sect3">
 <h4 id="_로그인_request_fields"><a class="link" href="#_로그인_request_fields">Request fields</a></h4>
-<div class="sect4">
-<h5 id="_request_fields"><a class="link" href="#_request_fields">Request Fields</a></h5>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -494,29 +492,28 @@ Host: docs.follower.com
 <tr>
 <th class="tableblock halign-left valign-top">필드명</th>
 <th class="tableblock halign-left valign-top">타입</th>
-<th class="tableblock halign-left valign-top">필수값</th>
-<th class="tableblock halign-left valign-top">양식</th>
 <th class="tableblock halign-left valign-top">설명</th>
+<th class="tableblock halign-left valign-top">선택값</th>
+<th class="tableblock halign-left valign-top">양식</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">username</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">아이디</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">password</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">비밀번호</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 <div class="sect3">
 <h4 id="_로그인_http_response"><a class="link" href="#_로그인_http_response">HTTP response</a></h4>
@@ -537,8 +534,8 @@ X-Frame-Options: DENY
 Content-Length: 283
 
 {
-  "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNjYyNTQ2NDUwLCJleHAiOjE2NjI2MDY0NTB9.cm-c1oMQDhHT5iY3Ld9L176-YocUMqj7nAD2jSfMrCd_Z6TZkCJBt5wdkmi_YcfMZPz9iDQc8AWDFw01KryrmA",
-  "refreshToken" : "8f79667e-4b34-43b1-a022-6aa72fcb0461"
+  "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNjYyNTQ2NzY3LCJleHAiOjE2NjI2MDY3Njd9.AwvWFAidTrmTdE8ub0zkuNAoiUR7Ly3d-x3EpHplCqf9CojflvjS00YHaf48_E26aD3FXVSLeBCkniQ0OuSCog",
+  "refreshToken" : "cfb5ff4d-f54c-4c01-b25f-8ebac0a40e84"
 }</code></pre>
 </div>
 </div>
@@ -586,15 +583,13 @@ Content-Length: 61
 Host: docs.follower.com
 
 {
-  "refreshToken" : "c33465d6-4eae-4c35-8fd6-7095b0f53921"
+  "refreshToken" : "c0e36908-93b1-4aab-acfe-01a038b0adca"
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_토큰_재발급_request_fields"><a class="link" href="#_토큰_재발급_request_fields">Request fields</a></h4>
-<div class="sect4">
-<h5 id="_request_fields"><a class="link" href="#_request_fields">Request Fields</a></h5>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -607,22 +602,21 @@ Host: docs.follower.com
 <tr>
 <th class="tableblock halign-left valign-top">필드명</th>
 <th class="tableblock halign-left valign-top">타입</th>
-<th class="tableblock halign-left valign-top">필수값</th>
-<th class="tableblock halign-left valign-top">양식</th>
 <th class="tableblock halign-left valign-top">설명</th>
+<th class="tableblock halign-left valign-top">선택값</th>
+<th class="tableblock halign-left valign-top">양식</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">refreshToken</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">UUID</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">리프레쉬 토큰</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UUID</p></td>
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 <div class="sect3">
 <h4 id="_토큰_재발급_http_response"><a class="link" href="#_토큰_재발급_http_response">HTTP response</a></h4>
@@ -644,7 +638,7 @@ Content-Length: 106
 
 {
   "accessToken" : "eyJhbGciOiJIUzUxMiJ9...",
-  "refreshToken" : "a5cafcae-d22a-4e90-87ff-ca5c339ac181"
+  "refreshToken" : "c97c617d-89dc-4627-892c-187e2d0b009e"
 }</code></pre>
 </div>
 </div>
@@ -685,7 +679,7 @@ Content-Length: 106
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-09-07 19:18:30 +0900
+Last updated 2022-09-07 19:32:57 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.auth.domain;
+package com.sarangchurch.follower.member.domain;
 
 public enum RoleType {
     ADMIN,

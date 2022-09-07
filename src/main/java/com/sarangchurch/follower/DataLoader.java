@@ -1,6 +1,6 @@
 package com.sarangchurch.follower;
 
-import com.sarangchurch.follower.auth.domain.RoleType;
+import com.sarangchurch.follower.member.domain.RoleType;
 import com.sarangchurch.follower.member.domain.Member;
 import com.sarangchurch.follower.member.domain.MemberRepository;
 import com.sarangchurch.follower.member.domain.MemberRole;

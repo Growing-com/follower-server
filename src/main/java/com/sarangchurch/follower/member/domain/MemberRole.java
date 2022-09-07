@@ -1,7 +1,5 @@
 package com.sarangchurch.follower.member.domain;
 
-import com.sarangchurch.follower.auth.domain.RoleType;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
