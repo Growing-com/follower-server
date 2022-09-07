@@ -448,7 +448,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#path">팔로워 API</a>
 <ul class="sectlevel2">
-<li><a href="#_hello_world">Hello World</a></li>
+<li><a href="#_hello">Hello</a></li>
 </ul>
 </li>
 </ul>
@@ -459,19 +459,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="path"><a class="link" href="#path">팔로워 API</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_hello_world"><a class="link" href="#_hello_world">Hello World</a></h3>
+<h3 id="_hello"><a class="link" href="#_hello">Hello</a></h3>
 <div class="sect3">
-<h4 id="_hello_world_http_request"><a class="link" href="#_hello_world_http_request">HTTP request</a></h4>
+<h4 id="_hello_http_request"><a class="link" href="#_hello_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /hello HTTP/1.1
 Accept: application/json
-Host: localhost:8080</code></pre>
+Host: api.follower.com</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_hello_world_http_response"><a class="link" href="#_hello_world_http_response">HTTP response</a></h4>
+<h4 id="_hello_http_response"><a class="link" href="#_hello_http_response">HTTP response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
@@ -482,6 +482,7 @@ X-XSS-Protection: 1; mode=block
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
+Strict-Transport-Security: max-age=31536000 ; includeSubDomains
 X-Frame-Options: DENY
 
 hello</code></pre>
@@ -489,7 +490,7 @@ hello</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_hello_world_response_body"><a class="link" href="#_hello_world_response_body">Response body</a></h4>
+<h4 id="_hello_response_body"><a class="link" href="#_hello_response_body">Response body</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-none hljs">hello</code></pre>
@@ -503,7 +504,7 @@ hello</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-09-07 15:41:05 +0900
+Last updated 2022-09-07 15:42:28 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

@@ -11,6 +11,14 @@ public class LoginRequest {
     @Size(min = 8, max = 30)
     private String password;
 
+    public LoginRequest() {
+    }
+
+    public LoginRequest(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public String getUsername() {
         return username;
     }

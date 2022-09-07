@@ -10,6 +10,6 @@
 
 == 팔로워 API
 
-=== Hello
+=== 로그인
 
-operation::hello[snippets='http-request,http-response,response-body']
+operation::login[snippets='http-request,request-body,request-fields,response-body,response-fields']
