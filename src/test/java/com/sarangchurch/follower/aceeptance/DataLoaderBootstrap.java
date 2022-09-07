@@ -1,4 +1,4 @@
-package com.sarangchurch.follower;
+package com.sarangchurch.follower.aceeptance;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;

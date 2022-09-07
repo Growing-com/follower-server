@@ -1,4 +1,4 @@
-package com.sarangchurch.follower;
+package com.sarangchurch.follower.aceeptance;
 
 import com.sarangchurch.follower.member.domain.Member;
 import com.sarangchurch.follower.member.domain.MemberRepository;
