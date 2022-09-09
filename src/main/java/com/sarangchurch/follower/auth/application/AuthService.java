@@ -5,7 +5,6 @@ import com.sarangchurch.follower.auth.domain.LoginMember;
 import com.sarangchurch.follower.auth.domain.RefreshToken;
 import com.sarangchurch.follower.auth.domain.RefreshTokenRepository;
 import com.sarangchurch.follower.auth.domain.TokenUserLoader;
-import com.sarangchurch.follower.auth.domain.exception.RefreshTokenExpiredException;
 import com.sarangchurch.follower.auth.domain.exception.RefreshTokenNotFoundException;
 import com.sarangchurch.follower.auth.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,10 +34,13 @@ public class AuthService {
 
     public TokenResponse login(LoginMember loginMember) {
         RefreshToken refreshToken = refreshTokenRepository.findByMemberId(loginMember.getId())
-                .orElse(new RefreshToken(loginMember.getId()));
+                .orElse(new RefreshToken(
+                        UUID.randomUUID(),
+                        now().plus(refreshTokenExpirationMs, MILLIS),
+                        loginMember.getId()
+                ));
 
         String accessToken = jwtUtils.generateAccessToken(loginMember);
-        refreshToken.renew(UUID.randomUUID(), now().plus(refreshTokenExpirationMs, MILLIS));
         refreshTokenRepository.save(refreshToken);
         return new TokenResponse(accessToken, refreshToken.getToken());
     }
@@ -47,12 +49,9 @@ public class AuthService {
         RefreshToken refreshToken = refreshTokenRepository.findByToken(token)
                 .orElseThrow(RefreshTokenNotFoundException::new);
 
-        if (refreshToken.isExpired(now())) {
-            throw new RefreshTokenExpiredException();
-        }
+        refreshToken.validateExpiration(now());
 
         LoginMember loginMember = (LoginMember) tokenUserLoader.loadUserByUserId(refreshToken.getMemberId());
-
         String accessToken = jwtUtils.generateAccessToken(loginMember);
         refreshToken.renew(UUID.randomUUID(), now().plus(refreshTokenExpirationMs, MILLIS));
         return new TokenResponse(accessToken, refreshToken.getToken());
