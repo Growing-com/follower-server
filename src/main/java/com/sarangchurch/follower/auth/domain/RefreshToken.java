@@ -1,5 +1,7 @@
 package com.sarangchurch.follower.auth.domain;
 
+import com.sarangchurch.follower.auth.domain.exception.RefreshTokenExpiredException;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +34,9 @@ public class RefreshToken {
     protected RefreshToken() {
     }
 
-    public RefreshToken(Long memberId) {
+    public RefreshToken(UUID token, LocalDateTime expiryTime, Long memberId) {
+        this.token = token.toString();
+        this.expiryTime = expiryTime;
         this.memberId = memberId;
     }
 
@@ -41,8 +45,10 @@ public class RefreshToken {
         expiryTime = newExpiryTime;
     }
 
-    public boolean isExpired(LocalDateTime at) {
-        return expiryTime.isBefore(at);
+    public void validateExpiration(LocalDateTime at) {
+        if (expiryTime.isBefore(at)) {
+            throw new RefreshTokenExpiredException();
+        }
     }
 
     public String getToken() {
