@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.member.infra;
+package com.sarangchurch.follower.auth.domain;
 
 import com.sarangchurch.follower.member.domain.Member;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,5 +16,13 @@ public class LoginMember extends User {
 
     public Member getMember() {
         return member;
+    }
+
+    public Long getId() {
+        return member.getId();
+    }
+
+    public String getRole() {
+        return member.role();
     }
 }

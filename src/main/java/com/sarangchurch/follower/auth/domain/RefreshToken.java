@@ -8,13 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(
         name = "refresh_token",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "token"),
-                @UniqueConstraint(columnNames = "username")
+                @UniqueConstraint(columnNames = "memberId")
         }
 )
 public class RefreshToken {
@@ -26,15 +27,18 @@ public class RefreshToken {
     @Column(nullable = false)
     private LocalDateTime expiryTime;
     @Column(nullable = false)
-    private String username;
+    private Long memberId;
 
     protected RefreshToken() {
     }
 
-    public RefreshToken(String token, LocalDateTime expiryTime, String username) {
-        this.token = token;
-        this.expiryTime = expiryTime;
-        this.username = username;
+    public RefreshToken(Long memberId) {
+        this.memberId = memberId;
+    }
+
+    public void renew(UUID token, LocalDateTime newExpiryTime) {
+        this.token = token.toString();
+        expiryTime = newExpiryTime;
     }
 
     public boolean isExpired(LocalDateTime at) {
@@ -45,7 +49,7 @@ public class RefreshToken {
         return token;
     }
 
-    public String getUsername() {
-        return username;
+    public Long getMemberId() {
+        return memberId;
     }
 }

@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Table(
@@ -26,7 +26,7 @@ public class Member {
     private String username;
     @Column(nullable = false)
     private String password;
-    @ManyToOne(fetch = LAZY, optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = EAGER, optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "role_id")
     private MemberRole role;
 
@@ -41,6 +41,10 @@ public class Member {
 
     public String role() {
         return role.getName();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getUsername() {

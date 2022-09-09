@@ -1,11 +1,11 @@
 package com.sarangchurch.follower.auth.config;
 
+import com.sarangchurch.follower.auth.domain.TokenUserLoader;
 import com.sarangchurch.follower.auth.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -19,11 +19,11 @@ import java.io.IOException;
 public class AuthTokenFilter extends OncePerRequestFilter {
 
     private final JwtUtils jwtUtils;
-    private final UserDetailsService userDetailsService;
+    private final TokenUserLoader tokenUserLoader;
 
-    public AuthTokenFilter(JwtUtils jwtUtils, UserDetailsService userDetailsService) {
+    public AuthTokenFilter(JwtUtils jwtUtils, TokenUserLoader tokenUserLoader) {
         this.jwtUtils = jwtUtils;
-        this.userDetailsService = userDetailsService;
+        this.tokenUserLoader = tokenUserLoader;
     }
 
     @Override
@@ -32,8 +32,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         try {
             String authToken = parseToken(request);
             if (jwtUtils.isValidToken(authToken)) {
-                String username = jwtUtils.getUserNameFromToken(authToken);
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                String userId = jwtUtils.extractUserId(authToken);
+                UserDetails userDetails = tokenUserLoader.loadUserByUserId(Long.valueOf(userId));
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,

@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.member.domain;
+package com.sarangchurch.follower.auth.domain;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 

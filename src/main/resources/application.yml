@@ -1,20 +1,20 @@
 spring:
   flyway:
     enabled: false
-
   datasource:
     url: jdbc:mysql://localhost:33061/follower
     username: user
     password: password
-
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: 'true'
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
     show-sql: 'true'
+  profiles:
+    active: local
 
 logging:
   level:

@@ -1,10 +1,10 @@
 package com.sarangchurch.follower.docs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sarangchurch.follower.auth.application.RefreshTokenService;
+import com.sarangchurch.follower.auth.application.AuthService;
+import com.sarangchurch.follower.auth.application.dto.LoginRequest;
+import com.sarangchurch.follower.auth.application.dto.TokenRefreshRequest;
 import com.sarangchurch.follower.auth.application.dto.TokenResponse;
-import com.sarangchurch.follower.auth.ui.dto.LoginRequest;
-import com.sarangchurch.follower.auth.ui.dto.TokenRefreshRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,8 @@ import java.util.UUID;
 
 import static com.sarangchurch.follower.docs.ApiDocumentUtils.getDocumentRequest;
 import static com.sarangchurch.follower.docs.ApiDocumentUtils.getDocumentResponse;
-import static com.sarangchurch.follower.docs.DocumentFormatGenerator.*;
+import static com.sarangchurch.follower.docs.DocumentFormatGenerator.getUUIDFormat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -35,6 +36,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 class AuthControllerDocTest {
+    private static final TokenResponse TOKEN_RESPONSE = new TokenResponse(
+            "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
+            UUID.randomUUID().toString());
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -42,13 +47,13 @@ class AuthControllerDocTest {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private RefreshTokenService refreshTokenService;
+    private AuthService authService;
 
     @DisplayName("로그인 문서화")
     @Test
     void login() throws Exception {
         // given
-        given(refreshTokenService.create(anyString())).willReturn(UUID.randomUUID().toString());
+        given(authService.login(any())).willReturn(TOKEN_RESPONSE);
         LoginRequest request = new LoginRequest("admin", "password");
 
         // when
@@ -77,11 +82,7 @@ class AuthControllerDocTest {
     @Test
     void refresh() throws Exception {
         // given
-        given(refreshTokenService.refresh(anyString())).willReturn(new TokenResponse(
-                "eyJhbGciOiJIUzUxMiJ9...",
-                UUID.randomUUID().toString())
-        );
-
+        given(authService.refresh(anyString())).willReturn(TOKEN_RESPONSE);
         TokenRefreshRequest request = new TokenRefreshRequest(UUID.randomUUID().toString());
 
         // when
