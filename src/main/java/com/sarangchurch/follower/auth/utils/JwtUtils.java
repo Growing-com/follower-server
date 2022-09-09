@@ -1,5 +1,6 @@
 package com.sarangchurch.follower.auth.utils;
 
+import com.sarangchurch.follower.member.infra.LoginMember;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -9,13 +10,9 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -28,19 +25,13 @@ public class JwtUtils {
     private long accessTokenExpirationMs;
 
     public String generateAccessToken(Authentication authentication) {
-        UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
-        List<String> roles = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
-
-        Date now = new Date();
-        Date expiration = new Date(now.getTime() + accessTokenExpirationMs);
+        LoginMember loginMember = (LoginMember) authentication.getPrincipal();
 
         return Jwts.builder()
-                .claim(ROLE_KEY, roles.get(0))
-                .setSubject(userPrincipal.getUsername())
-                .setIssuedAt(now)
-                .setExpiration(expiration)
+                .claim(ROLE_KEY, loginMember.getRole())
+                .setSubject(String.valueOf(loginMember.getId()))
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(new Date().getTime() + accessTokenExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
@@ -65,7 +56,7 @@ public class JwtUtils {
         return false;
     }
 
-    public String getUserNameFromToken(String token) {
+    public String extractUserId(String token) {
         return Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)

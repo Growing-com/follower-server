@@ -1,5 +1,6 @@
 package com.sarangchurch.follower.auth.config;
 
+import com.sarangchurch.follower.auth.domain.TokenUserLoader;
 import com.sarangchurch.follower.auth.utils.JwtUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -7,25 +8,23 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.authentication.AuthenticationManagerFactoryBean;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
     private final JwtUtils jwtUtils;
-    private final UserDetailsService userDetailsService;
+    private final TokenUserLoader tokenUserLoader;
 
-    public SecurityConfig(JwtUtils jwtUtils, UserDetailsService userDetailsService) {
+    public SecurityConfig(JwtUtils jwtUtils, TokenUserLoader tokenUserLoader) {
         this.jwtUtils = jwtUtils;
-        this.userDetailsService = userDetailsService;
+        this.tokenUserLoader = tokenUserLoader;
     }
 
     @Bean
@@ -48,7 +47,7 @@ public class SecurityConfig {
 
     @Bean
     AuthTokenFilter authTokenFilter() {
-        return new AuthTokenFilter(jwtUtils, userDetailsService);
+        return new AuthTokenFilter(jwtUtils, tokenUserLoader);
     }
 
     @Bean

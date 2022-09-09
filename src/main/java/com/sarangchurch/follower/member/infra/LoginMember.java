@@ -17,4 +17,12 @@ public class LoginMember extends User {
     public Member getMember() {
         return member;
     }
+
+    public Long getId() {
+        return member.getId();
+    }
+
+    public String getRole() {
+        return member.role();
+    }
 }
