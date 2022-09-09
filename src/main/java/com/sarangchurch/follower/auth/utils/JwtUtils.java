@@ -1,6 +1,6 @@
 package com.sarangchurch.follower.auth.utils;
 
-import com.sarangchurch.follower.member.infra.LoginMember;
+import com.sarangchurch.follower.auth.domain.LoginMember;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;

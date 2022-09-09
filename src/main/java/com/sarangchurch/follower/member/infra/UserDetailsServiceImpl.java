@@ -1,5 +1,6 @@
 package com.sarangchurch.follower.member.infra;
 
+import com.sarangchurch.follower.auth.domain.LoginMember;
 import com.sarangchurch.follower.auth.domain.TokenUserLoader;
 import com.sarangchurch.follower.member.domain.Member;
 import com.sarangchurch.follower.member.domain.MemberRepository;

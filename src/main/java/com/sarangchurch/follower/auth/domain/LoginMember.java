@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.member.infra;
+package com.sarangchurch.follower.auth.domain;
 
 import com.sarangchurch.follower.member.domain.Member;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

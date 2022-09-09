@@ -1,7 +1,7 @@
 package com.sarangchurch.follower.member.ui;
 
 import com.sarangchurch.follower.member.domain.Member;
-import com.sarangchurch.follower.member.domain.AuthMember;
+import com.sarangchurch.follower.auth.domain.AuthMember;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
