@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.auth.ui.dto;
+package com.sarangchurch.follower.auth.application.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

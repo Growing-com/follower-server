@@ -9,7 +9,6 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -24,9 +23,7 @@ public class JwtUtils {
     @Value("${jwt.access-token-valid-time-in-milliseconds}")
     private long accessTokenExpirationMs;
 
-    public String generateAccessToken(Authentication authentication) {
-        LoginMember loginMember = (LoginMember) authentication.getPrincipal();
-
+    public String generateAccessToken(LoginMember loginMember) {
         return Jwts.builder()
                 .claim(ROLE_KEY, loginMember.getRole())
                 .setSubject(String.valueOf(loginMember.getId()))
