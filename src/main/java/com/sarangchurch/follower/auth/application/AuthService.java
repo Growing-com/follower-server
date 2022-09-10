@@ -6,7 +6,7 @@ import com.sarangchurch.follower.auth.domain.RefreshToken;
 import com.sarangchurch.follower.auth.domain.RefreshTokenRepository;
 import com.sarangchurch.follower.auth.domain.TokenUserLoader;
 import com.sarangchurch.follower.auth.domain.exception.RefreshTokenNotFoundException;
-import com.sarangchurch.follower.auth.utils.JwtUtils;
+import com.sarangchurch.follower.auth.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

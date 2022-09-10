@@ -1,13 +1,16 @@
-package com.sarangchurch.follower.auth.config;
+package com.sarangchurch.follower.auth.security;
 
 import com.sarangchurch.follower.auth.domain.TokenUserLoader;
-import com.sarangchurch.follower.auth.utils.JwtUtils;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.authentication.AuthenticationManagerFactoryBean;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -19,23 +22,23 @@ import static org.springframework.http.HttpMethod.POST;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-    private final JwtUtils jwtUtils;
     private final TokenUserLoader tokenUserLoader;
+    private final UserDetailsService userDetailsService;
 
-    public SecurityConfig(JwtUtils jwtUtils, TokenUserLoader tokenUserLoader) {
-        this.jwtUtils = jwtUtils;
+    public SecurityConfig(TokenUserLoader tokenUserLoader, UserDetailsService userDetailsService) {
         this.tokenUserLoader = tokenUserLoader;
+        this.userDetailsService = userDetailsService;
     }
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class)
-
                 .cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
+                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
+                .authenticationManager(authenticationManager())
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler())
 
                 .and()
@@ -46,18 +49,36 @@ public class SecurityConfig {
     }
 
     @Bean
-    AuthTokenFilter authTokenFilter() {
-        return new AuthTokenFilter(jwtUtils, tokenUserLoader);
+    AuthenticationManager authenticationManager() {
+        return new ProviderManager(jwtAuthenticationProvider(), daoAuthenticationProvider());
+    }
+
+    @Bean
+    DaoAuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        return daoAuthenticationProvider;
+    }
+
+    @Bean
+    JwtFilter jwtFilter() {
+        return new JwtFilter(authenticationManager());
+    }
+
+    @Bean
+    AuthenticationProvider jwtAuthenticationProvider() {
+        return new JwtAuthenticationProvider(jwtUtils(), tokenUserLoader);
+    }
+
+    @Bean
+    JwtUtils jwtUtils() {
+        return new JwtUtils();
     }
 
     @Bean
     AuthenticationEntryPoint unauthorizedHandler() {
         return new AuthEntryPoint();
-    }
-
-    @Bean
-    AuthenticationManagerFactoryBean authenticationManagerFactoryBean() {
-        return new AuthenticationManagerFactoryBean();
     }
 
     @Bean

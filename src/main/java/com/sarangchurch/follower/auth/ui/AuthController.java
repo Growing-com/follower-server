@@ -5,8 +5,8 @@ import com.sarangchurch.follower.auth.application.dto.LoginRequest;
 import com.sarangchurch.follower.auth.application.dto.TokenRefreshRequest;
 import com.sarangchurch.follower.auth.application.dto.TokenResponse;
 import com.sarangchurch.follower.auth.domain.LoginMember;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.authentication.AuthenticationManagerFactoryBean;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,23 +18,22 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    private final AuthenticationManagerFactoryBean authenticationManagerFactoryBean;
+    private final AuthenticationManager authenticationManager;
     private final AuthService authService;
 
-    public AuthController(AuthenticationManagerFactoryBean authenticationManagerFactoryBean, AuthService authService) {
-        this.authenticationManagerFactoryBean = authenticationManagerFactoryBean;
+    public AuthController(AuthenticationManager authenticationManager, AuthService authService) {
+        this.authenticationManager = authenticationManager;
         this.authService = authService;
     }
 
     @PostMapping("/login")
-    public TokenResponse login(@RequestBody @Valid LoginRequest request) throws Exception {
+    public TokenResponse login(@RequestBody @Valid LoginRequest request) {
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 request.getUsername(),
                 request.getPassword()
         );
 
-        LoginMember loginMember = (LoginMember) authenticationManagerFactoryBean.getObject()
-                .authenticate(authentication)
+        LoginMember loginMember = (LoginMember) authenticationManager.authenticate(authentication)
                 .getPrincipal();
         return authService.login(loginMember);
     }
