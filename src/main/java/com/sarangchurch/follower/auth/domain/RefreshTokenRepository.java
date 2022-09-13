@@ -7,5 +7,5 @@ public interface RefreshTokenRepository {
 
     Optional<RefreshToken> findByToken(String token);
 
-    Optional<RefreshToken> findByMemberId(Long memberId);
+    RefreshToken findByMemberId(Long memberId);
 }

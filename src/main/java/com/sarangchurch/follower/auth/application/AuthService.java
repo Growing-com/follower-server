@@ -33,15 +33,20 @@ public class AuthService {
     }
 
     public TokenResponse login(LoginMember loginMember) {
-        RefreshToken refreshToken = refreshTokenRepository.findByMemberId(loginMember.getId())
-                .orElse(new RefreshToken(
-                        UUID.randomUUID(),
-                        now().plus(refreshTokenExpirationMs, MILLIS),
-                        loginMember.getId()
-                ));
-
         String accessToken = jwtUtils.generateAccessToken(loginMember);
-        refreshTokenRepository.save(refreshToken);
+        RefreshToken refreshToken = refreshTokenRepository.findByMemberId(loginMember.getId());
+
+        if (refreshToken == null) {
+            refreshToken = new RefreshToken(
+                    UUID.randomUUID(),
+                    now().plus(refreshTokenExpirationMs, MILLIS),
+                    loginMember.getId()
+            );
+
+            refreshTokenRepository.save(refreshToken);
+        }
+
+        refreshToken.renew(UUID.randomUUID(), now().plus(refreshTokenExpirationMs, MILLIS));
         return new TokenResponse(accessToken, refreshToken.getToken());
     }
 
