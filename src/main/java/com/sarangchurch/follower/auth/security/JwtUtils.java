@@ -23,7 +23,7 @@ public class JwtUtils {
 
     public String generateAccessToken(LoginMember loginMember) {
         return Jwts.builder()
-                .claim(ROLE_KEY, loginMember.getRole())
+                .claim(ROLE_KEY, loginMember.getRoleName())
                 .setSubject(String.valueOf(loginMember.getId()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + accessTokenExpirationMs))

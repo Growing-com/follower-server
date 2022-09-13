@@ -26,16 +26,24 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PostMapping("/login")
-    public TokenResponse login(@RequestBody @Valid LoginRequest request) {
+    @PostMapping("/loginApp")
+    public TokenResponse loginApp(@RequestBody @Valid LoginRequest request) {
+        return authService.loginApp(authenticateRequest(request));
+    }
+
+    @PostMapping("/loginWeb")
+    public TokenResponse loginWeb(@RequestBody @Valid LoginRequest request) {
+        return authService.loginWeb(authenticateRequest(request));
+    }
+
+    private LoginMember authenticateRequest(LoginRequest request) {
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 request.getUsername(),
                 request.getPassword()
         );
 
-        LoginMember loginMember = (LoginMember) authenticationManager.authenticate(authentication)
+        return (LoginMember) authenticationManager.authenticate(authentication)
                 .getPrincipal();
-        return authService.login(loginMember);
     }
 
     @PostMapping("/refresh")

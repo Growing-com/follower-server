@@ -49,22 +49,51 @@ class AuthControllerDocTest {
     @MockBean
     private AuthService authService;
 
-    @DisplayName("로그인 문서화")
+    @DisplayName("로그인(앱) 문서화")
     @Test
-    void login() throws Exception {
+    void loginApp() throws Exception {
         // given
-        given(authService.login(any())).willReturn(TOKEN_RESPONSE);
-        LoginRequest request = new LoginRequest("admin", "password");
+        given(authService.loginApp(any())).willReturn(TOKEN_RESPONSE);
+        LoginRequest request = new LoginRequest("manager", "password");
 
         // when
-        ResultActions result = this.mockMvc.perform(post("/api/auth/login")
+        ResultActions result = this.mockMvc.perform(post("/api/auth/loginApp")
                 .contentType(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)));
 
         // then
         result.andExpect(status().isOk())
-                .andDo(document("auth-login",
+                .andDo(document("auth-loginApp",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("username").type(JsonFieldType.STRING).description("아이디"),
+                                fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호")
+                        ),
+                        responseFields(
+                                fieldWithPath("accessToken").type(JsonFieldType.STRING).description("엑세스 토큰"),
+                                fieldWithPath("refreshToken").type(JsonFieldType.STRING).description("리프레쉬 토큰")
+                        )
+                ));
+    }
+
+    @DisplayName("로그인(웹) 문서화")
+    @Test
+    void loginWeb() throws Exception {
+        // given
+        given(authService.loginWeb(any())).willReturn(TOKEN_RESPONSE);
+        LoginRequest request = new LoginRequest("admin", "password");
+
+        // when
+        ResultActions result = this.mockMvc.perform(post("/api/auth/loginWeb")
+                .contentType(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)));
+
+        // then
+        result.andExpect(status().isOk())
+                .andDo(document("auth-loginWeb",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestFields(

@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import static com.sarangchurch.follower.aceeptance.auth.AuthSteps.로그인;
+import static com.sarangchurch.follower.aceeptance.auth.AuthSteps.앱_로그인;
+import static com.sarangchurch.follower.aceeptance.auth.AuthSteps.웹_로그인;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -23,6 +24,7 @@ public abstract class AcceptanceTest {
     private DataLoader dataLoader;
 
     String 관리자;
+    String 간사;
     String 리더;
     String 조원;
 
@@ -32,8 +34,9 @@ public abstract class AcceptanceTest {
         databaseCleanup.execute();
         dataLoader.loadData();
 
-        관리자 = 로그인("admin", "password").jsonPath().getString("accessToken");
-        리더 = 로그인("leader", "password").jsonPath().getString("accessToken");
-        조원 = 로그인("member", "password").jsonPath().getString("accessToken");
+        관리자 = 웹_로그인("admin", "password").jsonPath().getString("accessToken");
+        간사 = 앱_로그인("manager", "password").jsonPath().getString("accessToken");
+        리더 = 앱_로그인("leader", "password").jsonPath().getString("accessToken");
+        조원 = 앱_로그인("member", "password").jsonPath().getString("accessToken");
     }
 }

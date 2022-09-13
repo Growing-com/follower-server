@@ -32,7 +32,17 @@ public class AuthService {
         this.jwtUtils = jwtUtils;
     }
 
-    public TokenResponse login(LoginMember loginMember) {
+    public TokenResponse loginApp(LoginMember loginMember) {
+        loginMember.validateAppRole();
+        return createTokenResponse(loginMember);
+    }
+
+    public TokenResponse loginWeb(LoginMember loginMember) {
+        loginMember.validateWebRole();
+        return createTokenResponse(loginMember);
+    }
+
+    private TokenResponse createTokenResponse(LoginMember loginMember) {
         String accessToken = jwtUtils.generateAccessToken(loginMember);
         RefreshToken refreshToken = refreshTokenRepository.findByMemberId(loginMember.getId());
 

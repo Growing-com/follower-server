@@ -39,8 +39,8 @@ public class Member {
         this.role = role;
     }
 
-    public String role() {
-        return role.getName();
+    public String getRoleName() {
+        return role.getRoleType().name();
     }
 
     public Long getId() {

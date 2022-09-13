@@ -1,7 +1,7 @@
 package com.sarangchurch.follower;
 
 import com.sarangchurch.follower.member.domain.MemberRepository;
-import com.sarangchurch.follower.member.domain.RoleType;
+import com.sarangchurch.follower.auth.domain.RoleType;
 import com.sarangchurch.follower.member.domain.Member;
 import com.sarangchurch.follower.member.domain.MemberRole;
 import org.springframework.context.annotation.Profile;
@@ -21,6 +21,7 @@ public class DataLoader {
 
     public void loadData() {
         memberRepository.save(new Member("admin", passwordEncoder.encode("password"), new MemberRole(RoleType.ADMIN)));
+        memberRepository.save(new Member("manager", passwordEncoder.encode("password"), new MemberRole(RoleType.MANAGER)));
         memberRepository.save(new Member("leader", passwordEncoder.encode("password"), new MemberRole(RoleType.LEADER)));
         memberRepository.save(new Member("member", passwordEncoder.encode("password"), new MemberRole(RoleType.MEMBER)));
     }

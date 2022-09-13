@@ -11,7 +11,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class AuthSteps {
 
-    public static ExtractableResponse<Response> 로그인(String username, String password) {
+    public static ExtractableResponse<Response> 앱_로그인(String username, String password) {
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         params.put("password", password);
@@ -21,7 +21,22 @@ public class AuthSteps {
                 .contentType(APPLICATION_JSON_VALUE)
                 .body(params)
                 .when()
-                .post("/api/auth/login")
+                .post("/api/auth/loginApp")
+                .then().log().all()
+                .extract();
+    }
+
+    public static ExtractableResponse<Response> 웹_로그인(String username, String password) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("username", username);
+        params.put("password", password);
+
+        return RestAssured.given().log().all()
+                .accept(APPLICATION_JSON_VALUE)
+                .contentType(APPLICATION_JSON_VALUE)
+                .body(params)
+                .when()
+                .post("/api/auth/loginWeb")
                 .then().log().all()
                 .extract();
     }
