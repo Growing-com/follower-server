@@ -1,8 +1,8 @@
 package com.sarangchurch.follower.auth.ui;
 
 import com.sarangchurch.follower.auth.application.AuthService;
-import com.sarangchurch.follower.auth.application.dto.LoginRequest;
-import com.sarangchurch.follower.auth.application.dto.TokenRefreshRequest;
+import com.sarangchurch.follower.auth.ui.dto.LoginRequest;
+import com.sarangchurch.follower.auth.ui.dto.TokenRefreshRequest;
 import com.sarangchurch.follower.auth.application.dto.TokenResponse;
 import com.sarangchurch.follower.auth.domain.LoginMember;
 import org.springframework.security.authentication.AuthenticationManager;

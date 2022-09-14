@@ -1,14 +1,14 @@
-package com.sarangchurch.follower.auth.application.dto;
+package com.sarangchurch.follower.auth.ui.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class LoginRequest {
     @NotBlank
-    @Size(min = 5, max = 30)
+    @Size(min = 5, max = 20)
     private String username;
     @NotBlank
-    @Size(min = 8, max = 30)
+    @Size(min = 8, max = 20)
     private String password;
 
     public LoginRequest() {
