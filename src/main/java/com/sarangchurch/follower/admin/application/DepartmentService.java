@@ -1,7 +1,7 @@
 package com.sarangchurch.follower.admin.application;
 
 import com.sarangchurch.follower.admin.application.dto.AddMemberRequest;
-import com.sarangchurch.follower.auth.domain.exception.ForbiddenException;
+import com.sarangchurch.follower.admin.domain.exception.ForbiddenDepartmentException;
 import com.sarangchurch.follower.member.application.MemberService;
 import com.sarangchurch.follower.member.domain.Member;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,7 +22,7 @@ public class DepartmentService {
     @Transactional
     public Long addMember(Member admin, Long departmentId, AddMemberRequest request) {
         if (!admin.belongsTo(departmentId)) {
-            throw new ForbiddenException();
+            throw new ForbiddenDepartmentException();
         }
 
         Member member = request.toEntity();
