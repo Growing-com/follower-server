@@ -3,37 +3,28 @@ package com.sarangchurch.follower.member.domain;
 import com.sarangchurch.follower.auth.domain.RoleType;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
-@Entity
-@Table(
-        name = "member_role",
-        uniqueConstraints = @UniqueConstraint(columnNames = "name")
-)
+@Embeddable
 public class MemberRole {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private RoleType name;
+    private RoleType role;
+
+    public static MemberRole of(RoleType roleType) {
+        return new MemberRole(roleType);
+    }
 
     protected MemberRole() {
     }
 
-    public MemberRole(RoleType name) {
-        this.name = name;
+    private MemberRole(RoleType role) {
+        this.role = role;
     }
 
-    RoleType getRoleType() {
-        return name;
+    RoleType getRole() {
+        return role;
     }
 }

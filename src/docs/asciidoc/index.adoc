@@ -8,16 +8,19 @@
 
 [[auth]]
 
-== 권한 기능
+== 권한 API
 
 === 앱 로그인
-
 operation::auth-loginApp[snippets='http-request,request-fields,http-response,response-fields']
 
 === 관리자 페이지 로그인
-
 operation::auth-loginWeb[snippets='http-request,request-fields,http-response,response-fields']
 
 === 토큰 재발급
-
 operation::auth-refresh[snippets='http-request,request-fields,http-response,response-fields']
+
+
+== 관리자 API
+
+=== 부서 유저 등록
+operation::admin-dpt-addMember[snippets='http-request,path-parameters,request-headers,request-fields,http-response,response-headers']
