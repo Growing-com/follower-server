@@ -11,7 +11,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class AuthSteps {
 
-    public static ExtractableResponse<Response> 앱_로그인(String username, String password) {
+    static ExtractableResponse<Response> 유저_로그인(String username, String password) {
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         params.put("password", password);
@@ -26,7 +26,7 @@ public class AuthSteps {
                 .extract();
     }
 
-    public static ExtractableResponse<Response> 웹_로그인(String username, String password) {
+    static ExtractableResponse<Response> 관리자_로그인(String username, String password) {
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         params.put("password", password);
@@ -41,7 +41,7 @@ public class AuthSteps {
                 .extract();
     }
 
-    public static ExtractableResponse<Response> 토큰_재발급(String refreshToken) {
+    static ExtractableResponse<Response> 토큰_재발급(String refreshToken) {
         Map<String, Object> params = new HashMap<>();
         params.put("refreshToken", refreshToken);
 

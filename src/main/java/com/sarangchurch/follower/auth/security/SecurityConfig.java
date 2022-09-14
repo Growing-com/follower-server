@@ -42,7 +42,9 @@ public class SecurityConfig {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler())
 
                 .and()
-                .authorizeRequests().antMatchers(POST, "/api/auth/**").permitAll()
+                .authorizeRequests()
+                .antMatchers("/api/admin/**").hasRole("ADMIN")
+                .antMatchers(POST, "/api/auth/**").permitAll()
                 .anyRequest().authenticated();
 
         return http.build();

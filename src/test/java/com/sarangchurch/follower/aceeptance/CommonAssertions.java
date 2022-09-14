@@ -8,6 +8,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CommonAssertions {
 
+    public static void 요청에_실패한다(ExtractableResponse<Response> response) {
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    }
+
     public static void 인증에_실패한다(ExtractableResponse<Response> response) {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.UNAUTHORIZED.value());
     }

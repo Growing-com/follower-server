@@ -1,5 +1,9 @@
 package com.sarangchurch.follower.aceeptance;
 
+import com.sarangchurch.follower.department.domain.Department;
+import com.sarangchurch.follower.department.domain.DepartmentRepository;
+import com.sarangchurch.follower.member.domain.Member;
+import com.sarangchurch.follower.member.domain.MemberRepository;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,13 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import static com.sarangchurch.follower.aceeptance.auth.AuthSteps.앱_로그인;
-import static com.sarangchurch.follower.aceeptance.auth.AuthSteps.웹_로그인;
-
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class AcceptanceTest {
-
     @Value("${local.server.port}")
     int port;
 
@@ -23,20 +23,23 @@ public abstract class AcceptanceTest {
     @Autowired
     private DataLoader dataLoader;
 
-    String 관리자;
-    String 간사;
-    String 리더;
-    String 조원;
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
+
+    protected Department 대학8부;
+    protected Member 이순종목사;
 
     @BeforeEach
-    public void setUp() {
+    protected void setUp() {
         RestAssured.port = port;
+
         databaseCleanup.execute();
         dataLoader.loadData();
 
-        관리자 = 웹_로그인("admin", "password").jsonPath().getString("accessToken");
-        간사 = 앱_로그인("manager", "password").jsonPath().getString("accessToken");
-        리더 = 앱_로그인("leader", "password").jsonPath().getString("accessToken");
-        조원 = 앱_로그인("member", "password").jsonPath().getString("accessToken");
+        이순종목사 = memberRepository.findByUsername("admin").get();
+        대학8부 = departmentRepository.findById(이순종목사.getDepartmentId()).get();
     }
 }
