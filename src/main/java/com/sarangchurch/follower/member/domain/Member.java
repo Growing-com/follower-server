@@ -69,10 +69,6 @@ public class Member {
         this.departmentId = departmentId;
     }
 
-    public boolean belongsTo(Long departmentId) {
-        return this.departmentId.equals(departmentId);
-    }
-
     public RoleType getRole() {
         return role.getRoleType();
     }

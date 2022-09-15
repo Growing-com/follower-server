@@ -2,8 +2,7 @@ package com.sarangchurch.follower.admin.ui;
 
 import com.sarangchurch.follower.admin.application.DepartmentService;
 import com.sarangchurch.follower.admin.application.dto.AddMemberRequest;
-import com.sarangchurch.follower.member.ui.AuthMember;
-import com.sarangchurch.follower.member.domain.Member;
+import com.sarangchurch.follower.admin.domain.Admin;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,9 +25,9 @@ public class DepartmentController {
 
     @PostMapping("/{departmentId}/member")
     public ResponseEntity<Void> addMember(
+            @AuthAdmin Admin admin,
             @PathVariable Long departmentId,
-            @RequestBody @Valid AddMemberRequest request,
-            @AuthMember Member admin
+            @RequestBody @Valid AddMemberRequest request
     ) {
         Long memberId = departmentService.addMember(admin, departmentId, request);
         return ResponseEntity.created(URI.create("/api/admin/department/" + departmentId + "/member/" + memberId))

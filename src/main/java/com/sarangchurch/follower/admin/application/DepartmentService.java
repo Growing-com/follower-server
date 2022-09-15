@@ -1,6 +1,7 @@
 package com.sarangchurch.follower.admin.application;
 
 import com.sarangchurch.follower.admin.application.dto.AddMemberRequest;
+import com.sarangchurch.follower.admin.domain.Admin;
 import com.sarangchurch.follower.admin.domain.exception.ForbiddenDepartmentException;
 import com.sarangchurch.follower.member.application.MemberService;
 import com.sarangchurch.follower.member.domain.Member;
@@ -20,8 +21,8 @@ public class DepartmentService {
     }
 
     @Transactional
-    public Long addMember(Member admin, Long departmentId, AddMemberRequest request) {
-        if (!admin.belongsTo(departmentId)) {
+    public Long addMember(Admin admin, Long departmentId, AddMemberRequest request) {
+        if (!admin.hasDepartmentAccess(departmentId)) {
             throw new ForbiddenDepartmentException();
         }
 
