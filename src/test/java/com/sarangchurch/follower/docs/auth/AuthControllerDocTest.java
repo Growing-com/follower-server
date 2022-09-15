@@ -43,6 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(AuthController.class)
 class AuthControllerDocTest {
     private static final TokenResponse TOKEN_RESPONSE = new TokenResponse(aToken(), UUID.randomUUID().toString());
+    private static final LoginMember EMPTY_LOGIN_MEMBER = LoginMember.builder().build();
 
     @Autowired
     private MockMvc mockMvc;
@@ -60,8 +61,8 @@ class AuthControllerDocTest {
     @Test
     void loginApp() throws Exception {
         // given
-        given(authenticationManager.authenticate(any())).willReturn(new UsernamePasswordAuthenticationToken(
-                new LoginMember(aManager()), null, emptyList()));
+        given(authenticationManager.authenticate(any())).willReturn(
+                new UsernamePasswordAuthenticationToken(EMPTY_LOGIN_MEMBER, null, emptyList()));
         given(authService.loginApp(any())).willReturn(TOKEN_RESPONSE);
 
         LoginRequest request = new LoginRequest("manager", "password");
@@ -92,8 +93,8 @@ class AuthControllerDocTest {
     @Test
     void loginWeb() throws Exception {
         // given
-        given(authenticationManager.authenticate(any())).willReturn(new UsernamePasswordAuthenticationToken(
-                new LoginMember(anAdmin()), null, emptyList()));
+        given(authenticationManager.authenticate(any())).willReturn(
+                new UsernamePasswordAuthenticationToken(EMPTY_LOGIN_MEMBER, null, emptyList()));
         given(authService.loginWeb(any())).willReturn(TOKEN_RESPONSE);
 
         LoginRequest request = new LoginRequest("admin", "password");

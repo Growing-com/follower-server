@@ -23,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, TokenUserLoad
         Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("No user with id: %s", username)));
 
-        return new LoginMember(member);
+        return toLoginMember(member);
     }
 
     @Override
@@ -31,6 +31,20 @@ public class UserDetailsServiceImpl implements UserDetailsService, TokenUserLoad
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("No user with sequence: %d", id)));
 
-        return new LoginMember(member);
+        return toLoginMember(member);
+    }
+
+    private LoginMember toLoginMember(Member member) {
+        return LoginMember.builder()
+                .id(member.getId())
+                .username(member.getUsername())
+                .password(member.getPassword())
+                .name(member.getName())
+                .birthDate(member.getBirthDate())
+                .earlyBorn(member.isEarlyBorn())
+                .gender(member.getGender())
+                .role(member.getRole())
+                .departmentId(member.getDepartmentId())
+                .build();
     }
 }

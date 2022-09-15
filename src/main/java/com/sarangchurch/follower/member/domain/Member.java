@@ -1,5 +1,6 @@
 package com.sarangchurch.follower.member.domain;
 
+import com.sarangchurch.follower.auth.domain.RoleType;
 import lombok.Builder;
 
 import javax.persistence.Column;
@@ -34,7 +35,8 @@ public class Member {
     private String name;
     @Column(nullable = false)
     private LocalDate birthDate;
-    private boolean earlyBorn;
+    @Column(nullable = false)
+    private Boolean earlyBorn;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Gender gender;
@@ -47,7 +49,8 @@ public class Member {
     }
 
     @Builder
-    public Member(String username, String password, String name, LocalDate birthDate, boolean earlyBorn, Gender gender, MemberRole role, Long departmentId) {
+    public Member(Long id, String username, String password, String name, LocalDate birthDate, Boolean earlyBorn, Gender gender, MemberRole role, Long departmentId) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
@@ -70,8 +73,8 @@ public class Member {
         return this.departmentId.equals(departmentId);
     }
 
-    public String getRoleName() {
-        return role.getRole().name();
+    public RoleType getRole() {
+        return role.getRoleType();
     }
 
     public Long getId() {
@@ -88,6 +91,18 @@ public class Member {
 
     public String getName() {
         return name;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public Boolean isEarlyBorn() {
+        return earlyBorn;
+    }
+
+    public Gender getGender() {
+        return gender;
     }
 
     public Long getDepartmentId() {
