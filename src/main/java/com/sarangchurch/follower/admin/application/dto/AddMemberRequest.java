@@ -52,7 +52,7 @@ public class AddMemberRequest implements EntitySupplier<Member> {
                 .username(getUsername())
                 .name(getName())
                 .birthDate(getBirthDate())
-                .earlyBorn(getEarlyBorn())
+                .earlyBorn(isEarlyBorn())
                 .gender(getGender())
                 .role(MemberRole.of(getRole()))
                 .build();
@@ -74,7 +74,7 @@ public class AddMemberRequest implements EntitySupplier<Member> {
         return birthDate;
     }
 
-    public Boolean getEarlyBorn() {
+    public Boolean isEarlyBorn() {
         return earlyBorn;
     }
 

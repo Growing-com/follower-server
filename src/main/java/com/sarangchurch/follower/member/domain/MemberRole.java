@@ -11,7 +11,7 @@ import javax.persistence.Enumerated;
 public class MemberRole {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private RoleType role;
+    private RoleType roleType;
 
     public static MemberRole of(RoleType roleType) {
         return new MemberRole(roleType);
@@ -20,11 +20,11 @@ public class MemberRole {
     protected MemberRole() {
     }
 
-    private MemberRole(RoleType role) {
-        this.role = role;
+    private MemberRole(RoleType roleType) {
+        this.roleType = roleType;
     }
 
-    RoleType getRole() {
-        return role;
+    public RoleType getRoleType() {
+        return roleType;
     }
 }
