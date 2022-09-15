@@ -2,27 +2,31 @@ package com.sarangchurch.follower.docs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sarangchurch.follower.auth.application.AuthService;
-import com.sarangchurch.follower.auth.ui.dto.LoginRequest;
-import com.sarangchurch.follower.auth.ui.dto.TokenRefreshRequest;
 import com.sarangchurch.follower.auth.application.dto.TokenResponse;
 import com.sarangchurch.follower.auth.domain.LoginMember;
 import com.sarangchurch.follower.auth.ui.AuthController;
+import com.sarangchurch.follower.auth.ui.dto.LoginRequest;
+import com.sarangchurch.follower.auth.ui.dto.TokenRefreshRequest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.UUID;
 
-import static com.sarangchurch.follower.Fixtures.*;
+import static com.sarangchurch.follower.Fixtures.aToken;
 import static com.sarangchurch.follower.docs.ApiDocumentUtils.getDocumentRequest;
 import static com.sarangchurch.follower.docs.ApiDocumentUtils.getDocumentResponse;
 import static com.sarangchurch.follower.docs.DocumentFormatGenerator.getUUIDFormat;
@@ -32,6 +36,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.payload.JsonFieldType.STRING;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -39,23 +44,30 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ActiveProfiles("test")
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "docs.follower.com", uriPort = 443)
-@AutoConfigureMockMvc(addFilters = false)
-@WebMvcTest(AuthController.class)
+@ExtendWith({RestDocumentationExtension.class, MockitoExtension.class})
 class AuthControllerDocTest {
     private static final TokenResponse TOKEN_RESPONSE = new TokenResponse(aToken(), UUID.randomUUID().toString());
     private static final LoginMember EMPTY_LOGIN_MEMBER = LoginMember.builder().build();
 
-    @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private ObjectMapper  objectMapper = new ObjectMapper();;
 
-    @MockBean
+    @Mock
     private AuthService authService;
 
-    @MockBean
+    @Mock
     private AuthenticationManager authenticationManager;
+
+    @InjectMocks
+    private AuthController authController;
+
+    @BeforeEach
+    void setUp(RestDocumentationContextProvider restDocumentation) {
+        mockMvc = MockMvcBuilders.standaloneSetup(authController)
+                .apply(documentationConfiguration(restDocumentation))
+                .build();
+    }
 
     @DisplayName("로그인(앱) - POST /api/auth/loginApp")
     @Test
