@@ -14,6 +14,6 @@ public class MemberControllerAdvice {
 
     @ExceptionHandler(IllegalMemberException.class)
     public ResponseEntity<ErrorResponse> handleIllegalMemberNameException(IllegalMemberException e) {
-        return createErrorResponse(DUPLICATE_NAME, e);
+        return createErrorResponse(ILLEGAL_MEMBER, e);
     }
 }

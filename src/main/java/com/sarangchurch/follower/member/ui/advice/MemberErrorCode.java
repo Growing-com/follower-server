@@ -4,7 +4,7 @@ import com.sarangchurch.follower.common.exception.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 public enum MemberErrorCode implements ErrorCode {
-    DUPLICATE_NAME(HttpStatus.BAD_REQUEST)
+    ILLEGAL_MEMBER(HttpStatus.BAD_REQUEST)
     ;
 
     private final HttpStatus httpStatus;

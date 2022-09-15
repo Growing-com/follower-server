@@ -52,7 +52,7 @@ class DepartmentControllerDocTest {
     @MockBean
     private DepartmentService departmentService;
 
-    @DisplayName("유저 추가: POST /api/admin/department/{departmentId}/member")
+    @DisplayName("부서 유저 등록: POST /api/admin/department/{departmentId}/member")
     @Test
     void addMember() throws Exception {
         // given
