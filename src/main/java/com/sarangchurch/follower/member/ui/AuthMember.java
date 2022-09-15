@@ -1,6 +1,4 @@
-package com.sarangchurch.follower.auth.domain;
-
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+package com.sarangchurch.follower.member.ui;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -9,6 +7,5 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
-@AuthenticationPrincipal(expression = "#this == 'anonymousUser' ? null : member")
 public @interface AuthMember {
 }

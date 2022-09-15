@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 
 public enum AuthErrorCode implements ErrorCode {
     FORBIDDEN(HttpStatus.FORBIDDEN),
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED),
     REFRESH_TOKEN_EXPIRED(HttpStatus.FORBIDDEN),
     INVALID_REFRESH_TOKEN(HttpStatus.FORBIDDEN)
     ;

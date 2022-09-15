@@ -3,6 +3,7 @@ package com.sarangchurch.follower.auth.ui.advice;
 import com.sarangchurch.follower.auth.domain.exception.ForbiddenException;
 import com.sarangchurch.follower.auth.domain.exception.RefreshTokenExpiredException;
 import com.sarangchurch.follower.auth.domain.exception.RefreshTokenNotFoundException;
+import com.sarangchurch.follower.auth.domain.exception.UnauthorizedException;
 import com.sarangchurch.follower.common.exception.ErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,6 +14,11 @@ import static com.sarangchurch.follower.common.exception.ExceptionHandlerUtils.c
 
 @RestControllerAdvice
 public class AuthControllerAdvice {
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<ErrorResponse> handleUnauthorizedException(UnauthorizedException e) {
+        return createErrorResponse(UNAUTHORIZED, e);
+    }
 
     @ExceptionHandler(ForbiddenException.class)
     public ResponseEntity<ErrorResponse> handleForbiddenException(ForbiddenException e) {
