@@ -6,7 +6,14 @@
 :toclevels: 2
 :sectlinks:
 
-[[auth]]
+[[common]]
+
+== 공통
+
+include::{snippets}/common/custom-response-fields-beneath-genders.adoc[]
+include::{snippets}/common/custom-response-fields-beneath-roleTypes.adoc[]
+
+
 
 == 권한 API
 
@@ -18,6 +25,7 @@ operation::auth-loginWeb[snippets='http-request,request-fields,http-response,res
 
 === 토큰 재발급
 operation::auth-refresh[snippets='http-request,request-fields,http-response,response-fields']
+
 
 
 == 관리자 API

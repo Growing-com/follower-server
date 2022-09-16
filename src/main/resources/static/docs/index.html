@@ -446,7 +446,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#auth">권한 API</a>
+<li><a href="#common">공통</a></li>
+<li><a href="#_권한_api">권한 API</a>
 <ul class="sectlevel2">
 <li><a href="#_앱_로그인">앱 로그인</a></li>
 <li><a href="#_관리자_페이지_로그인">관리자 페이지 로그인</a></li>
@@ -463,7 +464,70 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="auth"><a class="link" href="#auth">권한 API</a></h2>
+<h2 id="common"><a class="link" href="#common">공통</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>성별</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">코드</th>
+<th class="tableblock halign-left valign-top">코드명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MALE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">남자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FEMALE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">여자</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>권한</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">코드</th>
+<th class="tableblock halign-left valign-top">코드명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADMIN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">웹 관리자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MANAGER</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">앱 관리자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LEADER</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리더/코디</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MEMBER</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">조원</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_권한_api"><a class="link" href="#_권한_api">권한 API</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_앱_로그인"><a class="link" href="#_앱_로그인">앱 로그인</a></h3>
@@ -531,7 +595,7 @@ Content-Length: 273
 
 {
   "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-  "refreshToken" : "a4f7942f-ee7d-40a0-bdd2-e507e1da59b4"
+  "refreshToken" : "9f8829c0-eae1-4559-b6a3-e8dfa542cec1"
 }</code></pre>
 </div>
 </div>
@@ -632,7 +696,7 @@ Content-Length: 273
 
 {
   "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-  "refreshToken" : "a4f7942f-ee7d-40a0-bdd2-e507e1da59b4"
+  "refreshToken" : "9f8829c0-eae1-4559-b6a3-e8dfa542cec1"
 }</code></pre>
 </div>
 </div>
@@ -680,7 +744,7 @@ Content-Length: 61
 Host: docs.follower.com
 
 {
-  "refreshToken" : "df77b689-a51c-4910-888f-3a5ba6df5eff"
+  "refreshToken" : "2b45f960-2c40-4fbe-b923-226c14468324"
 }</code></pre>
 </div>
 </div>
@@ -725,7 +789,7 @@ Content-Length: 273
 
 {
   "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-  "refreshToken" : "a4f7942f-ee7d-40a0-bdd2-e507e1da59b4"
+  "refreshToken" : "9f8829c0-eae1-4559-b6a3-e8dfa542cec1"
 }</code></pre>
 </div>
 </div>
@@ -775,14 +839,14 @@ Content-Length: 273
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g
 Accept: application/json
-Content-Length: 177
+Content-Length: 181
 Host: docs.follower.com
 
 {
   "username" : "sangwook96",
   "password" : "password",
   "name" : "우상욱",
-  "birthDate" : "1996-10-16",
+  "birthDate" : [ 1996, 10, 16 ],
   "earlyBorn" : false,
   "gender" : "MALE",
   "role" : "MEMBER"
@@ -876,7 +940,7 @@ Host: docs.follower.com
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">birthDate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">생년월일</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yyyy-MM-dd</p></td>
@@ -942,7 +1006,7 @@ Location: /api/admin/department/1/member/1</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-09-14 22:11:17 +0900
+Last updated 2022-09-17 07:46:13 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
