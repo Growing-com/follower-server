@@ -1,3 +1,6 @@
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
 = 팔로워 API 문서
 :doctype: book
 :icons: font
@@ -5,9 +8,10 @@
 :toc: left
 :toclevels: 2
 :sectlinks:
+:docinfo: shared-head
 
-
-== 공통
+[[common]]
+== 공통 사항
 
 ===  HTTP 응답 상태 코드
 |===
@@ -15,6 +19,9 @@
 
 | `200 OK`
 | 성공
+
+| `201 CREATED`
+| 생성됨
 
 | `400 Bad Request`
 | 잘못된 요청
@@ -32,17 +39,11 @@
 | 서버 에러
 |===
 
-===  공통 ENUM 값
-[[genders]]
-include::{snippets}/common/custom-response-fields-beneath-genders.adoc[]
-[[roleTypes]]
-include::{snippets}/common/custom-response-fields-beneath-roleTypes.adoc[]
-
 ===  공통 예외 응답
 include::{snippets}/common/custom-response-fields.adoc[]
 
 
-
+[[auth]]
 == 권한 API
 
 === 앱 로그인
@@ -55,7 +56,7 @@ operation::auth-loginWeb[snippets='http-request,request-fields,http-response,res
 operation::auth-refresh[snippets='http-request,request-fields,http-response,response-fields']
 
 
-
+[[admin]]
 == 관리자 API
 
 === 부서 유저 등록

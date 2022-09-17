@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.docs;
+package com.sarangchurch.follower.docs.utils;
 
 import org.springframework.restdocs.operation.preprocess.OperationRequestPreprocessor;
 import org.springframework.restdocs.operation.preprocess.OperationResponsePreprocessor;

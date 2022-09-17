@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.docs;
+package com.sarangchurch.follower.docs.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sarangchurch.follower.auth.domain.RoleType;

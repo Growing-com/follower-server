@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.docs;
+package com.sarangchurch.follower.docs.common;
 
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.operation.Operation;

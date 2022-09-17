@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.docs;
+package com.sarangchurch.follower.docs.common;
 
 import com.sarangchurch.follower.auth.domain.RoleType;
 import com.sarangchurch.follower.common.EnumType;

@@ -25,9 +25,12 @@ import java.time.LocalDate;
 
 import static com.sarangchurch.follower.Fixtures.aToken;
 import static com.sarangchurch.follower.auth.domain.RoleType.MEMBER;
-import static com.sarangchurch.follower.docs.ApiDocumentUtils.getDocumentRequest;
-import static com.sarangchurch.follower.docs.ApiDocumentUtils.getDocumentResponse;
-import static com.sarangchurch.follower.docs.DocumentFormatGenerator.getDateFormant;
+import static com.sarangchurch.follower.docs.utils.ApiDocumentUtils.getDocumentRequest;
+import static com.sarangchurch.follower.docs.utils.ApiDocumentUtils.getDocumentResponse;
+import static com.sarangchurch.follower.docs.utils.DocumentFormatGenerator.getDateFormant;
+import static com.sarangchurch.follower.docs.utils.DocumentLinkGenerator.DocUrl.GENDER;
+import static com.sarangchurch.follower.docs.utils.DocumentLinkGenerator.DocUrl.ROLE;
+import static com.sarangchurch.follower.docs.utils.DocumentLinkGenerator.generateLinkCode;
 import static com.sarangchurch.follower.member.domain.Gender.MALE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -111,8 +114,8 @@ class DepartmentControllerDocTest {
                                 fieldWithPath("name").type(STRING).description("실명"),
                                 fieldWithPath("birthDate").type(STRING).description("생년월일").attributes(getDateFormant()),
                                 fieldWithPath("earlyBorn").type(BOOLEAN).description("빠른년생 여부"),
-                                fieldWithPath("gender").type(STRING).description("<<genders,성별>>"),
-                                fieldWithPath("role").type(STRING).description("<<roleTypes,권한>>")
+                                fieldWithPath("gender").type(STRING).description(generateLinkCode(GENDER)),
+                                fieldWithPath("role").type(STRING).description(generateLinkCode(ROLE))
                         ),
                         responseHeaders(
                                 headerWithName("Location").description("리소스 생성 URI")

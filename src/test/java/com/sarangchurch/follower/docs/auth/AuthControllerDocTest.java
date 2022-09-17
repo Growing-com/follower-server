@@ -27,9 +27,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.UUID;
 
 import static com.sarangchurch.follower.Fixtures.aToken;
-import static com.sarangchurch.follower.docs.ApiDocumentUtils.getDocumentRequest;
-import static com.sarangchurch.follower.docs.ApiDocumentUtils.getDocumentResponse;
-import static com.sarangchurch.follower.docs.DocumentFormatGenerator.getUUIDFormat;
+import static com.sarangchurch.follower.docs.utils.ApiDocumentUtils.getDocumentRequest;
+import static com.sarangchurch.follower.docs.utils.ApiDocumentUtils.getDocumentResponse;
+import static com.sarangchurch.follower.docs.utils.DocumentFormatGenerator.getUUIDFormat;
 import static java.util.Collections.emptyList;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;

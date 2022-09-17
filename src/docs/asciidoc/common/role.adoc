@@ -1,0 +1,9 @@
+ifndef::snippets[]
+:snippets: ../../../../build/generated-snippets
+endif::[]
+= API Document
+:doctype: book
+:icons: font
+
+[[role]]
+include::{snippets}/common/custom-response-fields-beneath-roleTypes.adoc[]
