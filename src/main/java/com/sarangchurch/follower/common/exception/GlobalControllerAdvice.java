@@ -23,12 +23,12 @@ public class GlobalControllerAdvice {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
-        return createErrorResponse(UNREADABLE_INPUT, e);
+        return createErrorResponse(BAD_PARAMETER, e);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        return createErrorResponse(INVALID_INPUT, e, createValidationErrors(e));
+        return createErrorResponse(BAD_PARAMETER, e, createValidationErrors(e));
     }
 
     private List<ValidationError> createValidationErrors(MethodArgumentNotValidException e) {

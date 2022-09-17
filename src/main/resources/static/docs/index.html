@@ -446,7 +446,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#common">공통</a></li>
+<li><a href="#_공통">공통</a>
+<ul class="sectlevel2">
+<li><a href="#_http_응답_상태_코드">HTTP 응답 상태 코드</a></li>
+<li><a href="#_공통_enum_값">공통 ENUM 값</a></li>
+<li><a href="#_공통_예외_응답">공통 예외 응답</a></li>
+</ul>
+</li>
 <li><a href="#_권한_api">권한 API</a>
 <ul class="sectlevel2">
 <li><a href="#_앱_로그인">앱 로그인</a></li>
@@ -464,10 +470,53 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="common"><a class="link" href="#common">공통</a></h2>
+<h2 id="_공통"><a class="link" href="#_공통">공통</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>성별</p>
+<div class="sect2">
+<h3 id="_http_응답_상태_코드"><a class="link" href="#_http_응답_상태_코드">HTTP 응답 상태 코드</a></h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">상태 코드</th>
+<th class="tableblock halign-left valign-top">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>200 OK</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">성공</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>400 Bad Request</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">잘못된 요청</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>401 Unauthorized</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">비인증 상태</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>403 Forbidden</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">권한 거부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>404 Not Found</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">존재하지 않는 요청 리소스</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>500 Internal Server Error</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">서버 에러</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_공통_enum_값"><a class="link" href="#_공통_enum_값">공통 ENUM 값</a></h3>
+<div id="genders" class="paragraph">
+<p>성별 (Gender)</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -491,8 +540,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>권한</p>
+<div id="roleTypes" class="paragraph">
+<p>권한 (RoleType)</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -524,6 +573,47 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="_공통_예외_응답"><a class="link" href="#_공통_예외_응답">공통 예외 응답</a></h3>
+<div class="paragraph">
+<p>공통 예외 응답</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">코드</th>
+<th class="tableblock halign-left valign-top">코드명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상태 코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">에러 코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">에러 메시지</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">errors[0].field</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">검증 실패 필드 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">errors[0].reason</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">검증 실패 이유</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -595,7 +685,7 @@ Content-Length: 273
 
 {
   "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-  "refreshToken" : "9f8829c0-eae1-4559-b6a3-e8dfa542cec1"
+  "refreshToken" : "7fee2449-b218-47cc-8e8b-ac50be83be63"
 }</code></pre>
 </div>
 </div>
@@ -696,7 +786,7 @@ Content-Length: 273
 
 {
   "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-  "refreshToken" : "9f8829c0-eae1-4559-b6a3-e8dfa542cec1"
+  "refreshToken" : "7fee2449-b218-47cc-8e8b-ac50be83be63"
 }</code></pre>
 </div>
 </div>
@@ -744,7 +834,7 @@ Content-Length: 61
 Host: docs.follower.com
 
 {
-  "refreshToken" : "2b45f960-2c40-4fbe-b923-226c14468324"
+  "refreshToken" : "024e990e-0aad-42f2-9113-93f69adfe6f0"
 }</code></pre>
 </div>
 </div>
@@ -789,7 +879,7 @@ Content-Length: 273
 
 {
   "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-  "refreshToken" : "9f8829c0-eae1-4559-b6a3-e8dfa542cec1"
+  "refreshToken" : "7fee2449-b218-47cc-8e8b-ac50be83be63"
 }</code></pre>
 </div>
 </div>
@@ -839,14 +929,14 @@ Content-Length: 273
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g
 Accept: application/json
-Content-Length: 181
+Content-Length: 177
 Host: docs.follower.com
 
 {
   "username" : "sangwook96",
   "password" : "password",
   "name" : "우상욱",
-  "birthDate" : [ 1996, 10, 16 ],
+  "birthDate" : "1996-10-16",
   "earlyBorn" : false,
   "gender" : "MALE",
   "role" : "MEMBER"
@@ -940,7 +1030,7 @@ Host: docs.follower.com
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">birthDate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">생년월일</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yyyy-MM-dd</p></td>
@@ -955,14 +1045,14 @@ Host: docs.follower.com
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gender</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">성별</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#genders">성별</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">role</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">권한</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#roleTypes">권한</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
@@ -1006,7 +1096,7 @@ Location: /api/admin/department/1/member/1</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-09-17 07:46:13 +0900
+Last updated 2022-09-17 17:47:17 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

@@ -41,20 +41,20 @@ public class ErrorResponse {
     }
 
     static class ValidationError {
-        private final String filedName;
-        private final String message;
+        private final String field;
+        private final String reason;
 
-        public ValidationError(String filedName, String message) {
-            this.filedName = filedName;
-            this.message = message;
+        public ValidationError(String field, String message) {
+            this.field = field;
+            this.reason = message;
         }
 
-        public String getFiledName() {
-            return filedName;
+        public String getField() {
+            return field;
         }
 
-        public String getMessage() {
-            return message;
+        public String getReason() {
+            return reason;
         }
     }
 }
