@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .antMatchers(POST, "/api/auth/**").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().hasAnyRole("MEMBER", "LEADER", "MANAGER");
 
         return http.build();
     }

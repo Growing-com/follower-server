@@ -1,20 +1,31 @@
 spring:
   flyway:
     enabled: false
+
+  profiles:
+    active: local
+
   datasource:
     url: jdbc:mysql://localhost:33061/follower
     username: user
     password: password
+
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+        max-page-size: 200
+
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-        format_sql: 'true'
+        show-sql: false
+        format_sql: true
+        default_batch_fetch_size: 100
+        open-in-view: false
     hibernate:
       ddl-auto: create
-    show-sql: 'true'
-  profiles:
-    active: local
 
 logging:
   level:
@@ -23,7 +34,7 @@ logging:
         type:
           descriptor:
             sql:
-              BasicBinder: TRACE
+              BasicBinder: INFO
 
 jwt:
   secret: ajenrvianeiuniuv3284373523knmvnv1$#%!42vj284hv

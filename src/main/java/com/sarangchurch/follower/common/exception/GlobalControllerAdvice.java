@@ -31,6 +31,11 @@ public class GlobalControllerAdvice {
         return createErrorResponse(BAD_PARAMETER, e, createValidationErrors(e));
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException e) {
+        return createErrorResponse(BAD_PARAMETER, e);
+    }
+
     private List<ValidationError> createValidationErrors(MethodArgumentNotValidException e) {
         return e.getBindingResult()
                 .getFieldErrors()
