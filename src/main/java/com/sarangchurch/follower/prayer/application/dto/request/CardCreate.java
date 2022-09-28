@@ -1,7 +1,5 @@
 package com.sarangchurch.follower.prayer.application.dto.request;
 
-import com.sarangchurch.follower.common.EntitySupplier;
-import com.sarangchurch.follower.prayer.domain.Prayer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -34,7 +32,7 @@ public class CardCreate {
 
     @Getter
     @NoArgsConstructor
-    public static class PrayerCreate implements EntitySupplier<Prayer> {
+    public static class PrayerCreate {
 
         private Long linkPrayerId;
         @Size(min = 1, max = 3000, message = "기도 하나당 1~3000자를 입력할 수 있습니다.")
@@ -44,14 +42,5 @@ public class CardCreate {
             this.linkPrayerId = linkPrayerId;
             this.content = content;
         }
-
-        @Override
-        public Prayer toEntity() {
-            return Prayer.builder()
-                    .content(content)
-                    .responded(false)
-                    .build();
-        }
-
     }
 }

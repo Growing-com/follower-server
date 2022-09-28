@@ -32,6 +32,15 @@ public class Card {
         this.week = week;
     }
 
+    public Prayer prayer(String content) {
+        return Prayer.builder()
+                .responded(false)
+                .content(content)
+                .memberId(memberId)
+                .initialCardId(id)
+                .build();
+    }
+
     public void setPrayers(List<Long> prayerIds) {
         cardPrayers.setPrayers(prayerIds);
     }

@@ -42,9 +42,7 @@ public class CardCreateService {
                                 .findAny()
                                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 기도 입니다."));
                     }
-                    return prayerCreate.toEntity()
-                            .toMember(member.getId())
-                            .toCard(card.getId());
+                    return card.prayer(prayerCreate.getContent());
                 })
                 .collect(Collectors.toList());
 

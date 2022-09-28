@@ -1,7 +1,6 @@
 package com.sarangchurch.follower.prayer.domain;
 
 import com.sarangchurch.follower.prayer.domain.exception.CantLinkPrayerException;
-import com.sarangchurch.follower.prayer.domain.exception.IllegalPrayerOperationException;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 
 import static com.sarangchurch.follower.prayer.domain.exception.CantLinkPrayerException.*;
-import static com.sarangchurch.follower.prayer.domain.exception.IllegalPrayerOperationException.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -29,25 +27,11 @@ public class Prayer {
     private Long initialCardId;
 
     @Builder
-    public Prayer(String content, boolean responded) {
+    public Prayer(String content, boolean responded, Long memberId, Long initialCardId) {
         this.content = content;
         this.responded = responded;
-    }
-
-    public Prayer toMember(Long memberId) {
-        if (this.memberId != null) {
-            throw new IllegalPrayerOperationException(CANT_CHANGE_MEMBER);
-        }
         this.memberId = memberId;
-        return this;
-    }
-
-    public Prayer toCard(Long initialCardId) {
-        if (this.initialCardId != null) {
-            throw new IllegalPrayerOperationException(CANT_CHANGE_CARD);
-        }
         this.initialCardId = initialCardId;
-        return this;
     }
 
     public void validateLinkable(Long memberId, Long cardId) {
