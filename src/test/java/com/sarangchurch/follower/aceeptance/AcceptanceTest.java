@@ -31,6 +31,7 @@ public abstract class AcceptanceTest {
 
     protected Department 대학8부;
     protected Member 이순종목사;
+    protected Member 이종민;
 
     @BeforeEach
     protected void setUp() {
@@ -40,6 +41,7 @@ public abstract class AcceptanceTest {
         dataLoader.loadData();
 
         이순종목사 = memberRepository.findByUsername("admin").get();
+        이종민 = memberRepository.findByUsername("manager").get();
         대학8부 = departmentRepository.findById(이순종목사.getDepartmentId()).get();
     }
 }

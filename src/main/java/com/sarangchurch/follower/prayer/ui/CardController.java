@@ -21,7 +21,7 @@ public class CardController {
 
     private final CardCreateService cardCreateService;
 
-    @PostMapping("/api/my/cards")
+    @PostMapping("/api/prayer/my/cards")
     public void createPrayerCards(@AuthMember Member member, @RequestBody @Valid CardCreate request) {
         validateRequest(request);
         cardCreateService.create(member, request, Week.previousSunday(now()));

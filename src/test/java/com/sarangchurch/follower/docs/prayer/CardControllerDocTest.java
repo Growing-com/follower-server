@@ -58,7 +58,7 @@ class CardControllerDocTest {
                 .build();
     }
 
-    @DisplayName("기도카드 생성 - POST /api/my/cards")
+    @DisplayName("기도카드 생성 - POST /api/prayer/my/cards")
     @Test
     void createCard() throws Exception {
         // given
@@ -70,7 +70,7 @@ class CardControllerDocTest {
         ));
 
         // when
-        ResultActions result = this.mockMvc.perform(post("/api/my/cards")
+        ResultActions result = this.mockMvc.perform(post("/api/prayer/my/cards")
                 .header("Authorization", "Bearer " + aToken())
                 .contentType(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
