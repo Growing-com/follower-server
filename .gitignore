@@ -43,3 +43,6 @@ docker/db/mysql/init/*
 
 ### MAC OS ###
 .DS_store
+
+### H2 ###
+spy.log
