@@ -20,9 +20,6 @@ endif::[]
 | `200 OK`
 | 성공
 
-| `201 CREATED`
-| 생성됨
-
 | `400 Bad Request`
 | 잘못된 요청
 
@@ -61,3 +58,9 @@ operation::auth-refresh[snippets='http-request,request-fields,http-response,resp
 
 === 부서 유저 등록
 operation::admin-dpt-addMember[snippets='http-request,path-parameters,request-headers,request-fields,http-response,response-headers']
+
+[[prayer]]
+== 기도 API
+
+=== 이번 주 기도 카드 등록
+operation::prayer-createCard[snippets='http-request,request-headers,request-fields,http-response']

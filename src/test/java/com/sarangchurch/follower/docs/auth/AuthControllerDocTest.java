@@ -35,6 +35,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.payload.JsonFieldType.STRING;
@@ -51,7 +53,7 @@ class AuthControllerDocTest {
 
     private MockMvc mockMvc;
 
-    private ObjectMapper  objectMapper = new ObjectMapper();;
+    private ObjectMapper  objectMapper = new ObjectMapper();
 
     @Mock
     private AuthService authService;

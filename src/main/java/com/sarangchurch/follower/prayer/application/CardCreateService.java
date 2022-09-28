@@ -30,7 +30,7 @@ public class CardCreateService {
                         .week(week)
                         .build()));
 
-        List<Prayer> linkPrayers = prayerRepository.findByIdIn(request.getLinkPrayerIds());
+        List<Prayer> linkPrayers = prayerRepository.findByIdIn(request.linkPrayerIds());
         linkPrayers.forEach(it -> it.validateLinkable(member.getId(), card.getId()));
 
         List<Prayer> prayers = request.getPrayers()
