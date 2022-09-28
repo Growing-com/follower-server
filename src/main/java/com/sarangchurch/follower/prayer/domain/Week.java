@@ -15,11 +15,8 @@ public class Week {
 
     private LocalDate week;
 
-    public static Week previousSunday() {
-        return new Week(LocalDate
-                .now()
-                .with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY))
-        );
+    public static Week previousSunday(LocalDate date) {
+        return new Week(date.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY)));
     }
 
     private Week(LocalDate week) {

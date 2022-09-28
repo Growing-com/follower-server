@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.Objects;
 
+import static java.time.LocalDate.now;
+
 @RestController
 @RequiredArgsConstructor
 public class CardController {
@@ -22,7 +24,7 @@ public class CardController {
     @PostMapping("/api/my/cards")
     public void createPrayerCards(@AuthMember Member member, @RequestBody @Valid CardCreate request) {
         validateRequest(request);
-        cardCreateService.create(member, request, Week.previousSunday());
+        cardCreateService.create(member, request, Week.previousSunday(now()));
     }
 
     private void validateRequest(CardCreate request) {
