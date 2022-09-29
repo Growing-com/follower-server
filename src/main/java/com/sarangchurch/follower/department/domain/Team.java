@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,23 +12,25 @@ import javax.persistence.Id;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Department {
+public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long seasonId;
     private String name;
-    private String ministerName;
-    private String ministerPhone;
+    private Long leaderId;
+    @Embedded
+    private TeamMembers teamMembers = new TeamMembers();
 
     @Builder
-    public Department(String name, String ministerName, String ministerPhone) {
+    public Team(Long seasonId, String name, Long leaderId) {
+        this.seasonId = seasonId;
         this.name = name;
-        this.ministerName = ministerName;
-        this.ministerPhone = ministerPhone;
+        this.leaderId = leaderId;
     }
 
-    public Long getId() {
-        return id;
+    public void addMember(Long memberId) {
+        teamMembers.add(memberId);
     }
 }
