@@ -31,6 +31,6 @@ public class Team {
     }
 
     public void addMember(Long memberId) {
-        teamMembers.add(memberId);
+        teamMembers.add(this, memberId);
     }
 }

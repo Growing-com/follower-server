@@ -3,7 +3,6 @@ package com.sarangchurch.follower.member.domain;
 import com.sarangchurch.follower.auth.domain.RoleType;
 import lombok.Builder;
 
-import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -27,22 +26,15 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
     private String username;
-    @Column(nullable = false)
     private String password;
-    @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
     private LocalDate birthDate;
-    @Column(nullable = false)
     private Boolean earlyBorn;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Gender gender;
     @Embedded
     private MemberRole role;
-    @Column(nullable = false)
     private Long departmentId;
 
     protected Member() {

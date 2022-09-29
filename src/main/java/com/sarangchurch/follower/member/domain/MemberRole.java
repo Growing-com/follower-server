@@ -10,7 +10,6 @@ import javax.persistence.Enumerated;
 @Embeddable
 public class MemberRole {
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private RoleType roleType;
 
     public static MemberRole of(RoleType roleType) {
