@@ -2,6 +2,7 @@ package com.sarangchurch.follower.member.domain;
 
 import com.sarangchurch.follower.auth.domain.RoleType;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -13,15 +14,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.time.LocalDate;
+import java.util.Objects;
+
+import static lombok.AccessLevel.PROTECTED;
 
 @Entity
-@Table(
-        name = "member",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "username"),
-                @UniqueConstraint(columnNames = "name")
-        }
-)
+@NoArgsConstructor(access = PROTECTED)
+@Table(name = "member", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "name")})
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,9 +37,7 @@ public class Member {
     @Embedded
     private MemberRole role;
     private Long departmentId;
-
-    protected Member() {
-    }
+    private Favorites favorites = new Favorites();
 
     @Builder
     public Member(Long id, String username, String password, String name, LocalDate birthDate, Boolean earlyBorn, Gender gender, MemberRole role, Long departmentId) {
@@ -53,12 +52,29 @@ public class Member {
         this.departmentId = departmentId;
     }
 
+    public void toggleFavorite(Long toMemberId) {
+        favorites.toggle(this, toMemberId);
+    }
+
     public void changePassword(String password) {
         this.password = password;
     }
 
     public void toDepartment(Long departmentId) {
         this.departmentId = departmentId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(getId(), member.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 
     public RoleType getRole() {
