@@ -23,7 +23,7 @@ public class CardPrayers {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @OrderBy("id asc")
-    @JoinColumn(name = "card_id")
+    @JoinColumn(name = "card_id", nullable = false)
     private List<CardPrayer> cardPrayers = new ArrayList<>();
 
     void setPrayers(List<Long> prayerIds) {

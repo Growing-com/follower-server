@@ -70,7 +70,7 @@ class CardControllerDocTest {
         ));
 
         // when
-        ResultActions result = this.mockMvc.perform(post("/api/prayer/my/cards")
+        ResultActions result = this.mockMvc.perform(post("/api/prayers/my/cards")
                 .header("Authorization", "Bearer " + aToken())
                 .contentType(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)

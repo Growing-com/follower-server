@@ -26,7 +26,7 @@ class CardSteps {
                 .contentType(APPLICATION_JSON_VALUE)
                 .body(Map.of("prayers", prayers))
                 .when()
-                .post("/api/prayer/my/cards")
+                .post("/api/prayers/my/cards")
                 .then().log().all()
                 .extract();
     }

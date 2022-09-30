@@ -61,7 +61,7 @@ class MemberQueryControllerDocTest extends DocTest {
                 LocalDate.of(1996, 10, 16), "대학 8부", 1L, RoleType.MEMBER));
 
         // when
-        ResultActions result = this.mockMvc.perform(get("/api/member/my/info")
+        ResultActions result = this.mockMvc.perform(get("/api/members/my/info")
                 .header("Authorization", "Bearer " + aToken())
                 .accept(APPLICATION_JSON));
 
@@ -93,7 +93,7 @@ class MemberQueryControllerDocTest extends DocTest {
         ));
 
         // when
-        ResultActions result = this.mockMvc.perform(get("/api/member/my/team")
+        ResultActions result = this.mockMvc.perform(get("/api/members/my/team")
                 .header("Authorization", "Bearer " + aToken())
                 .accept(APPLICATION_JSON));
 
