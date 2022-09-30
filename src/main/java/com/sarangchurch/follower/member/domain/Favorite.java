@@ -35,10 +35,6 @@ public class Favorite {
         this.toMemberId = toMemberId;
     }
 
-    boolean matchToMemberId(Long toMemberId) {
-        return this.toMemberId.equals(toMemberId);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
