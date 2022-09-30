@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.sarangchurch.follower.aceeptance.CommonSteps.givenManager;
+import static com.sarangchurch.follower.aceeptance.CommonSteps.givenJongmin;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 class CardSteps {
@@ -21,7 +21,7 @@ class CardSteps {
     }
 
     static ExtractableResponse<Response> 카드를_작성한다(List<Object> prayers) {
-        return givenManager()
+        return givenJongmin()
                 .accept(APPLICATION_JSON_VALUE)
                 .contentType(APPLICATION_JSON_VALUE)
                 .body(Map.of("prayers", prayers))

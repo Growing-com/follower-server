@@ -74,3 +74,6 @@ operation::member-myInfo[snippets='http-request,request-headers,http-response,re
 
 === 4.2 내 활성화된 소속팀 조회
 operation::member-myTeam[snippets='http-request,request-headers,http-response,response-fields']
+
+=== 4.3 즐겨찾기 토글하기
+operation::member-toggleFavorite[snippets='http-request,request-headers,request-fields,http-response']

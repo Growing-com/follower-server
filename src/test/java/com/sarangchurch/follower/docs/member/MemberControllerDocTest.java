@@ -1,0 +1,77 @@
+package com.sarangchurch.follower.docs.member;
+
+import com.sarangchurch.follower.docs.DocTest;
+import com.sarangchurch.follower.member.application.MemberService;
+import com.sarangchurch.follower.member.application.dto.ToggleFavorite;
+import com.sarangchurch.follower.member.ui.MemberController;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import static com.sarangchurch.follower.Fixtures.aToken;
+import static com.sarangchurch.follower.docs.utils.ApiDocumentUtils.getDocumentRequest;
+import static com.sarangchurch.follower.docs.utils.ApiDocumentUtils.getDocumentResponse;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+class MemberControllerDocTest extends DocTest {
+
+    private MockMvc mockMvc;
+
+    @Mock
+    private MemberService memberService;
+
+    @InjectMocks
+    private MemberController memberController;
+
+    @BeforeEach
+    void setUp(RestDocumentationContextProvider restDocumentation) {
+        super.setUp();
+        mockMvc = MockMvcBuilders.standaloneSetup(memberController)
+                .apply(documentationConfiguration(restDocumentation))
+                .build();
+    }
+
+    @DisplayName("즐겨찾기 토글하기 - POST /api/members/my/favorites")
+    @Test
+    void toggleFavorites() throws Exception {
+        // given
+        doNothing().when(memberService).toggleFavorites(any(), any());
+
+        // when
+        ResultActions result = this.mockMvc.perform(post("/api/members/my/favorites")
+                .header("Authorization", "Bearer " + aToken())
+                .contentType(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(new ToggleFavorite(1L))));
+
+        // then
+        result.andExpect(status().isOk())
+                .andDo(document("member-toggleFavorite",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestHeaders(
+                                headerWithName("Authorization").description("JWT 토큰")
+                        ),
+                        requestFields(
+                                fieldWithPath("memberId").type(NUMBER).description("대상 멤버 id")
+                        )
+                ));
+    }
+}

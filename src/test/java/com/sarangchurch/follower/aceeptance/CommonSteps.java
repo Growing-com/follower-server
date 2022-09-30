@@ -30,7 +30,7 @@ public class CommonSteps {
                 .auth().oauth2(accessToken);
     }
 
-    public static RequestSpecification givenManager() {
+    public static RequestSpecification givenJongmin() {
         Map<String, Object> params = new HashMap<>();
         params.put("username", TEST_MANAGER);
         params.put("password", TEST_PASSWORD);
@@ -48,4 +48,5 @@ public class CommonSteps {
         return RestAssured.given().log().all()
                 .auth().oauth2(accessToken);
     }
+
 }
