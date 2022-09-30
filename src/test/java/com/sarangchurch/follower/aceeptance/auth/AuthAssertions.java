@@ -10,7 +10,7 @@ class AuthAssertions {
 
     static void 토큰_발급에_성공한다(ExtractableResponse<Response> response) {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.jsonPath().getString("accessToken")).isNotNull();
-        assertThat(response.jsonPath().getUUID("refreshToken")).isNotNull();
+        assertThat(response.jsonPath().getString("content.accessToken")).isNotNull();
+        assertThat(response.jsonPath().getUUID("content.refreshToken")).isNotNull();
     }
 }

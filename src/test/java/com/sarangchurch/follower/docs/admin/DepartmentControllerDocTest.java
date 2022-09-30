@@ -1,22 +1,15 @@
 package com.sarangchurch.follower.docs.admin;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sarangchurch.follower.admin.application.DepartmentService;
 import com.sarangchurch.follower.admin.application.dto.AddMemberRequest;
 import com.sarangchurch.follower.admin.ui.DepartmentController;
+import com.sarangchurch.follower.docs.DocTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.restdocs.RestDocumentationContextProvider;
-import org.springframework.restdocs.RestDocumentationExtension;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -48,14 +41,9 @@ import static org.springframework.restdocs.request.RequestDocumentation.paramete
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("test")
-@AutoConfigureRestDocs(uriScheme = "https", uriHost = "docs.follower.com", uriPort = 443)
-@ExtendWith({RestDocumentationExtension.class, MockitoExtension.class})
-class DepartmentControllerDocTest {
+class DepartmentControllerDocTest extends DocTest {
 
     private MockMvc mockMvc;
-
-    private ObjectMapper objectMapper;
 
     @Mock
     private DepartmentService departmentService;
@@ -65,13 +53,10 @@ class DepartmentControllerDocTest {
 
     @BeforeEach
     void setUp(RestDocumentationContextProvider restDocumentation) {
+        super.setUp();
         mockMvc = MockMvcBuilders.standaloneSetup(departmentController)
                 .apply(documentationConfiguration(restDocumentation))
                 .build();
-
-        objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
     @DisplayName("부서 유저 등록: POST /api/admin/department/{departmentId}/member")

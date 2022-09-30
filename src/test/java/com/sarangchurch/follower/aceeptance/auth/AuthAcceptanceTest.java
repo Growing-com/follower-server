@@ -20,7 +20,7 @@ class AuthAcceptanceTest extends AcceptanceTest {
         토큰_발급에_성공한다(관리자_로그인(TEST_ADMIN, TEST_PASSWORD));
     }
 
-    @DisplayName("아아디/비밀번호가 일치하지 않으면 로그인에 실패한다.")
+    @DisplayName("아이디/비밀번호가 일치하지 않으면 로그인에 실패한다.")
     @Test
     void login_Fail() {
         인증에_실패한다(유저_로그인(TEST_MANAGER, "password12"));
@@ -37,7 +37,7 @@ class AuthAcceptanceTest extends AcceptanceTest {
     @DisplayName("리프레쉬 토큰으로 새로운 토큰을 발급받을 수 있다.")
     @Test
     void refresh() {
-        String refreshToken = 유저_로그인(TEST_MANAGER, TEST_PASSWORD).jsonPath().getString("refreshToken");
+        String refreshToken = 유저_로그인(TEST_MANAGER, TEST_PASSWORD).jsonPath().getString("content.refreshToken");
 
         토큰_발급에_성공한다(토큰_재발급(refreshToken));
     }

@@ -23,7 +23,6 @@ public class DataLoader {
     public static final String TEST_MANAGER = "manager";
     public static final String TEST_PASSWORD = "password";
 
-
     private final MemberRepository memberRepository;
     private final DepartmentRepository departmentRepository;
     private final PasswordEncoder passwordEncoder;

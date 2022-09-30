@@ -452,21 +452,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_공통_예외_응답">공통 예외 응답</a></li>
 </ul>
 </li>
-<li><a href="#auth">권한 API</a>
+<li><a href="#auth">1. 권한 API</a>
 <ul class="sectlevel2">
-<li><a href="#_앱_로그인">앱 로그인</a></li>
-<li><a href="#_관리자_페이지_로그인">관리자 페이지 로그인</a></li>
-<li><a href="#_토큰_재발급">토큰 재발급</a></li>
+<li><a href="#_1_1_앱_로그인">1.1 앱 로그인</a></li>
+<li><a href="#_1_2_관리자_페이지_로그인">1.2 관리자 페이지 로그인</a></li>
+<li><a href="#_1_3_토큰_재발급">1.3 토큰 재발급</a></li>
 </ul>
 </li>
-<li><a href="#admin">관리자 API</a>
+<li><a href="#admin">2. 관리자 API</a>
 <ul class="sectlevel2">
-<li><a href="#_부서_유저_등록">부서 유저 등록</a></li>
+<li><a href="#_2_1_부서_유저_등록_회원_가입으로_변경_예정">2.1 부서 유저 등록 (회원 가입으로 변경 예정)</a></li>
 </ul>
 </li>
-<li><a href="#prayer">기도 API</a>
+<li><a href="#prayer">3. 기도 API</a>
 <ul class="sectlevel2">
-<li><a href="#_이번_주_기도_카드_등록">이번 주 기도 카드 등록</a></li>
+<li><a href="#_3_1_이번_주_기도_카드_등록">3.1 이번 주 기도 카드 등록</a></li>
+</ul>
+</li>
+<li><a href="#member">4. 멤버 API</a>
+<ul class="sectlevel2">
+<li><a href="#_4_1_내_정보_조회">4.1 내 정보 조회</a></li>
+<li><a href="#_4_1_내_활성화된_소속팀_조회">4.1 내 활성화된 소속팀 조회</a></li>
 </ul>
 </li>
 </ul>
@@ -560,12 +566,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="auth"><a class="link" href="#auth">권한 API</a></h2>
+<h2 id="auth"><a class="link" href="#auth">1. 권한 API</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_앱_로그인"><a class="link" href="#_앱_로그인">앱 로그인</a></h3>
+<h3 id="_1_1_앱_로그인"><a class="link" href="#_1_1_앱_로그인">1.1 앱 로그인</a></h3>
 <div class="sect3">
-<h4 id="_앱_로그인_http_request"><a class="link" href="#_앱_로그인_http_request">HTTP request</a></h4>
+<h4 id="_1_1_앱_로그인_http_request"><a class="link" href="#_1_1_앱_로그인_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/auth/loginApp HTTP/1.1
@@ -582,7 +588,7 @@ Host: docs.follower.com
 </div>
 </div>
 <div class="sect3">
-<h4 id="_앱_로그인_request_fields"><a class="link" href="#_앱_로그인_request_fields">Request fields</a></h4>
+<h4 id="_1_1_앱_로그인_request_fields"><a class="link" href="#_1_1_앱_로그인_request_fields">Request fields</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -619,22 +625,24 @@ Host: docs.follower.com
 </table>
 </div>
 <div class="sect3">
-<h4 id="_앱_로그인_http_response"><a class="link" href="#_앱_로그인_http_response">HTTP response</a></h4>
+<h4 id="_1_1_앱_로그인_http_response"><a class="link" href="#_1_1_앱_로그인_http_response">HTTP response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 273
+Content-Length: 297
 
 {
-  "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-  "refreshToken" : "8de611e5-cc2a-4292-8602-28e38f59ab87"
+  "content" : {
+    "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
+    "refreshToken" : "0d25d586-c5a2-4a04-9bf8-3016fe1e10a9"
+  }
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_앱_로그인_response_fields"><a class="link" href="#_앱_로그인_response_fields">Response fields</a></h4>
+<h4 id="_1_1_앱_로그인_response_fields"><a class="link" href="#_1_1_앱_로그인_response_fields">Response fields</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -650,12 +658,12 @@ Content-Length: 273
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>accessToken</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content.accessToken</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">엑세스 토큰</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>refreshToken</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content.refreshToken</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">리프레쉬 토큰</p></td>
 </tr>
@@ -664,9 +672,9 @@ Content-Length: 273
 </div>
 </div>
 <div class="sect2">
-<h3 id="_관리자_페이지_로그인"><a class="link" href="#_관리자_페이지_로그인">관리자 페이지 로그인</a></h3>
+<h3 id="_1_2_관리자_페이지_로그인"><a class="link" href="#_1_2_관리자_페이지_로그인">1.2 관리자 페이지 로그인</a></h3>
 <div class="sect3">
-<h4 id="_관리자_페이지_로그인_http_request"><a class="link" href="#_관리자_페이지_로그인_http_request">HTTP request</a></h4>
+<h4 id="_1_2_관리자_페이지_로그인_http_request"><a class="link" href="#_1_2_관리자_페이지_로그인_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/auth/loginWeb HTTP/1.1
@@ -683,7 +691,7 @@ Host: docs.follower.com
 </div>
 </div>
 <div class="sect3">
-<h4 id="_관리자_페이지_로그인_request_fields"><a class="link" href="#_관리자_페이지_로그인_request_fields">Request fields</a></h4>
+<h4 id="_1_2_관리자_페이지_로그인_request_fields"><a class="link" href="#_1_2_관리자_페이지_로그인_request_fields">Request fields</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -720,22 +728,24 @@ Host: docs.follower.com
 </table>
 </div>
 <div class="sect3">
-<h4 id="_관리자_페이지_로그인_http_response"><a class="link" href="#_관리자_페이지_로그인_http_response">HTTP response</a></h4>
+<h4 id="_1_2_관리자_페이지_로그인_http_response"><a class="link" href="#_1_2_관리자_페이지_로그인_http_response">HTTP response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 273
+Content-Length: 297
 
 {
-  "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-  "refreshToken" : "8de611e5-cc2a-4292-8602-28e38f59ab87"
+  "content" : {
+    "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
+    "refreshToken" : "0d25d586-c5a2-4a04-9bf8-3016fe1e10a9"
+  }
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_관리자_페이지_로그인_response_fields"><a class="link" href="#_관리자_페이지_로그인_response_fields">Response fields</a></h4>
+<h4 id="_1_2_관리자_페이지_로그인_response_fields"><a class="link" href="#_1_2_관리자_페이지_로그인_response_fields">Response fields</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -751,12 +761,12 @@ Content-Length: 273
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>accessToken</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content.accessToken</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">엑세스 토큰</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>refreshToken</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content.refreshToken</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">리프레쉬 토큰</p></td>
 </tr>
@@ -765,9 +775,9 @@ Content-Length: 273
 </div>
 </div>
 <div class="sect2">
-<h3 id="_토큰_재발급"><a class="link" href="#_토큰_재발급">토큰 재발급</a></h3>
+<h3 id="_1_3_토큰_재발급"><a class="link" href="#_1_3_토큰_재발급">1.3 토큰 재발급</a></h3>
 <div class="sect3">
-<h4 id="_토큰_재발급_http_request"><a class="link" href="#_토큰_재발급_http_request">HTTP request</a></h4>
+<h4 id="_1_3_토큰_재발급_http_request"><a class="link" href="#_1_3_토큰_재발급_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/auth/refresh HTTP/1.1
@@ -777,13 +787,13 @@ Content-Length: 61
 Host: docs.follower.com
 
 {
-  "refreshToken" : "3e468e8a-ff26-4748-8794-a59941961872"
+  "refreshToken" : "c0242c4e-b9f4-46ff-9ddd-bcbf05d5fc2e"
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_토큰_재발급_request_fields"><a class="link" href="#_토큰_재발급_request_fields">Request fields</a></h4>
+<h4 id="_1_3_토큰_재발급_request_fields"><a class="link" href="#_1_3_토큰_재발급_request_fields">Request fields</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -813,22 +823,24 @@ Host: docs.follower.com
 </table>
 </div>
 <div class="sect3">
-<h4 id="_토큰_재발급_http_response"><a class="link" href="#_토큰_재발급_http_response">HTTP response</a></h4>
+<h4 id="_1_3_토큰_재발급_http_response"><a class="link" href="#_1_3_토큰_재발급_http_response">HTTP response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 273
+Content-Length: 297
 
 {
-  "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-  "refreshToken" : "8de611e5-cc2a-4292-8602-28e38f59ab87"
+  "content" : {
+    "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
+    "refreshToken" : "0d25d586-c5a2-4a04-9bf8-3016fe1e10a9"
+  }
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_토큰_재발급_response_fields"><a class="link" href="#_토큰_재발급_response_fields">Response fields</a></h4>
+<h4 id="_1_3_토큰_재발급_response_fields"><a class="link" href="#_1_3_토큰_재발급_response_fields">Response fields</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -844,12 +856,12 @@ Content-Length: 273
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>accessToken</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content.accessToken</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">엑세스 토큰</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>refreshToken</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content.refreshToken</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">리프레쉬 토큰</p></td>
 </tr>
@@ -860,12 +872,12 @@ Content-Length: 273
 </div>
 </div>
 <div class="sect1">
-<h2 id="admin"><a class="link" href="#admin">관리자 API</a></h2>
+<h2 id="admin"><a class="link" href="#admin">2. 관리자 API</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_부서_유저_등록"><a class="link" href="#_부서_유저_등록">부서 유저 등록</a></h3>
+<h3 id="_2_1_부서_유저_등록_회원_가입으로_변경_예정"><a class="link" href="#_2_1_부서_유저_등록_회원_가입으로_변경_예정">2.1 부서 유저 등록 (회원 가입으로 변경 예정)</a></h3>
 <div class="sect3">
-<h4 id="_부서_유저_등록_http_request"><a class="link" href="#_부서_유저_등록_http_request">HTTP request</a></h4>
+<h4 id="_2_1_부서_유저_등록_회원_가입으로_변경_예정_http_request"><a class="link" href="#_2_1_부서_유저_등록_회원_가입으로_변경_예정_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/admin/department/1/member HTTP/1.1
@@ -888,7 +900,7 @@ Host: docs.follower.com
 </div>
 </div>
 <div class="sect3">
-<h4 id="_부서_유저_등록_path_parameters"><a class="link" href="#_부서_유저_등록_path_parameters">Path parameters</a></h4>
+<h4 id="_2_1_부서_유저_등록_회원_가입으로_변경_예정_path_parameters"><a class="link" href="#_2_1_부서_유저_등록_회원_가입으로_변경_예정_path_parameters">Path parameters</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. /api/admin/department/{departmentId}/member</caption>
 <colgroup>
@@ -910,7 +922,7 @@ Host: docs.follower.com
 </table>
 </div>
 <div class="sect3">
-<h4 id="_부서_유저_등록_request_headers"><a class="link" href="#_부서_유저_등록_request_headers">Request headers</a></h4>
+<h4 id="_2_1_부서_유저_등록_회원_가입으로_변경_예정_request_headers"><a class="link" href="#_2_1_부서_유저_등록_회원_가입으로_변경_예정_request_headers">Request headers</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -931,7 +943,7 @@ Host: docs.follower.com
 </table>
 </div>
 <div class="sect3">
-<h4 id="_부서_유저_등록_request_fields"><a class="link" href="#_부서_유저_등록_request_fields">Request fields</a></h4>
+<h4 id="_2_1_부서_유저_등록_회원_가입으로_변경_예정_request_fields"><a class="link" href="#_2_1_부서_유저_등록_회원_가입으로_변경_예정_request_fields">Request fields</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -1003,7 +1015,7 @@ Host: docs.follower.com
 </table>
 </div>
 <div class="sect3">
-<h4 id="_부서_유저_등록_http_response"><a class="link" href="#_부서_유저_등록_http_response">HTTP response</a></h4>
+<h4 id="_2_1_부서_유저_등록_회원_가입으로_변경_예정_http_response"><a class="link" href="#_2_1_부서_유저_등록_회원_가입으로_변경_예정_http_response">HTTP response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 201 Created
@@ -1012,7 +1024,7 @@ Location: /api/admin/department/1/member/1</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_부서_유저_등록_response_headers"><a class="link" href="#_부서_유저_등록_response_headers">Response headers</a></h4>
+<h4 id="_2_1_부서_유저_등록_회원_가입으로_변경_예정_response_headers"><a class="link" href="#_2_1_부서_유저_등록_회원_가입으로_변경_예정_response_headers">Response headers</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -1036,12 +1048,12 @@ Location: /api/admin/department/1/member/1</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="prayer"><a class="link" href="#prayer">기도 API</a></h2>
+<h2 id="prayer"><a class="link" href="#prayer">3. 기도 API</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_이번_주_기도_카드_등록"><a class="link" href="#_이번_주_기도_카드_등록">이번 주 기도 카드 등록</a></h3>
+<h3 id="_3_1_이번_주_기도_카드_등록"><a class="link" href="#_3_1_이번_주_기도_카드_등록">3.1 이번 주 기도 카드 등록</a></h3>
 <div class="sect3">
-<h4 id="_이번_주_기도_카드_등록_http_request"><a class="link" href="#_이번_주_기도_카드_등록_http_request">HTTP request</a></h4>
+<h4 id="_3_1_이번_주_기도_카드_등록_http_request"><a class="link" href="#_3_1_이번_주_기도_카드_등록_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/prayer/my/cards HTTP/1.1
@@ -1053,18 +1065,18 @@ Host: docs.follower.com
 
 {
   "prayers" : [ {
-    "linkPrayerId" : null,
-    "content" : "밥 잘먹게 해주세요."
-  }, {
     "linkPrayerId" : 23,
     "content" : null
+  }, {
+    "linkPrayerId" : null,
+    "content" : "밥 잘먹게 해주세요."
   } ]
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_이번_주_기도_카드_등록_request_headers"><a class="link" href="#_이번_주_기도_카드_등록_request_headers">Request headers</a></h4>
+<h4 id="_3_1_이번_주_기도_카드_등록_request_headers"><a class="link" href="#_3_1_이번_주_기도_카드_등록_request_headers">Request headers</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -1085,7 +1097,7 @@ Host: docs.follower.com
 </table>
 </div>
 <div class="sect3">
-<h4 id="_이번_주_기도_카드_등록_request_fields"><a class="link" href="#_이번_주_기도_카드_등록_request_fields">Request fields</a></h4>
+<h4 id="_3_1_이번_주_기도_카드_등록_request_fields"><a class="link" href="#_3_1_이번_주_기도_카드_등록_request_fields">Request fields</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -1105,14 +1117,14 @@ Host: docs.follower.com
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">prayers[1].linkPrayerId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">prayers[0].linkPrayerId</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">연결 기도 id(선 처리)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">prayers[0].content</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">prayers[1].content</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">새 기도 내용(후 처리)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
@@ -1122,7 +1134,7 @@ Host: docs.follower.com
 </table>
 </div>
 <div class="sect3">
-<h4 id="_이번_주_기도_카드_등록_http_response"><a class="link" href="#_이번_주_기도_카드_등록_http_response">HTTP response</a></h4>
+<h4 id="_3_1_이번_주_기도_카드_등록_http_response"><a class="link" href="#_3_1_이번_주_기도_카드_등록_http_response">HTTP response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK</code></pre>
@@ -1132,11 +1144,199 @@ Host: docs.follower.com
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="member"><a class="link" href="#member">4. 멤버 API</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_4_1_내_정보_조회"><a class="link" href="#_4_1_내_정보_조회">4.1 내 정보 조회</a></h3>
+<div class="sect3">
+<h4 id="_4_1_내_정보_조회_http_request"><a class="link" href="#_4_1_내_정보_조회_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/member/my/info HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g
+Accept: application/json
+Host: docs.follower.com</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_1_내_정보_조회_request_headers"><a class="link" href="#_4_1_내_정보_조회_request_headers">Request headers</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_4_1_내_정보_조회_http_response"><a class="link" href="#_4_1_내_정보_조회_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 169
+
+{
+  "content" : {
+    "name" : "우상욱",
+    "birthDate" : "1996-10-16",
+    "departmentName" : "대학 8부",
+    "departmentId" : 1,
+    "roleType" : "MEMBER"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_1_내_정보_조회_response_fields"><a class="link" href="#_4_1_내_정보_조회_response_fields">Response fields</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content.name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">내 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content.birthDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">생년월일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content.departmentName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부서 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content.departmentId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부서 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content.roleType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">권한</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_1_내_활성화된_소속팀_조회"><a class="link" href="#_4_1_내_활성화된_소속팀_조회">4.1 내 활성화된 소속팀 조회</a></h3>
+<div class="sect3">
+<h4 id="_4_1_내_활성화된_소속팀_조회_http_request"><a class="link" href="#_4_1_내_활성화된_소속팀_조회_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/member/my/team HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g
+Accept: application/json
+Host: docs.follower.com</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_1_내_활성화된_소속팀_조회_request_headers"><a class="link" href="#_4_1_내_활성화된_소속팀_조회_request_headers">Request headers</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_4_1_내_활성화된_소속팀_조회_http_response"><a class="link" href="#_4_1_내_활성화된_소속팀_조회_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 136
+
+{
+  "content" : [ {
+    "teamId" : 1,
+    "teamName" : "이종민 LBS"
+  }, {
+    "teamId" : 2,
+    "teamName" : "우상욱 LBS"
+  } ]
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_1_내_활성화된_소속팀_조회_response_fields"><a class="link" href="#_4_1_내_활성화된_소속팀_조회_response_fields">Response fields</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[0].teamId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[0].teamName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 이름</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-09-28 17:58:26 +0900
+Last updated 2022-09-30 16:51:18 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

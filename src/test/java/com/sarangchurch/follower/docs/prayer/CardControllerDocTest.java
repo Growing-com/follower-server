@@ -65,8 +65,8 @@ class CardControllerDocTest {
         doNothing().when(cardCreateService).create(any(), any(), any());
 
         CardCreate request = new CardCreate(List.of(
-                new CardCreate.PrayerCreate(null, "밥 잘먹게 해주세요."),
-                new CardCreate.PrayerCreate(23L, null)
+                new CardCreate.PrayerCreate(23L, null),
+                new CardCreate.PrayerCreate(null, "밥 잘먹게 해주세요.")
         ));
 
         // when
@@ -85,8 +85,8 @@ class CardControllerDocTest {
                                 headerWithName("Authorization").description("JWT 토큰")
                         ),
                         requestFields(
-                             fieldWithPath("prayers[1].linkPrayerId").type(NUMBER).description("연결 기도 id(선 처리)").optional(),
-                             fieldWithPath("prayers[0].content").type(STRING).description("새 기도 내용(후 처리)").optional()
+                             fieldWithPath("prayers[0].linkPrayerId").type(NUMBER).description("연결 기도 id(선 처리)").optional(),
+                             fieldWithPath("prayers[1].content").type(STRING).description("새 기도 내용(후 처리)").optional()
                         )
                 ));
     }

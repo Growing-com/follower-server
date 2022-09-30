@@ -24,7 +24,7 @@ public class CommonSteps {
                 .post("/api/auth/loginWeb")
                 .then().log().all()
                 .extract()
-                .jsonPath().getString("accessToken");
+                .jsonPath().getString("content.accessToken");
 
         return RestAssured.given().log().all()
                 .auth().oauth2(accessToken);
@@ -43,7 +43,7 @@ public class CommonSteps {
                 .post("/api/auth/loginApp")
                 .then().log().all()
                 .extract()
-                .jsonPath().getString("accessToken");
+                .jsonPath().getString("content.accessToken");
 
         return RestAssured.given().log().all()
                 .auth().oauth2(accessToken);

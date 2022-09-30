@@ -6,6 +6,8 @@ import com.sarangchurch.follower.member.domain.Gender;
 import com.sarangchurch.follower.member.domain.Member;
 import com.sarangchurch.follower.member.domain.MemberRole;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,6 +15,8 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
+@Getter
+@NoArgsConstructor
 public class AddMemberRequest implements EntitySupplier<Member> {
     @NotBlank
     @Size(min = 5, max = 20)
@@ -32,9 +36,6 @@ public class AddMemberRequest implements EntitySupplier<Member> {
     @NotNull
     private RoleType role;
 
-    public AddMemberRequest() {
-    }
-
     @Builder
     public AddMemberRequest(String username, String password, String name, LocalDate birthDate, Boolean earlyBorn, Gender gender, RoleType role) {
         this.username = username;
@@ -52,37 +53,9 @@ public class AddMemberRequest implements EntitySupplier<Member> {
                 .username(getUsername())
                 .name(getName())
                 .birthDate(getBirthDate())
-                .earlyBorn(isEarlyBorn())
+                .earlyBorn(getEarlyBorn())
                 .gender(getGender())
                 .role(MemberRole.of(getRole()))
                 .build();
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public Boolean isEarlyBorn() {
-        return earlyBorn;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public RoleType getRole() {
-        return role;
     }
 }

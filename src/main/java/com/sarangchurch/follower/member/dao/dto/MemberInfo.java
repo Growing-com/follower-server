@@ -1,5 +1,6 @@
 package com.sarangchurch.follower.member.dao.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sarangchurch.follower.auth.domain.RoleType;
 import lombok.Getter;
 
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 public class MemberInfo {
 
     private final String name;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private final LocalDate birthDate;
     private final String departmentName;
     private final Long departmentId;

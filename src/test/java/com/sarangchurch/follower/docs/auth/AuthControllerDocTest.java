@@ -1,6 +1,5 @@
 package com.sarangchurch.follower.docs;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sarangchurch.follower.auth.application.AuthService;
 import com.sarangchurch.follower.auth.application.dto.TokenResponse;
 import com.sarangchurch.follower.auth.domain.LoginMember;
@@ -10,16 +9,11 @@ import com.sarangchurch.follower.auth.ui.dto.TokenRefreshRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.restdocs.RestDocumentationContextProvider;
-import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -35,8 +29,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.payload.JsonFieldType.STRING;
@@ -44,16 +36,11 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("test")
-@AutoConfigureRestDocs(uriScheme = "https", uriHost = "docs.follower.com", uriPort = 443)
-@ExtendWith({RestDocumentationExtension.class, MockitoExtension.class})
-class AuthControllerDocTest {
+class AuthControllerDocTest extends DocTest {
     private static final TokenResponse TOKEN_RESPONSE = new TokenResponse(aToken(), UUID.randomUUID().toString());
     private static final LoginMember EMPTY_LOGIN_MEMBER = LoginMember.builder().build();
 
     private MockMvc mockMvc;
-
-    private ObjectMapper  objectMapper = new ObjectMapper();
 
     @Mock
     private AuthService authService;
@@ -66,6 +53,7 @@ class AuthControllerDocTest {
 
     @BeforeEach
     void setUp(RestDocumentationContextProvider restDocumentation) {
+        super.setUp();
         mockMvc = MockMvcBuilders.standaloneSetup(authController)
                 .apply(documentationConfiguration(restDocumentation))
                 .build();
@@ -97,8 +85,8 @@ class AuthControllerDocTest {
                                 fieldWithPath("password").type(STRING).description("비밀번호")
                         ),
                         responseFields(
-                                fieldWithPath("accessToken").type(STRING).description("엑세스 토큰"),
-                                fieldWithPath("refreshToken").type(STRING).description("리프레쉬 토큰")
+                                fieldWithPath("content.accessToken").type(STRING).description("엑세스 토큰"),
+                                fieldWithPath("content.refreshToken").type(STRING).description("리프레쉬 토큰")
                         )
                 ));
     }
@@ -129,8 +117,8 @@ class AuthControllerDocTest {
                                 fieldWithPath("password").type(STRING).description("비밀번호")
                         ),
                         responseFields(
-                                fieldWithPath("accessToken").type(STRING).description("엑세스 토큰"),
-                                fieldWithPath("refreshToken").type(STRING).description("리프레쉬 토큰")
+                                fieldWithPath("content.accessToken").type(STRING).description("엑세스 토큰"),
+                                fieldWithPath("content.refreshToken").type(STRING).description("리프레쉬 토큰")
                         )
                 ));
     }
@@ -158,8 +146,8 @@ class AuthControllerDocTest {
                                 fieldWithPath("refreshToken").type(STRING).description("리프레쉬 토큰").attributes(getUUIDFormat())
                         ),
                         responseFields(
-                                fieldWithPath("accessToken").type(STRING).description("엑세스 토큰"),
-                                fieldWithPath("refreshToken").type(STRING).description("리프레쉬 토큰")
+                                fieldWithPath("content.accessToken").type(STRING).description("엑세스 토큰"),
+                                fieldWithPath("content.refreshToken").type(STRING).description("리프레쉬 토큰")
                         )
                 ));
 

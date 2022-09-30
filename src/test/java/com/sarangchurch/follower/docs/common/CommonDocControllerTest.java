@@ -1,20 +1,16 @@
 package com.sarangchurch.follower.docs.common;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sarangchurch.follower.auth.domain.RoleType;
 import com.sarangchurch.follower.common.EnumType;
 import com.sarangchurch.follower.common.exception.GlobalControllerAdvice;
+import com.sarangchurch.follower.docs.DocTest;
 import com.sarangchurch.follower.member.domain.Gender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
-import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.PayloadSubsectionExtractor;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -23,7 +19,8 @@ import java.util.Map;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-import static org.springframework.restdocs.payload.JsonFieldType.*;
+import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
+import static org.springframework.restdocs.payload.JsonFieldType.STRING;
 import static org.springframework.restdocs.payload.PayloadDocumentation.beneathPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.snippet.Attributes.attributes;
@@ -32,17 +29,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("test")
-@AutoConfigureRestDocs(uriScheme = "https", uriHost = "docs.follower.com", uriPort = 443)
-@ExtendWith({RestDocumentationExtension.class})
-class CommonDocControllerTest {
-
-    private final ObjectMapper objectMapper = new ObjectMapper();
+class CommonDocControllerTest extends DocTest {
 
     private MockMvc mockMvc;
 
     @BeforeEach
     void setUp(RestDocumentationContextProvider restDocumentation) {
+        super.setUp();
         mockMvc = MockMvcBuilders.standaloneSetup(new CommonDocController())
                 .setControllerAdvice(new GlobalControllerAdvice())
                 .apply(documentationConfiguration(restDocumentation))
