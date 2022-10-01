@@ -6,10 +6,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,20 +19,19 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 public class CardPrayers {
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @OrderBy("id asc")
-    @JoinColumn(name = "card_id", nullable = false)
     private List<CardPrayer> cardPrayers = new ArrayList<>();
 
-    void setPrayers(List<Long> prayerIds) {
+    void setPrayers(Card card, List<Long> prayerIds) {
         cardPrayers.clear();
-        cardPrayers.addAll(toCardPrayers(prayerIds));
+        cardPrayers.addAll(toCardPrayers(card, prayerIds));
     }
 
-    private List<CardPrayer> toCardPrayers(List<Long> prayerIds) {
+    private List<CardPrayer> toCardPrayers(Card card, List<Long> prayerIds) {
         validateDuplicate(prayerIds);
         return prayerIds.stream()
-                .map(CardPrayer::new)
+                .map(it -> new CardPrayer(card, it))
                 .collect(Collectors.toList());
     }
 

@@ -1,5 +1,6 @@
 package com.sarangchurch.follower.prayer.domain;
 
+import com.sarangchurch.follower.common.jpa.BaseEntity;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +8,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Version;
 import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -14,10 +16,14 @@ import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @NoArgsConstructor(access = PROTECTED)
-public class Card {
+public class Card extends BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
+
+    @Version
+    private long version;
+
     private Long memberId;
     private Long departmentId;
     @Embedded
@@ -42,7 +48,7 @@ public class Card {
     }
 
     public void setPrayers(List<Long> prayerIds) {
-        cardPrayers.setPrayers(prayerIds);
+        cardPrayers.setPrayers(this, prayerIds);
     }
 
     public Long getId() {
