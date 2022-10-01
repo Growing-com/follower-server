@@ -24,19 +24,6 @@ public class CardDao {
         this.template = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    private RowMapper<PrayerInfo> prayerRowMapper() {
-        return (rs, rowNum) -> new PrayerInfo(
-                rs.getLong("card_id"),
-                rs.getLong("prayer_id"),
-                rs.getString("prayer_content"),
-                rs.getBoolean("prayer_responded"),
-                rs.getLong("member_id"),
-                rs.getString("member_name"),
-                Gender.valueOf(rs.getString("member_gender")),
-                rs.getDate("member_birth_date").toLocalDate()
-        );
-    }
-
     public List<CardInfo> findCardsByTeamAndWeek(Long teamId, Week week) {
         String sql = "select c.id as card_id, " +
                 "p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded, " +
@@ -68,5 +55,18 @@ public class CardDao {
                     return new CardInfo(it.getKey(), it.getValue(), memberInfo);
                 })
                 .collect(Collectors.toList());
+    }
+
+    private RowMapper<PrayerInfo> prayerRowMapper() {
+        return (rs, rowNum) -> new PrayerInfo(
+                rs.getLong("card_id"),
+                rs.getLong("prayer_id"),
+                rs.getString("prayer_content"),
+                rs.getBoolean("prayer_responded"),
+                rs.getLong("member_id"),
+                rs.getString("member_name"),
+                Gender.valueOf(rs.getString("member_gender")),
+                rs.getDate("member_birth_date").toLocalDate()
+        );
     }
 }

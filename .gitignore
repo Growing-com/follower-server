@@ -45,4 +45,6 @@ docker/db/mysql/init/*
 .DS_store
 
 ### H2 ###
+follower.mv.db
+sql/**
 spy.log

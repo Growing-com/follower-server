@@ -53,7 +53,7 @@ class CardCreateServiceTest {
         );
     }
 
-    @DisplayName("이전 기도를 새로운 기도 카에 연결한다.")
+    @DisplayName("이전 기도를 새로운 기도 카드에 연결한다.")
     @Test
     void create_LinkPrayers() {
         // given
@@ -80,7 +80,7 @@ class CardCreateServiceTest {
         );
     }
 
-    @DisplayName("존재하지 않는 기도를 연결할 수 없다.")
+    @DisplayName("존재하지 않는 기도를 기도 카드에 연결할 수 없다.")
     @Test
     void create_LinkPrayers_Exception() {
         // given
