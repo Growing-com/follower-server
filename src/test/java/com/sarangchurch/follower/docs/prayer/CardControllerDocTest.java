@@ -1,6 +1,6 @@
 package com.sarangchurch.follower.docs.prayer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sarangchurch.follower.docs.DocTest;
 import com.sarangchurch.follower.prayer.application.CardCreateService;
 import com.sarangchurch.follower.prayer.application.dto.request.CardCreate;
 import com.sarangchurch.follower.prayer.ui.CardController;
@@ -31,7 +31,8 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.headerWit
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-import static org.springframework.restdocs.payload.JsonFieldType.*;
+import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
+import static org.springframework.restdocs.payload.JsonFieldType.STRING;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -40,10 +41,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "docs.follower.com", uriPort = 443)
 @ExtendWith({RestDocumentationExtension.class, MockitoExtension.class})
-class CardControllerDocTest {
-
+class CardControllerDocTest extends DocTest {
     private MockMvc mockMvc;
-    private ObjectMapper objectMapper = new ObjectMapper();
 
     @Mock
     private CardCreateService cardCreateService;

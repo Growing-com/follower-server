@@ -53,7 +53,7 @@ public class CardDao {
                             prayerInfo.getGender(),
                             prayerInfo.getBirthDate()
                     );
-                    return new CardInfo(it.getKey(), it.getValue(), memberInfo);
+                    return new CardInfo(it.getKey(), prayerInfo.getCardUpdateTime(), it.getValue(), memberInfo);
                 })
                 .collect(Collectors.toList());
     }
@@ -61,6 +61,7 @@ public class CardDao {
     private RowMapper<PrayerInfo> prayerRowMapper() {
         return (rs, rowNum) -> new PrayerInfo(
                 rs.getLong("card_id"),
+                rs.getTimestamp("card_update_date").toLocalDateTime(),
                 rs.getLong("prayer_id"),
                 rs.getString("prayer_content"),
                 rs.getBoolean("prayer_responded"),

@@ -10,7 +10,6 @@ import java.time.LocalDate;
 @Getter
 @RequiredArgsConstructor
 public class MemberInfo {
-
     private final String name;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private final LocalDate birthDate;

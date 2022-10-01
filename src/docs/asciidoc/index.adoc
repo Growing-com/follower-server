@@ -65,6 +65,8 @@ operation::admin-dpt-addMember[snippets='http-request,path-parameters,request-he
 === 3.1 이번 주 기도 카드 등록
 operation::prayer-createCard[snippets='http-request,request-headers,request-fields,http-response']
 
+=== 3.2 이번 주 팀 기도 카드 목록 조회
+operation::prayer-findThisWeekCards[snippets='http-request,path-parameters,request-headers,http-response,response-fields']
 
 [[member]]
 == 4. 멤버 API

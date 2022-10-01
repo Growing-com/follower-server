@@ -467,6 +467,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#prayer">3. 기도 API</a>
 <ul class="sectlevel2">
 <li><a href="#_3_1_이번_주_기도_카드_등록">3.1 이번 주 기도 카드 등록</a></li>
+<li><a href="#_3_2_이번_주_팀_기도_카드_목록_조회">3.2 이번 주 팀 기도 카드 목록 조회</a></li>
 </ul>
 </li>
 <li><a href="#member">4. 멤버 API</a>
@@ -636,7 +637,7 @@ Content-Length: 297
 {
   "content" : {
     "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-    "refreshToken" : "72148297-aa78-46bb-adb4-32ad1320d910"
+    "refreshToken" : "f56f3d7a-1992-44f7-913b-1d64f2dcad10"
   }
 }</code></pre>
 </div>
@@ -739,7 +740,7 @@ Content-Length: 297
 {
   "content" : {
     "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-    "refreshToken" : "72148297-aa78-46bb-adb4-32ad1320d910"
+    "refreshToken" : "f56f3d7a-1992-44f7-913b-1d64f2dcad10"
   }
 }</code></pre>
 </div>
@@ -788,7 +789,7 @@ Content-Length: 61
 Host: docs.follower.com
 
 {
-  "refreshToken" : "a66e7dc6-59b3-4e21-8ccd-8c30cc4fc98f"
+  "refreshToken" : "325fde3e-c7c1-425e-87b0-47d9fbfe8ddd"
 }</code></pre>
 </div>
 </div>
@@ -834,7 +835,7 @@ Content-Length: 297
 {
   "content" : {
     "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-    "refreshToken" : "72148297-aa78-46bb-adb4-32ad1320d910"
+    "refreshToken" : "f56f3d7a-1992-44f7-913b-1d64f2dcad10"
   }
 }</code></pre>
 </div>
@@ -1143,6 +1144,161 @@ Host: docs.follower.com
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_3_2_이번_주_팀_기도_카드_목록_조회"><a class="link" href="#_3_2_이번_주_팀_기도_카드_목록_조회">3.2 이번 주 팀 기도 카드 목록 조회</a></h3>
+<div class="sect3">
+<h4 id="_3_2_이번_주_팀_기도_카드_목록_조회_http_request"><a class="link" href="#_3_2_이번_주_팀_기도_카드_목록_조회_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/teams/1/cards?date=2022-09-25 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g
+Accept: application/json
+Host: docs.follower.com</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_2_이번_주_팀_기도_카드_목록_조회_path_parameters"><a class="link" href="#_3_2_이번_주_팀_기도_카드_목록_조회_path_parameters">Path parameters</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /api/teams/{teamId}/cards</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>teamId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 id</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_3_2_이번_주_팀_기도_카드_목록_조회_request_headers"><a class="link" href="#_3_2_이번_주_팀_기도_카드_목록_조회_request_headers">Request headers</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_3_2_이번_주_팀_기도_카드_목록_조회_http_response"><a class="link" href="#_3_2_이번_주_팀_기도_카드_목록_조회_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 351
+
+{
+  "content" : [ {
+    "cardId" : 1,
+    "updateTime" : "2022/09/27 03:03:03",
+    "prayers" : [ {
+      "cardId" : 1,
+      "seq" : 1,
+      "content" : "밥 잘 먹게 해주세요",
+      "response" : true
+    } ],
+    "member" : {
+      "id" : 1,
+      "name" : "이순종",
+      "gender" : "MALE",
+      "birthDate" : "1991-11-11"
+    }
+  } ]
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_2_이번_주_팀_기도_카드_목록_조회_response_fields"><a class="link" href="#_3_2_이번_주_팀_기도_카드_목록_조회_response_fields">Response fields</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[0].cardId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">카드 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[0].updateTime</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">카드 수정 시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[0].prayers[0].cardId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">기도가 속한 카드 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[0].prayers[0].seq</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">기도 순서 (카드 내에서)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[0].prayers[0].content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">기도 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[0].prayers[0].response</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">기도 응답 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[0].member.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">멤버 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[0].member.name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">멤버 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[0].member.gender</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">멤버 성별</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[0].member.birthDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">멤버 생일</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1416,7 +1572,7 @@ Host: docs.follower.com
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-09-30 21:08:11 +0900
+Last updated 2022-10-02 01:29:47 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

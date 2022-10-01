@@ -1,10 +1,19 @@
 spring:
+  profiles:
+    active: test
+
+  mvc:
+    format:
+      date: iso
+
   flyway:
     enabled: false
+
   datasource:
     url: jdbc:h2:mem:db
     username: sa
     password:
+
   jpa:
     properties:
       hibernate:
@@ -13,8 +22,8 @@ spring:
     hibernate:
       ddl-auto: create
     show-sql: 'true'
-  profiles:
-    active: test
+
+
 
 logging:
   level:
