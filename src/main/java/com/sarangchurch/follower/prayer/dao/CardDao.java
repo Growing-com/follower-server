@@ -25,14 +25,15 @@ public class CardDao {
     }
 
     public List<CardInfo> findCardsByTeamAndWeek(Long teamId, Week week) {
-        String sql = "select c.id as card_id, " +
+        String sql = "select c.id as card_id, c.update_date as card_update_date, " +
                 "p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded, " +
                 "m.id as member_id, m.name as member_name, m.gender as member_gender, m.birth_date as member_birth_date  " +
                 "from team_member tm " +
                 "join member m on(m.id = tm.member_id and tm.team_id = :teamId) " +
                 "join card c on(c.member_id = m.id and c.week = FORMATDATETIME(:date, 'yyyy-MM-dd')) " +
                 "join card_prayer cp on(cp.card_id = c.id) " +
-                "join prayer p on(p.id = cp.prayer_id);";
+                "join prayer p on(p.id = cp.prayer_id) " +
+                "order by card_update_date desc;";
 
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("teamId", teamId)
