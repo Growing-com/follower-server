@@ -23,6 +23,10 @@ public class Week {
         this.week = week;
     }
 
+    public LocalDate getDate() {
+        return week;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
