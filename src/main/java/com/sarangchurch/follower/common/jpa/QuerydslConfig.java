@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.common;
+package com.sarangchurch.follower.common.jpa;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

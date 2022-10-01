@@ -9,5 +9,4 @@ public class FollowerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FollowerApplication.class, args);
 	}
-
 }
