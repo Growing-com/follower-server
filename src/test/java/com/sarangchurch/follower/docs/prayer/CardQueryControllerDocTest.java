@@ -3,11 +3,9 @@ package com.sarangchurch.follower.docs.prayer;
 import com.sarangchurch.follower.docs.DocTest;
 import com.sarangchurch.follower.member.domain.Gender;
 import com.sarangchurch.follower.prayer.dao.CardDao;
-import com.sarangchurch.follower.prayer.dao.dto.CardInfo;
-import com.sarangchurch.follower.prayer.dao.dto.MemberInfo;
-import com.sarangchurch.follower.prayer.dao.dto.MyCardInfo;
-import com.sarangchurch.follower.prayer.dao.dto.MyPrayerInfo;
-import com.sarangchurch.follower.prayer.dao.dto.PrayerInfo;
+import com.sarangchurch.follower.prayer.dao.dto.CardList;
+import com.sarangchurch.follower.prayer.dao.dto.MyCardDetails;
+import com.sarangchurch.follower.prayer.dao.dto.MyCardDetails.MyPrayerList;
 import com.sarangchurch.follower.prayer.ui.CardQueryController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -65,11 +63,11 @@ class CardQueryControllerDocTest extends DocTest {
     void findThisWeekCards() throws Exception {
         // given
         given(cardDao.findCardsByTeamAndWeek(any(), any())).willReturn(List.of(
-                new CardInfo(
+                new CardList(
                         1L,
                         UPDATE_TIME,
-                        List.of(new PrayerInfo(1L, UPDATE_TIME, 1L, "밥 잘 먹게 해주세요", true, 1L, "이순종", Gender.MALE, LocalDate.of(1991, 11, 11))),
-                        new MemberInfo(1L, "이순종", Gender.MALE, LocalDate.of(1991, 11, 11))
+                        List.of(new CardList.PrayerList(1L, UPDATE_TIME, 1L, "밥 잘 먹게 해주세요", true, 1L, "이순종", Gender.MALE, LocalDate.of(1991, 11, 11))),
+                        new CardList.MemberDetails(1L, "이순종", Gender.MALE, LocalDate.of(1991, 11, 11))
                 )
         ));
 
@@ -112,10 +110,10 @@ class CardQueryControllerDocTest extends DocTest {
     @Test
     void findMyThisWeekCard() throws Exception {
         // given
-        given(cardDao.findCardByMemberAndWeek(any(), any())).willReturn(Optional.of(new MyCardInfo(
+        given(cardDao.findCardByMemberAndWeek(any(), any())).willReturn(Optional.of(new MyCardDetails(
                 1L,
                 UPDATE_TIME,
-                List.of(new MyPrayerInfo(1L, UPDATE_TIME, 1L, "밥 잘먹게 해주세요", false))
+                List.of(new MyPrayerList(1L, UPDATE_TIME, 1L, "밥 잘먹게 해주세요", false))
         )));
 
         // when
@@ -146,10 +144,10 @@ class CardQueryControllerDocTest extends DocTest {
     @Test
     void findMyLatestPastCard() throws Exception {
         // given
-        given(cardDao.findLatestPastCardByMember(any())).willReturn(Optional.of(new MyCardInfo(
+        given(cardDao.findLatestPastCardByMember(any())).willReturn(Optional.of(new MyCardDetails(
                 1L,
                 UPDATE_TIME,
-                List.of(new MyPrayerInfo(1L, UPDATE_TIME, 1L, "밥 잘먹게 해주세요", false))
+                List.of(new MyPrayerList(1L, UPDATE_TIME, 1L, "밥 잘먹게 해주세요", false))
         )));
 
         // when

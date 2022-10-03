@@ -4,8 +4,8 @@ import com.sarangchurch.follower.common.ApiResponse;
 import com.sarangchurch.follower.member.domain.Member;
 import com.sarangchurch.follower.member.ui.AuthMember;
 import com.sarangchurch.follower.prayer.dao.CardDao;
-import com.sarangchurch.follower.prayer.dao.dto.CardInfo;
-import com.sarangchurch.follower.prayer.dao.dto.MyCardInfo;
+import com.sarangchurch.follower.prayer.dao.dto.CardList;
+import com.sarangchurch.follower.prayer.dao.dto.MyCardDetails;
 import com.sarangchurch.follower.prayer.domain.Week;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,7 +26,7 @@ public class CardQueryController {
     private final CardDao cardDao;
 
     @GetMapping("/api/prayers/teams/{teamId}/cards")
-    public ApiResponse<List<CardInfo>> findThisWeekCards(
+    public ApiResponse<List<CardList>> findThisWeekCards(
             @PathVariable Long teamId,
             @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam LocalDate date
     ) {
@@ -34,14 +34,14 @@ public class CardQueryController {
     }
 
     @GetMapping("/api/prayers/my/thisWeekCard")
-    public ApiResponse<MyCardInfo> findMyThisWeekCard(@AuthMember Member member) {
+    public ApiResponse<MyCardDetails> findMyThisWeekCard(@AuthMember Member member) {
          return cardDao.findCardByMemberAndWeek(member.getId(), Week.previousSunday(now()))
                  .map(ApiResponse::of)
                  .orElse(ApiResponse.ofEmpty());
     }
 
     @GetMapping("/api/prayers/my/latestCard")
-    public ApiResponse<MyCardInfo> findMyLatestPastCard(@AuthMember Member member) {
+    public ApiResponse<MyCardDetails> findMyLatestPastCard(@AuthMember Member member) {
         return cardDao.findLatestPastCardByMember(member.getId())
                 .map(ApiResponse::of)
                 .orElse(ApiResponse.ofEmpty());

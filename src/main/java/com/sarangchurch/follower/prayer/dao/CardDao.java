@@ -1,11 +1,9 @@
 package com.sarangchurch.follower.prayer.dao;
 
 import com.sarangchurch.follower.member.domain.Gender;
-import com.sarangchurch.follower.prayer.dao.dto.CardInfo;
-import com.sarangchurch.follower.prayer.dao.dto.MemberInfo;
-import com.sarangchurch.follower.prayer.dao.dto.MyCardInfo;
-import com.sarangchurch.follower.prayer.dao.dto.MyPrayerInfo;
-import com.sarangchurch.follower.prayer.dao.dto.PrayerInfo;
+import com.sarangchurch.follower.prayer.dao.dto.CardList;
+import com.sarangchurch.follower.prayer.dao.dto.MyCardDetails;
+import com.sarangchurch.follower.prayer.dao.dto.MyCardDetails.MyPrayerList;
 import com.sarangchurch.follower.prayer.domain.Week;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -27,7 +25,7 @@ public class CardDao {
         this.template = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public List<CardInfo> findCardsByTeamAndWeek(Long teamId, Week week) {
+    public List<CardList> findCardsByTeamAndWeek(Long teamId, Week week) {
         String sql = "select c.id as card_id, c.update_date as card_update_date, " +
                 "p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded, " +
                 "m.id as member_id, m.name as member_name, m.gender as member_gender, m.birth_date as member_birth_date  " +
@@ -45,24 +43,24 @@ public class CardDao {
         return template
                 .query(sql, param, prayerRowMapper())
                 .stream()
-                .collect(Collectors.groupingBy(PrayerInfo::getCardId))
+                .collect(Collectors.groupingBy(CardList.PrayerList::getCardId))
                 .entrySet()
                 .stream()
                 .map(it -> {
-                    PrayerInfo prayerInfo = it.getValue().get(0);
-                    MemberInfo memberInfo = new MemberInfo(
-                            prayerInfo.getMemberId(),
-                            prayerInfo.getMemberName(),
-                            prayerInfo.getGender(),
-                            prayerInfo.getBirthDate()
+                    List<CardList.PrayerList> prayers = it.getValue();
+                    CardList.MemberDetails memberDetails = new CardList.MemberDetails(
+                            prayers.get(0).getMemberId(),
+                            prayers.get(0).getMemberName(),
+                            prayers.get(0).getGender(),
+                            prayers.get(0).getBirthDate()
                     );
-                    return new CardInfo(it.getKey(), prayerInfo.getCardUpdateTime(), it.getValue(), memberInfo);
+                    return new CardList(it.getKey(), prayers.get(0).getCardUpdateTime(), prayers, memberDetails);
                 })
                 .collect(Collectors.toList());
     }
 
-    private RowMapper<PrayerInfo> prayerRowMapper() {
-        return (rs, rowNum) -> new PrayerInfo(
+    private RowMapper<CardList.PrayerList> prayerRowMapper() {
+        return (rs, rowNum) -> new CardList.PrayerList(
                 rs.getLong("card_id"),
                 rs.getTimestamp("card_update_date").toLocalDateTime(),
                 rs.getLong("prayer_id"),
@@ -75,7 +73,7 @@ public class CardDao {
         );
     }
 
-    public Optional<MyCardInfo> findCardByMemberAndWeek(Long memberId, Week week) {
+    public Optional<MyCardDetails> findCardByMemberAndWeek(Long memberId, Week week) {
         String sql = "select c.id as card_id, c.update_date as card_update_date, " +
                 "p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded " +
                 "from card c " +
@@ -86,14 +84,14 @@ public class CardDao {
                 .addValue("memberId", memberId)
                 .addValue("date", week.toString());
 
-        List<MyPrayerInfo> prayers = template.query(sql, param, myPrayerRowMapper());
+        List<MyPrayerList> prayers = template.query(sql, param, myPrayerRowMapper());
         if (prayers.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(new MyCardInfo(prayers.get(0).getCardId(), prayers.get(0).getCardUpdateTime(), prayers));
+        return Optional.of(new MyCardDetails(prayers.get(0).getCardId(), prayers.get(0).getCardUpdateTime(), prayers));
     }
 
-    public Optional<MyCardInfo> findLatestPastCardByMember(Long memberId) {
+    public Optional<MyCardDetails> findLatestPastCardByMember(Long memberId) {
         String sql = "select c.id as card_id, c.update_date as card_update_date, c.week as card_week, " +
                 "p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded " +
                 "from " +
@@ -110,16 +108,16 @@ public class CardDao {
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("memberId", memberId);
 
-        List<MyPrayerInfo> prayers = template.query(sql, param, myPrayerRowMapper());
+        List<MyPrayerList> prayers = template.query(sql, param, myPrayerRowMapper());
         if (prayers.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(new MyCardInfo(prayers.get(0).getCardId(), prayers.get(0).getCardUpdateTime(), prayers));
+        return Optional.of(new MyCardDetails(prayers.get(0).getCardId(), prayers.get(0).getCardUpdateTime(), prayers));
     }
 
 
-    private RowMapper<MyPrayerInfo> myPrayerRowMapper() {
-        return (rs, rowNum) -> new MyPrayerInfo(
+    private RowMapper<MyPrayerList> myPrayerRowMapper() {
+        return (rs, rowNum) -> new MyPrayerList(
                 rs.getLong("card_id"),
                 rs.getTimestamp("card_update_date").toLocalDateTime(),
                 rs.getLong("prayer_id"),

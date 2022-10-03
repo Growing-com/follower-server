@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class CurrentTeamInfo {
+public class CurrentTeamList {
     private final Long teamId;
     private final String teamName;
 }

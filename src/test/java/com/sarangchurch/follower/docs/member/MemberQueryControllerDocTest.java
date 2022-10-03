@@ -3,8 +3,8 @@ package com.sarangchurch.follower.docs.member;
 import com.sarangchurch.follower.auth.domain.RoleType;
 import com.sarangchurch.follower.docs.DocTest;
 import com.sarangchurch.follower.member.dao.MemberDao;
-import com.sarangchurch.follower.member.dao.dto.CurrentTeamInfo;
-import com.sarangchurch.follower.member.dao.dto.MemberInfo;
+import com.sarangchurch.follower.member.dao.dto.CurrentTeamList;
+import com.sarangchurch.follower.member.dao.dto.MemberDetails;
 import com.sarangchurch.follower.member.ui.MemberQueryController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -57,7 +57,7 @@ class MemberQueryControllerDocTest extends DocTest {
     @Test
     void myInfo() throws Exception {
         // given
-        given(memberDao.findMemberInfo(any())).willReturn(new MemberInfo("우상욱",
+        given(memberDao.findMemberInfo(any())).willReturn(new MemberDetails("우상욱",
                 LocalDate.of(1996, 10, 16), "대학 8부", 1L, RoleType.MEMBER));
 
         // when
@@ -88,8 +88,8 @@ class MemberQueryControllerDocTest extends DocTest {
     void myTeam() throws Exception {
         // given
         given(memberDao.findCurrentTeam(any())).willReturn(List.of(
-                new CurrentTeamInfo(1L, "이종민 LBS"),
-                new CurrentTeamInfo(2L, "우상욱 LBS")
+                new CurrentTeamList(1L, "이종민 LBS"),
+                new CurrentTeamList(2L, "우상욱 LBS")
         ));
 
         // when
