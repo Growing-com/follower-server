@@ -40,8 +40,8 @@ public class Card extends BaseEntity {
 
     public Prayer prayer(String content) {
         return Prayer.builder()
-                .responded(false)
                 .content(content)
+                .responded(false)
                 .memberId(memberId)
                 .initialCardId(id)
                 .build();

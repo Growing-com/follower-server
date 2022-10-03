@@ -15,6 +15,11 @@ public class MemoryCardRepository implements CardRepository {
     private long sequence = 0L;
 
     @Override
+    public boolean existsById(Long id) {
+        return store.keySet().contains(id);
+    }
+
+    @Override
     public <S extends Card> S save(S entity) {
         if (entity.getId() == null) {
             sequence = sequence + 1;

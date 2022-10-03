@@ -3,9 +3,7 @@ package com.sarangchurch.follower.prayer.domain;
 import com.sarangchurch.follower.prayer.domain.exception.DuplicatePrayerException;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import java.util.ArrayList;
@@ -13,13 +11,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.EAGER;
 import static lombok.AccessLevel.PROTECTED;
 
 @Embeddable
 @NoArgsConstructor(access = PROTECTED)
 public class CardPrayers {
 
-    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "card", cascade = ALL, orphanRemoval = true, fetch = EAGER)
     @OrderBy("id asc")
     private List<CardPrayer> cardPrayers = new ArrayList<>();
 
