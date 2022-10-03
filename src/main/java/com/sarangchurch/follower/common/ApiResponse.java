@@ -6,6 +6,10 @@ import lombok.Getter;
 public class ApiResponse<T> {
     private final T content;
 
+    public static <T> ApiResponse<T> ofEmpty() {
+        return new ApiResponse<>(null);
+    }
+
     public static <T> ApiResponse<T> of(T content) {
         return new ApiResponse<>(content);
     }

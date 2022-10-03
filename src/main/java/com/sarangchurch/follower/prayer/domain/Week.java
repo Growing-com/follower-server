@@ -23,10 +23,6 @@ public class Week {
         this.week = week;
     }
 
-    public LocalDate getDate() {
-        return week;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,5 +34,10 @@ public class Week {
     @Override
     public int hashCode() {
         return Objects.hash(week);
+    }
+
+    @Override
+    public String toString() {
+        return week.toString();
     }
 }

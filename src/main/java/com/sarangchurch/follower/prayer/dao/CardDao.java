@@ -3,6 +3,8 @@ package com.sarangchurch.follower.prayer.dao;
 import com.sarangchurch.follower.member.domain.Gender;
 import com.sarangchurch.follower.prayer.dao.dto.CardInfo;
 import com.sarangchurch.follower.prayer.dao.dto.MemberInfo;
+import com.sarangchurch.follower.prayer.dao.dto.MyCardInfo;
+import com.sarangchurch.follower.prayer.dao.dto.MyPrayerInfo;
 import com.sarangchurch.follower.prayer.dao.dto.PrayerInfo;
 import com.sarangchurch.follower.prayer.domain.Week;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,7 +15,10 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static java.time.LocalDate.now;
 
 @Repository
 public class CardDao {
@@ -37,7 +42,7 @@ public class CardDao {
 
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("teamId", teamId)
-                .addValue("date", week.getDate().toString());
+                .addValue("date", week.toString());
 
         return template
                 .query(sql, param, prayerRowMapper())
@@ -69,6 +74,35 @@ public class CardDao {
                 rs.getString("member_name"),
                 Gender.valueOf(rs.getString("member_gender")),
                 rs.getDate("member_birth_date").toLocalDate()
+        );
+    }
+
+    public Optional<MyCardInfo> findMyThisWeekCard(Long memberId) {
+        String sql = "select c.id as card_id, c.update_date as card_update_date, " +
+                "p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded " +
+                "from card c " +
+                "join card_prayer cp on(cp.card_id = c.id and c.member_id = :memberId and c.week = FORMATDATETIME(:date, 'yyyy-MM-dd')) " +
+                "join prayer p on(p.id = cp.prayer_id);";
+
+        SqlParameterSource param = new MapSqlParameterSource()
+                .addValue("memberId", memberId)
+                .addValue("date", Week.previousSunday(now()).toString());
+
+        List<MyPrayerInfo> prayers = template.query(sql, param, myPrayerRowMapper());
+
+        if (prayers.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(new MyCardInfo(prayers.get(0).getCardId(), prayers.get(0).getCardUpdateTime(), prayers));
+    }
+
+    private RowMapper<MyPrayerInfo> myPrayerRowMapper() {
+        return (rs, rowNum) -> new MyPrayerInfo(
+                rs.getLong("card_id"),
+                rs.getTimestamp("card_update_date").toLocalDateTime(),
+                rs.getLong("prayer_id"),
+                rs.getString("prayer_content"),
+                rs.getBoolean("prayer_responded")
         );
     }
 }
