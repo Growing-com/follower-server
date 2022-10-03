@@ -112,7 +112,7 @@ class CardQueryControllerDocTest extends DocTest {
     @Test
     void findMyThisWeekCard() throws Exception {
         // given
-        given(cardDao.findMyThisWeekCard(any())).willReturn(Optional.of(new MyCardInfo(
+        given(cardDao.findCardByMemberAndWeek(any(), any())).willReturn(Optional.of(new MyCardInfo(
                 1L,
                 UPDATE_TIME,
                 List.of(new MyPrayerInfo(1L, UPDATE_TIME, 1L, "밥 잘먹게 해주세요", false))
@@ -126,6 +126,40 @@ class CardQueryControllerDocTest extends DocTest {
         // then
         result.andExpect(status().isOk())
                 .andDo(document("prayer-findMyThisWeekCard",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestHeaders(
+                                headerWithName("Authorization").description("JWT 토큰")
+                        ),
+                        responseFields(
+                                fieldWithPath("content.cardId").description("카드 id"),
+                                fieldWithPath("content.updateTime").description("카드 수정 시간"),
+                                fieldWithPath("content.prayers[0].cardId").description("기도가 속한 카드 id"),
+                                fieldWithPath("content.prayers[0].seq").description("기도 순서 (카드 내에서)"),
+                                fieldWithPath("content.prayers[0].content").description("기도 내용"),
+                                fieldWithPath("content.prayers[0].response").description("기도 응답 여부")
+                        )
+                ));
+    }
+
+    @DisplayName("내 최근 카드 조회 - GET /api/prayers/my/latestCard")
+    @Test
+    void findMyLatestPastCard() throws Exception {
+        // given
+        given(cardDao.findLatestPastCardByMember(any())).willReturn(Optional.of(new MyCardInfo(
+                1L,
+                UPDATE_TIME,
+                List.of(new MyPrayerInfo(1L, UPDATE_TIME, 1L, "밥 잘먹게 해주세요", false))
+        )));
+
+        // when
+        ResultActions result = this.mockMvc.perform(get("/api/prayers/my/latestCard")
+                .header("Authorization", "Bearer " + aToken())
+                .accept(APPLICATION_JSON));
+
+        // then
+        result.andExpect(status().isOk())
+                .andDo(document("prayer-findMyLatestPastCard",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestHeaders(
