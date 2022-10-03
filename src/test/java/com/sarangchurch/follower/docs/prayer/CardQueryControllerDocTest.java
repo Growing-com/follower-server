@@ -5,6 +5,8 @@ import com.sarangchurch.follower.member.domain.Gender;
 import com.sarangchurch.follower.prayer.dao.CardDao;
 import com.sarangchurch.follower.prayer.dao.dto.CardInfo;
 import com.sarangchurch.follower.prayer.dao.dto.MemberInfo;
+import com.sarangchurch.follower.prayer.dao.dto.MyCardInfo;
+import com.sarangchurch.follower.prayer.dao.dto.MyPrayerInfo;
 import com.sarangchurch.follower.prayer.dao.dto.PrayerInfo;
 import com.sarangchurch.follower.prayer.ui.CardQueryController;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +22,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static com.sarangchurch.follower.Fixtures.aToken;
 import static com.sarangchurch.follower.docs.utils.ApiDocumentUtils.getDocumentRequest;
@@ -40,6 +43,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class CardQueryControllerDocTest extends DocTest {
 
+    private static final LocalDateTime UPDATE_TIME = LocalDateTime.of(2022, 9, 27, 3, 3, 3);
+
     private MockMvc mockMvc;
 
     @Mock
@@ -55,21 +60,21 @@ class CardQueryControllerDocTest extends DocTest {
                 .build();
     }
 
-    @DisplayName("팀 이번 주 카드 목록 조회 - GET /api/team/{teamId}/cards")
+    @DisplayName("팀 이번 주 카드 목록 조회 - GET /api/prayers/teams/{teamId}/cards")
     @Test
     void findThisWeekCards() throws Exception {
         // given
         given(cardDao.findCardsByTeamAndWeek(any(), any())).willReturn(List.of(
                 new CardInfo(
                         1L,
-                        LocalDateTime.of(2022, 9, 27, 3, 3, 3),
-                        List.of(new PrayerInfo(1L, LocalDateTime.of(2022, 9, 27, 3, 3, 3), 1L, "밥 잘 먹게 해주세요", true, 1L, "이순종", Gender.MALE, LocalDate.of(1991, 11, 11))),
+                        UPDATE_TIME,
+                        List.of(new PrayerInfo(1L, UPDATE_TIME, 1L, "밥 잘 먹게 해주세요", true, 1L, "이순종", Gender.MALE, LocalDate.of(1991, 11, 11))),
                         new MemberInfo(1L, "이순종", Gender.MALE, LocalDate.of(1991, 11, 11))
                 )
         ));
 
         // when
-        ResultActions result = this.mockMvc.perform(get("/api/teams/{teamId}/cards", 1)
+        ResultActions result = this.mockMvc.perform(get("/api/prayers/teams/{teamId}/cards", 1)
                 .header("Authorization", "Bearer " + aToken())
                 .accept(APPLICATION_JSON)
                 .param("date", "2022-09-25"));
@@ -99,6 +104,40 @@ class CardQueryControllerDocTest extends DocTest {
                                 fieldWithPath("content[0].member.name").description("멤버 이름"),
                                 fieldWithPath("content[0].member.gender").description("멤버 성별"),
                                 fieldWithPath("content[0].member.birthDate").description("멤버 생일")
+                        )
+                ));
+    }
+
+    @DisplayName("내 이번 주 카드 조회 - GET /api/prayers/my/thisWeekCard")
+    @Test
+    void findMyThisWeekCard() throws Exception {
+        // given
+        given(cardDao.findMyThisWeekCard(any())).willReturn(Optional.of(new MyCardInfo(
+                1L,
+                UPDATE_TIME,
+                List.of(new MyPrayerInfo(1L, UPDATE_TIME, 1L, "밥 잘먹게 해주세요", false))
+        )));
+
+        // when
+        ResultActions result = this.mockMvc.perform(get("/api/prayers/my/thisWeekCard")
+                .header("Authorization", "Bearer " + aToken())
+                .accept(APPLICATION_JSON));
+
+        // then
+        result.andExpect(status().isOk())
+                .andDo(document("prayer-findMyThisWeekCard",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestHeaders(
+                                headerWithName("Authorization").description("JWT 토큰")
+                        ),
+                        responseFields(
+                                fieldWithPath("content.cardId").description("카드 id"),
+                                fieldWithPath("content.updateTime").description("카드 수정 시간"),
+                                fieldWithPath("content.prayers[0].cardId").description("기도가 속한 카드 id"),
+                                fieldWithPath("content.prayers[0].seq").description("기도 순서 (카드 내에서)"),
+                                fieldWithPath("content.prayers[0].content").description("기도 내용"),
+                                fieldWithPath("content.prayers[0].response").description("기도 응답 여부")
                         )
                 ));
     }
