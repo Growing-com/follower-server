@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.util.List;
 
+import static java.time.LocalDate.now;
+
 @RestController
 @RequiredArgsConstructor
 public class CardQueryController {
@@ -33,8 +35,15 @@ public class CardQueryController {
 
     @GetMapping("/api/prayers/my/thisWeekCard")
     public ApiResponse<MyCardInfo> findMyThisWeekCard(@AuthMember Member member) {
-         return cardDao.findMyThisWeekCard(member.getId())
+         return cardDao.findCardByMemberAndWeek(member.getId(), Week.previousSunday(now()))
                  .map(ApiResponse::of)
                  .orElse(ApiResponse.ofEmpty());
+    }
+
+    @GetMapping("/api/prayers/my/latestCard")
+    public ApiResponse<MyCardInfo> findMyLatestPastCard(@AuthMember Member member) {
+        return cardDao.findLatestPastCardByMember(member.getId())
+                .map(ApiResponse::of)
+                .orElse(ApiResponse.ofEmpty());
     }
 }

@@ -18,8 +18,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static java.time.LocalDate.now;
-
 @Repository
 public class CardDao {
 
@@ -77,7 +75,7 @@ public class CardDao {
         );
     }
 
-    public Optional<MyCardInfo> findMyThisWeekCard(Long memberId) {
+    public Optional<MyCardInfo> findCardByMemberAndWeek(Long memberId, Week week) {
         String sql = "select c.id as card_id, c.update_date as card_update_date, " +
                 "p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded " +
                 "from card c " +
@@ -86,15 +84,39 @@ public class CardDao {
 
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("memberId", memberId)
-                .addValue("date", Week.previousSunday(now()).toString());
+                .addValue("date", week.toString());
 
         List<MyPrayerInfo> prayers = template.query(sql, param, myPrayerRowMapper());
-
         if (prayers.isEmpty()) {
             return Optional.empty();
         }
         return Optional.of(new MyCardInfo(prayers.get(0).getCardId(), prayers.get(0).getCardUpdateTime(), prayers));
     }
+
+    public Optional<MyCardInfo> findLatestPastCardByMember(Long memberId) {
+        String sql = "select c.id as card_id, c.update_date as card_update_date, c.week as card_week, " +
+                "p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded " +
+                "from " +
+                "   ( " +
+                "       select * " +
+                "       from card cSub " +
+                "       where cSub.member_id = :memberId " +
+                "       order by cSub.week desc " +
+                "       limit 1 offset 1 " +
+                "   ) as c " +
+                "join card_prayer cp on(cp.card_id = c.id) " +
+                "join prayer p on(p.id = cp.prayer_id);";
+
+        SqlParameterSource param = new MapSqlParameterSource()
+                .addValue("memberId", memberId);
+
+        List<MyPrayerInfo> prayers = template.query(sql, param, myPrayerRowMapper());
+        if (prayers.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(new MyCardInfo(prayers.get(0).getCardId(), prayers.get(0).getCardUpdateTime(), prayers));
+    }
+
 
     private RowMapper<MyPrayerInfo> myPrayerRowMapper() {
         return (rs, rowNum) -> new MyPrayerInfo(
