@@ -34,9 +34,10 @@ public class CardDao {
     }
 
     public List<CardDetails> findCardsByTeamAndWeek(Long teamId, Week week) {
-        String sql = "select c.id as card_id, c.updated_at as card_updated_at, " +
-                "p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded, " +
-                "m.id as member_id, m.name as member_name, m.gender as member_gender, m.birth_date as member_birth_date  " +
+        String sql = "" +
+                "select c.id as card_id, c.updated_at as card_updated_at, " +
+                "   p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded, " +
+                "   m.id as member_id, m.name as member_name, m.gender as member_gender, m.birth_date as member_birth_date  " +
                 "from team_member tm " +
                 "join member m on(m.id = tm.member_id and tm.team_id = :teamId) " +
                 "join card c on(c.member_id = m.id and c.week = FORMATDATETIME(:date, 'yyyy-MM-dd')) " +
@@ -56,41 +57,39 @@ public class CardDao {
                 .stream()
                 .map(it -> {
                     List<PrayerDetails> prayers = it.getValue();
-                    MemberDetails memberDetails = new MemberDetails(
-                            prayers.get(0).getMemberId(),
-                            prayers.get(0).getMemberName(),
-                            prayers.get(0).getGender(),
-                            prayers.get(0).getBirthDate()
+                    return new CardDetails(
+                            it.getKey(),
+                            prayers.get(0).getCardUpdatedAt(),
+                            prayers,
+                            new MemberDetails(
+                                    prayers.get(0).getMemberId(),
+                                    prayers.get(0).getMemberName(),
+                                    prayers.get(0).getGender(),
+                                    prayers.get(0).getBirthDate()
+                            ),
+                            Collections.emptyList()
                     );
-                    return new CardDetails(it.getKey(), prayers.get(0).getCardUpdatedAt(), prayers, memberDetails, Collections.emptyList());
                 })
                 .collect(toList());
     }
 
     public Optional<CardDetails> findCardById(Long cardId) {
-        String prayerSql = "select c.id as card_id, c.updated_at as card_updated_at, c.week as card_week, " +
-                "m.id as member_id, m.name as member_name, m.gender as member_gender, m.birth_date as member_birth_date, " +
-                "p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded " +
+        String prayerSql = "" +
+                "select c.id as card_id, c.updated_at as card_updated_at, c.week as card_week, " +
+                "   m.id as member_id, m.name as member_name, m.gender as member_gender, m.birth_date as member_birth_date, " +
+                "   p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded " +
                 "from card c " +
-                "         join member m on(m.id = c.member_id) " +
-                "         join card_prayer cp on(cp.card_id = c.id and cp.card_id = :cardId) " +
-                "         join prayer p on(p.id = cp.prayer_id)";
+                "join member m on(m.id = c.member_id) " +
+                "join card_prayer cp on(cp.card_id = c.id and cp.card_id = :cardId) " +
+                "join prayer p on(p.id = cp.prayer_id)";
 
-        SqlParameterSource prayerParam = new MapSqlParameterSource()
+        SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("cardId", cardId);
 
-        List<PrayerDetails> prayers = template.query(prayerSql, prayerParam, prayerRowMapper());
-
+        List<PrayerDetails> prayers = template.query(prayerSql, param, prayerRowMapper());
         if (prayers.isEmpty()) {
             return Optional.empty();
         }
-
-        MemberDetails memberDetails = new MemberDetails(
-                prayers.get(0).getMemberId(),
-                prayers.get(0).getMemberName(),
-                prayers.get(0).getGender(),
-                prayers.get(0).getBirthDate()
-        );
 
         String commentsSql = "select c.id as comments_id, c.created_at as comments_created_at, c.card_id as comments_card_id, c.parent_id as comments_parent_id, c.content as comments_content, " +
                 "m.id as member_id, m.name as member_name, m.gender as member_gender, m.birth_date as member_birth_date " +
@@ -98,22 +97,9 @@ public class CardDao {
                 "join member m on c.card_id = :cardId and m.id = c.member_id " +
                 "order by c.parent_id, c.created_at";
 
-        List<ChildCommentDetails> childComments = template.query(commentsSql, prayerParam, (rs, rowNum) -> new ChildCommentDetails(
-                rs.getLong("comments_id"),
-                rs.getTimestamp("comments_created_at").toLocalDateTime(),
-                rs.getLong("comments_card_id"),
-                rs.getLong("comments_parent_id"),
-                rs.getString("comments_content"),
-                new MemberDetails(
-                        rs.getLong("member_id"),
-                        rs.getString("member_name"),
-                        Gender.valueOf(rs.getString("member_gender")),
-                        rs.getDate("member_birth_date").toLocalDate()
-                )
-        ));
 
-
-        List<CommentDetails> comments = childComments.stream()
+        List<CommentDetails> comments = template.query(commentsSql, param, childCommentRowMapper())
+                .stream()
                 .collect(groupingBy(ChildCommentDetails::getParentId))
                 .entrySet()
                 .stream()
@@ -129,12 +115,16 @@ public class CardDao {
                 ))
                 .collect(toList());
 
-
         return Optional.of(new CardDetails(
                 prayers.get(0).getCardId(),
                 prayers.get(0).getCardUpdatedAt(),
                 prayers,
-                memberDetails,
+                new MemberDetails(
+                        prayers.get(0).getMemberId(),
+                        prayers.get(0).getMemberName(),
+                        prayers.get(0).getGender(),
+                        prayers.get(0).getBirthDate()
+                ),
                 comments
         ));
     }
@@ -153,9 +143,26 @@ public class CardDao {
         );
     }
 
+    private RowMapper<ChildCommentDetails> childCommentRowMapper() {
+        return (rs, rowNum) -> new ChildCommentDetails(
+                rs.getLong("comments_id"),
+                rs.getTimestamp("comments_created_at").toLocalDateTime(),
+                rs.getLong("comments_card_id"),
+                rs.getLong("comments_parent_id"),
+                rs.getString("comments_content"),
+                new MemberDetails(
+                        rs.getLong("member_id"),
+                        rs.getString("member_name"),
+                        Gender.valueOf(rs.getString("member_gender")),
+                        rs.getDate("member_birth_date").toLocalDate()
+                )
+        );
+    }
+
     public Optional<MyCardDetails> findCardByMemberAndWeek(Long memberId, Week week) {
-        String sql = "select c.id as card_id, c.updated_at as card_updated_at, " +
-                "p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded " +
+        String sql = "" +
+                "select c.id as card_id, c.updated_at as card_updated_at, " +
+                "   p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded " +
                 "from card c " +
                 "join card_prayer cp on(cp.card_id = c.id and c.member_id = :memberId and c.week = FORMATDATETIME(:date, 'yyyy-MM-dd')) " +
                 "join prayer p on(p.id = cp.prayer_id)";
@@ -172,8 +179,9 @@ public class CardDao {
     }
 
     public Optional<MyCardDetails> findLatestPastCardByMember(Long memberId) {
-        String sql = "select c.id as card_id, c.updated_at as card_updated_at, c.week as card_week, " +
-                "p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded " +
+        String sql = "" +
+                "select c.id as card_id, c.updated_at as card_updated_at, c.week as card_week, " +
+                "   p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded " +
                 "from " +
                 "   ( " +
                 "       select * " +
