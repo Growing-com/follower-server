@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 public enum PrayerErrorCode implements ErrorCode {
     CANT_LINK_PRAYER(HttpStatus.BAD_REQUEST),
     DUPLICATE_PRAYER(HttpStatus.BAD_REQUEST),
-    ILLEGAL_PRAYER_OPERATION(HttpStatus.BAD_REQUEST)
+    ILLEGAL_COMMENT(HttpStatus.BAD_REQUEST)
     ;
 
     private final HttpStatus httpStatus;
