@@ -58,4 +58,8 @@ public class MemoryPrayerRepository implements PrayerRepository {
     public int size() {
         return store.size();
     }
+
+    public void clear() {
+        store.clear();
+    }
 }

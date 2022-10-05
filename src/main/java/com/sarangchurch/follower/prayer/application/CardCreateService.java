@@ -34,7 +34,7 @@ public class CardCreateService {
         List<Prayer> linkPrayers = prayerRepository.findByIdIn(request.linkPrayerIds());
         linkPrayers.forEach(it -> it.validateLinkable(member.getId(), card.getId()));
 
-        List<Prayer> prayers = request.getPrayers()
+        List<Prayer> newPrayers = request.getPrayers()
                 .stream()
                 .map(prayerCreate -> {
                     if (prayerCreate.getLinkPrayerId() != null) {
@@ -47,6 +47,6 @@ public class CardCreateService {
                 })
                 .collect(Collectors.toList());
 
-        Events.raise(new CardRefreshedEvent(card, prayers));
+        Events.raise(new CardRefreshedEvent(card, newPrayers));
     }
 }
