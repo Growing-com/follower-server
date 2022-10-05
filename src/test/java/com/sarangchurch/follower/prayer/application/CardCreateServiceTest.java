@@ -1,14 +1,20 @@
 package com.sarangchurch.follower.prayer.application;
 
 import com.sarangchurch.follower.member.domain.model.Member;
-import com.sarangchurch.follower.prayer.application.dto.request.CardCreate;
-import com.sarangchurch.follower.prayer.domain.model.Week;
 import com.sarangchurch.follower.prayer.application.doubles.MemoryCardRepository;
 import com.sarangchurch.follower.prayer.application.doubles.MemoryPrayerRepository;
+import com.sarangchurch.follower.prayer.application.dto.request.CardCreate;
+import com.sarangchurch.follower.prayer.domain.model.Prayer;
+import com.sarangchurch.follower.prayer.domain.model.Week;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Collections;
 import java.util.List;
 
 import static java.time.LocalDate.now;
@@ -16,27 +22,28 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+@ExtendWith(SpringExtension.class)
+@Import(CardCreateServiceTestConfig.class)
 class CardCreateServiceTest {
+    private static final Member MEMBER = Member.builder().id(1L).build();
 
+    @Autowired
     private CardCreateService cardCreateService;
+    @Autowired
     private MemoryCardRepository cardRepository;
+    @Autowired
     private MemoryPrayerRepository prayerRepository;
 
     @BeforeEach
     void setUp() {
-        cardRepository = new MemoryCardRepository();
-        prayerRepository = new MemoryPrayerRepository();
-        cardCreateService = new CardCreateService(cardRepository, prayerRepository);
+        cardRepository.clear();
+        prayerRepository.clear();
     }
 
-    @DisplayName("새로운 기도 카드를 작성한다.")
+    @DisplayName("새로운 카드를 작성하면 카드와 기도가 생성된다.")
     @Test
     void create_Content() {
         // given
-        Member member = Member.builder()
-                .id(1L)
-                .build();
-
         CardCreate request = new CardCreate(List.of(
                 new CardCreate.PrayerCreate(null, "hello1"),
                 new CardCreate.PrayerCreate(null, "hello2"),
@@ -44,7 +51,7 @@ class CardCreateServiceTest {
         ));
 
         // when
-        cardCreateService.create(member, request, Week.previousSunday(now()));
+        cardCreateService.create(MEMBER, request, Week.previousSunday(now()));
 
         // then
         assertAll(
@@ -53,47 +60,41 @@ class CardCreateServiceTest {
         );
     }
 
-    @DisplayName("이전 기도를 새로운 기도 카드에 연결한다.")
+    @DisplayName("이전 기도를 카드에 연결하면 기도가 새로 생성되지 않는다.")
     @Test
     void create_LinkPrayers() {
         // given
-        Member member = Member.builder()
-                .id(1L)
+        Prayer prayer = Prayer.builder()
+                .memberId(MEMBER.getId())
+                .initialCardId(5000L)
+                .responded(false)
                 .build();
 
-        CardCreate previousRequest = new CardCreate(List.of(
-                new CardCreate.PrayerCreate(null, "hello1")
-        ));
-
-        cardCreateService.create(member, previousRequest, Week.previousSunday(now().minusWeeks(1)));
+        List<Prayer> prayers = prayerRepository.saveAll(Collections.singleton(prayer));
 
         // when
         CardCreate request = new CardCreate(List.of(
-                new CardCreate.PrayerCreate(1L, null)
+                new CardCreate.PrayerCreate(prayers.get(0).getId(), null)
         ));
-        cardCreateService.create(member, request, Week.previousSunday(now()));
+        cardCreateService.create(MEMBER, request, Week.previousSunday(now()));
 
         // then
         assertAll(
-                () -> assertThat(cardRepository.size()).isEqualTo(2L),
+                () -> assertThat(cardRepository.size()).isEqualTo(1L),
                 () -> assertThat(prayerRepository.size()).isEqualTo(1L)
         );
     }
 
-    @DisplayName("존재하지 않는 기도를 기도 카드에 연결할 수 없다.")
+    @DisplayName("존재하지 않는 기도를 카드에 연결할 수 없다.")
     @Test
     void create_LinkPrayers_Exception() {
         // given
-        Member member = Member.builder()
-                .id(1L)
-                .build();
-
         CardCreate request = new CardCreate(List.of(
-                new CardCreate.PrayerCreate(1L, null)
+                new CardCreate.PrayerCreate(999L, null)
         ));
 
         // expected
-        assertThatThrownBy(() -> cardCreateService.create(member, request, Week.previousSunday(now())))
+        assertThatThrownBy(() -> cardCreateService.create(MEMBER, request, Week.previousSunday(now())))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("존재하지 않는 기도 입니다.");
 
@@ -103,21 +104,17 @@ class CardCreateServiceTest {
     @Test
     void update() {
         // given
-        Member member = Member.builder()
-                .id(1L)
-                .build();
-
         CardCreate previousRequest = new CardCreate(List.of(
                 new CardCreate.PrayerCreate(null, "hello1")
         ));
 
-        cardCreateService.create(member, previousRequest, Week.previousSunday(now()));
+        cardCreateService.create(MEMBER, previousRequest, Week.previousSunday(now()));
 
         // when
         CardCreate request = new CardCreate(List.of(
-                new CardCreate.PrayerCreate(null, "hello1")
+                new CardCreate.PrayerCreate(null, "hello2")
         ));
-        cardCreateService.create(member, request, Week.previousSunday(now()));
+        cardCreateService.create(MEMBER, request, Week.previousSunday(now()));
 
         // then
         assertAll(
@@ -126,3 +123,17 @@ class CardCreateServiceTest {
         );
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
