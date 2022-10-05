@@ -1,10 +1,10 @@
 package com.sarangchurch.follower.prayer.ui;
 
-import com.sarangchurch.follower.member.domain.Member;
-import com.sarangchurch.follower.member.ui.AuthMember;
+import com.sarangchurch.follower.member.domain.model.Member;
+import com.sarangchurch.follower.member.ui.argumentresolver.AuthMember;
 import com.sarangchurch.follower.prayer.application.CardCreateService;
 import com.sarangchurch.follower.prayer.application.dto.request.CardCreate;
-import com.sarangchurch.follower.prayer.domain.Week;
+import com.sarangchurch.follower.prayer.domain.model.Week;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

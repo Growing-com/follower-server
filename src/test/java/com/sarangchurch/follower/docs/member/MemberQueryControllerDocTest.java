@@ -1,6 +1,6 @@
 package com.sarangchurch.follower.docs.member;
 
-import com.sarangchurch.follower.auth.domain.RoleType;
+import com.sarangchurch.follower.auth.domain.model.RoleType;
 import com.sarangchurch.follower.docs.DocTest;
 import com.sarangchurch.follower.member.dao.MemberDao;
 import com.sarangchurch.follower.member.dao.dto.CurrentTeam;

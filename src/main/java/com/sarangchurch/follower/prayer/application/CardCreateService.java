@@ -1,12 +1,12 @@
 package com.sarangchurch.follower.prayer.application;
 
-import com.sarangchurch.follower.member.domain.Member;
+import com.sarangchurch.follower.member.domain.model.Member;
 import com.sarangchurch.follower.prayer.application.dto.request.CardCreate;
-import com.sarangchurch.follower.prayer.domain.Card;
-import com.sarangchurch.follower.prayer.domain.CardRepository;
-import com.sarangchurch.follower.prayer.domain.Prayer;
-import com.sarangchurch.follower.prayer.domain.PrayerRepository;
-import com.sarangchurch.follower.prayer.domain.Week;
+import com.sarangchurch.follower.prayer.domain.model.Card;
+import com.sarangchurch.follower.prayer.domain.repository.CardRepository;
+import com.sarangchurch.follower.prayer.domain.model.Prayer;
+import com.sarangchurch.follower.prayer.domain.repository.PrayerRepository;
+import com.sarangchurch.follower.prayer.domain.model.Week;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

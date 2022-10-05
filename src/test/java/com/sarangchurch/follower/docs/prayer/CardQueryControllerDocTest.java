@@ -1,7 +1,7 @@
 package com.sarangchurch.follower.docs.prayer;
 
 import com.sarangchurch.follower.docs.DocTest;
-import com.sarangchurch.follower.member.domain.Gender;
+import com.sarangchurch.follower.member.domain.model.Gender;
 import com.sarangchurch.follower.prayer.dao.CardDao;
 import com.sarangchurch.follower.prayer.dao.dto.CardDetails;
 import com.sarangchurch.follower.prayer.dao.dto.MemberDetails;

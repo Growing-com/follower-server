@@ -17,14 +17,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.time.LocalDate;
 
 import static com.sarangchurch.follower.Fixtures.aToken;
-import static com.sarangchurch.follower.auth.domain.RoleType.MEMBER;
+import static com.sarangchurch.follower.auth.domain.model.RoleType.MEMBER;
 import static com.sarangchurch.follower.docs.utils.ApiDocumentUtils.getDocumentRequest;
 import static com.sarangchurch.follower.docs.utils.ApiDocumentUtils.getDocumentResponse;
 import static com.sarangchurch.follower.docs.utils.DocumentFormatGenerator.getDateFormant;
 import static com.sarangchurch.follower.docs.utils.DocumentLinkGenerator.DocUrl.GENDER;
 import static com.sarangchurch.follower.docs.utils.DocumentLinkGenerator.DocUrl.ROLE;
 import static com.sarangchurch.follower.docs.utils.DocumentLinkGenerator.generateLinkCode;
-import static com.sarangchurch.follower.member.domain.Gender.MALE;
+import static com.sarangchurch.follower.member.domain.model.Gender.MALE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;

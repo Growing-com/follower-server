@@ -1,7 +1,7 @@
 package com.sarangchurch.follower.member.application;
 
-import com.sarangchurch.follower.member.domain.Member;
-import com.sarangchurch.follower.member.domain.MemberRepository;
+import com.sarangchurch.follower.member.domain.model.Member;
+import com.sarangchurch.follower.member.domain.repository.MemberRepository;
 import com.sarangchurch.follower.member.domain.exception.IllegalMemberException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

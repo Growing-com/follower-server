@@ -1,9 +1,9 @@
 package com.sarangchurch.follower.prayer.application;
 
 import com.sarangchurch.follower.prayer.application.dto.request.CommentCreate;
-import com.sarangchurch.follower.prayer.domain.CardRepository;
-import com.sarangchurch.follower.prayer.domain.Comment;
-import com.sarangchurch.follower.prayer.domain.CommentRepository;
+import com.sarangchurch.follower.prayer.domain.repository.CardRepository;
+import com.sarangchurch.follower.prayer.domain.model.Comment;
+import com.sarangchurch.follower.prayer.domain.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

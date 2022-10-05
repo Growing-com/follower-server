@@ -1,9 +1,9 @@
 package com.sarangchurch.follower.member.infra;
 
-import com.sarangchurch.follower.auth.domain.LoginMember;
-import com.sarangchurch.follower.auth.domain.TokenUserLoader;
-import com.sarangchurch.follower.member.domain.Member;
-import com.sarangchurch.follower.member.domain.MemberRepository;
+import com.sarangchurch.follower.auth.domain.model.LoginMember;
+import com.sarangchurch.follower.auth.security.TokenUserLoader;
+import com.sarangchurch.follower.member.domain.model.Member;
+import com.sarangchurch.follower.member.domain.repository.MemberRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

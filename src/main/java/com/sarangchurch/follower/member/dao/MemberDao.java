@@ -9,11 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.sarangchurch.follower.department.domain.QDepartment.department;
-import static com.sarangchurch.follower.department.domain.QSeason.season;
-import static com.sarangchurch.follower.department.domain.QTeam.team;
-import static com.sarangchurch.follower.department.domain.QTeamMember.teamMember;
-import static com.sarangchurch.follower.member.domain.QMember.member;
+import static com.sarangchurch.follower.department.domain.model.QDepartment.department;
+import static com.sarangchurch.follower.department.domain.model.QSeason.season;
+import static com.sarangchurch.follower.department.domain.model.QTeam.team;
+import static com.sarangchurch.follower.department.domain.model.QTeamMember.teamMember;
+import static com.sarangchurch.follower.member.domain.model.QMember.member;
 
 @Repository
 @RequiredArgsConstructor

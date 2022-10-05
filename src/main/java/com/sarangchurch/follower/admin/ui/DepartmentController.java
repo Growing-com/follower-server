@@ -2,7 +2,8 @@ package com.sarangchurch.follower.admin.ui;
 
 import com.sarangchurch.follower.admin.application.DepartmentService;
 import com.sarangchurch.follower.admin.application.dto.AddMemberRequest;
-import com.sarangchurch.follower.admin.domain.Admin;
+import com.sarangchurch.follower.admin.domain.model.Admin;
+import com.sarangchurch.follower.admin.ui.argumentresolver.AuthAdmin;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

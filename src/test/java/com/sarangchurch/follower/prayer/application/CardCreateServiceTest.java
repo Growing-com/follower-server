@@ -1,10 +1,10 @@
 package com.sarangchurch.follower.prayer.application;
 
-import com.sarangchurch.follower.member.domain.Member;
+import com.sarangchurch.follower.member.domain.model.Member;
 import com.sarangchurch.follower.prayer.application.dto.request.CardCreate;
-import com.sarangchurch.follower.prayer.domain.Week;
-import com.sarangchurch.follower.prayer.doubles.MemoryCardRepository;
-import com.sarangchurch.follower.prayer.doubles.MemoryPrayerRepository;
+import com.sarangchurch.follower.prayer.domain.model.Week;
+import com.sarangchurch.follower.prayer.application.doubles.MemoryCardRepository;
+import com.sarangchurch.follower.prayer.application.doubles.MemoryPrayerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

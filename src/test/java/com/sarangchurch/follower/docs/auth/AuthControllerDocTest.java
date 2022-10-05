@@ -2,7 +2,7 @@ package com.sarangchurch.follower.docs;
 
 import com.sarangchurch.follower.auth.application.AuthService;
 import com.sarangchurch.follower.auth.application.dto.TokenResponse;
-import com.sarangchurch.follower.auth.domain.LoginMember;
+import com.sarangchurch.follower.auth.domain.model.LoginMember;
 import com.sarangchurch.follower.auth.ui.AuthController;
 import com.sarangchurch.follower.auth.ui.dto.LoginRequest;
 import com.sarangchurch.follower.auth.ui.dto.TokenRefreshRequest;

@@ -1,6 +1,5 @@
 package com.sarangchurch.follower.auth.security;
 
-import com.sarangchurch.follower.auth.domain.TokenUserLoader;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;

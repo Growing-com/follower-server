@@ -2,7 +2,8 @@ package com.sarangchurch.follower.member.ui;
 
 import com.sarangchurch.follower.member.application.MemberService;
 import com.sarangchurch.follower.member.application.dto.ToggleFavorite;
-import com.sarangchurch.follower.member.domain.Member;
+import com.sarangchurch.follower.member.domain.model.Member;
+import com.sarangchurch.follower.member.ui.argumentresolver.AuthMember;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

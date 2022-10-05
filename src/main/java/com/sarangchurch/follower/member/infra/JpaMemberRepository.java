@@ -1,7 +1,7 @@
 package com.sarangchurch.follower.member.infra;
 
-import com.sarangchurch.follower.member.domain.Member;
-import com.sarangchurch.follower.member.domain.MemberRepository;
+import com.sarangchurch.follower.member.domain.model.Member;
+import com.sarangchurch.follower.member.domain.repository.MemberRepository;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 

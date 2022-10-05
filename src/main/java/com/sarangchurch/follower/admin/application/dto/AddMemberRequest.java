@@ -1,10 +1,10 @@
 package com.sarangchurch.follower.admin.application.dto;
 
-import com.sarangchurch.follower.auth.domain.RoleType;
-import com.sarangchurch.follower.common.EntitySupplier;
-import com.sarangchurch.follower.member.domain.Gender;
-import com.sarangchurch.follower.member.domain.Member;
-import com.sarangchurch.follower.member.domain.MemberRole;
+import com.sarangchurch.follower.auth.domain.model.RoleType;
+import com.sarangchurch.follower.common.types.EntitySupplier;
+import com.sarangchurch.follower.member.domain.model.Gender;
+import com.sarangchurch.follower.member.domain.model.Member;
+import com.sarangchurch.follower.member.domain.model.MemberRole;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

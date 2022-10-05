@@ -1,20 +1,20 @@
 package com.sarangchurch.follower;
 
-import com.sarangchurch.follower.auth.domain.RoleType;
-import com.sarangchurch.follower.department.domain.Department;
-import com.sarangchurch.follower.department.domain.DepartmentRepository;
-import com.sarangchurch.follower.department.domain.Season;
-import com.sarangchurch.follower.department.domain.SeasonRepository;
-import com.sarangchurch.follower.department.domain.Team;
-import com.sarangchurch.follower.department.domain.TeamRepository;
-import com.sarangchurch.follower.member.domain.Member;
-import com.sarangchurch.follower.member.domain.MemberRepository;
-import com.sarangchurch.follower.member.domain.MemberRole;
-import com.sarangchurch.follower.prayer.domain.Card;
-import com.sarangchurch.follower.prayer.domain.CardRepository;
-import com.sarangchurch.follower.prayer.domain.Prayer;
-import com.sarangchurch.follower.prayer.domain.PrayerRepository;
-import com.sarangchurch.follower.prayer.domain.Week;
+import com.sarangchurch.follower.auth.domain.model.RoleType;
+import com.sarangchurch.follower.department.domain.model.Department;
+import com.sarangchurch.follower.department.domain.repository.DepartmentRepository;
+import com.sarangchurch.follower.department.domain.model.Season;
+import com.sarangchurch.follower.department.domain.repository.SeasonRepository;
+import com.sarangchurch.follower.department.domain.model.Team;
+import com.sarangchurch.follower.department.domain.repository.TeamRepository;
+import com.sarangchurch.follower.member.domain.model.Member;
+import com.sarangchurch.follower.member.domain.repository.MemberRepository;
+import com.sarangchurch.follower.member.domain.model.MemberRole;
+import com.sarangchurch.follower.prayer.domain.model.Card;
+import com.sarangchurch.follower.prayer.domain.repository.CardRepository;
+import com.sarangchurch.follower.prayer.domain.model.Prayer;
+import com.sarangchurch.follower.prayer.domain.repository.PrayerRepository;
+import com.sarangchurch.follower.prayer.domain.model.Week;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,8 +25,8 @@ import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.sarangchurch.follower.auth.domain.RoleType.*;
-import static com.sarangchurch.follower.member.domain.Gender.MALE;
+import static com.sarangchurch.follower.auth.domain.model.RoleType.*;
+import static com.sarangchurch.follower.member.domain.model.Gender.MALE;
 
 @Profile("local")
 @RequiredArgsConstructor

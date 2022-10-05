@@ -1,6 +1,5 @@
 package com.sarangchurch.follower.auth.security;
 
-import com.sarangchurch.follower.auth.domain.TokenUserLoader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;

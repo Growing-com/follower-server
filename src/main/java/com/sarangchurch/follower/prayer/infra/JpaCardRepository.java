@@ -1,8 +1,8 @@
 package com.sarangchurch.follower.prayer.infra;
 
-import com.sarangchurch.follower.prayer.domain.Card;
-import com.sarangchurch.follower.prayer.domain.CardRepository;
-import com.sarangchurch.follower.prayer.domain.Week;
+import com.sarangchurch.follower.prayer.domain.model.Card;
+import com.sarangchurch.follower.prayer.domain.repository.CardRepository;
+import com.sarangchurch.follower.prayer.domain.model.Week;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 

@@ -1,10 +1,10 @@
 package com.sarangchurch.follower.docs.common;
 
-import com.sarangchurch.follower.auth.domain.RoleType;
-import com.sarangchurch.follower.common.EnumType;
+import com.sarangchurch.follower.auth.domain.model.RoleType;
+import com.sarangchurch.follower.common.types.EnumType;
 import com.sarangchurch.follower.common.exception.GlobalControllerAdvice;
 import com.sarangchurch.follower.docs.DocTest;
-import com.sarangchurch.follower.member.domain.Gender;
+import com.sarangchurch.follower.member.domain.model.Gender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;

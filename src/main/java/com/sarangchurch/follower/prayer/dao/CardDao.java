@@ -1,6 +1,6 @@
 package com.sarangchurch.follower.prayer.dao;
 
-import com.sarangchurch.follower.member.domain.Gender;
+import com.sarangchurch.follower.member.domain.model.Gender;
 import com.sarangchurch.follower.prayer.dao.dto.CardDetails;
 import com.sarangchurch.follower.prayer.dao.dto.ChildCommentDetails;
 import com.sarangchurch.follower.prayer.dao.dto.CommentDetails;
@@ -8,7 +8,7 @@ import com.sarangchurch.follower.prayer.dao.dto.MemberDetails;
 import com.sarangchurch.follower.prayer.dao.dto.MyCardDetails;
 import com.sarangchurch.follower.prayer.dao.dto.MyPrayerDetails;
 import com.sarangchurch.follower.prayer.dao.dto.PrayerDetails;
-import com.sarangchurch.follower.prayer.domain.Week;
+import com.sarangchurch.follower.prayer.domain.model.Week;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

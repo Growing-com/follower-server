@@ -1,7 +1,7 @@
 package com.sarangchurch.follower.prayer.ui;
 
-import com.sarangchurch.follower.member.domain.Member;
-import com.sarangchurch.follower.member.ui.AuthMember;
+import com.sarangchurch.follower.member.domain.model.Member;
+import com.sarangchurch.follower.member.ui.argumentresolver.AuthMember;
 import com.sarangchurch.follower.prayer.application.CommentService;
 import com.sarangchurch.follower.prayer.application.dto.request.CommentCreate;
 import lombok.RequiredArgsConstructor;

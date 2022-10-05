@@ -1,9 +1,9 @@
 package com.sarangchurch.follower.aceeptance;
 
-import com.sarangchurch.follower.department.domain.Department;
-import com.sarangchurch.follower.department.domain.DepartmentRepository;
-import com.sarangchurch.follower.member.domain.Member;
-import com.sarangchurch.follower.member.domain.MemberRepository;
+import com.sarangchurch.follower.department.domain.model.Department;
+import com.sarangchurch.follower.department.domain.repository.DepartmentRepository;
+import com.sarangchurch.follower.member.domain.model.Member;
+import com.sarangchurch.follower.member.domain.repository.MemberRepository;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;

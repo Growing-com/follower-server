@@ -1,7 +1,7 @@
 package com.sarangchurch.follower.member.dao.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sarangchurch.follower.auth.domain.RoleType;
+import com.sarangchurch.follower.auth.domain.model.RoleType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

@@ -1,10 +1,10 @@
 package com.sarangchurch.follower.admin.application;
 
 import com.sarangchurch.follower.admin.application.dto.AddMemberRequest;
-import com.sarangchurch.follower.admin.domain.Admin;
+import com.sarangchurch.follower.admin.domain.model.Admin;
 import com.sarangchurch.follower.admin.domain.exception.ForbiddenDepartmentException;
 import com.sarangchurch.follower.member.application.MemberService;
-import com.sarangchurch.follower.member.domain.Member;
+import com.sarangchurch.follower.member.domain.model.Member;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
