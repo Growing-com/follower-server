@@ -3,11 +3,13 @@ package com.sarangchurch.follower.member.application;
 import com.sarangchurch.follower.member.domain.Member;
 import com.sarangchurch.follower.member.domain.MemberRepository;
 import com.sarangchurch.follower.member.domain.exception.IllegalMemberException;
-import com.sarangchurch.follower.member.domain.exception.MemberNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.sarangchurch.follower.member.domain.exception.IllegalMemberException.*;
+import javax.persistence.EntityNotFoundException;
+
+import static com.sarangchurch.follower.member.domain.exception.IllegalMemberException.DUPLICATE_NAME;
+import static com.sarangchurch.follower.member.domain.exception.IllegalMemberException.DUPLICATE_USERNAME;
 
 @Service
 @Transactional
@@ -37,10 +39,10 @@ public class MemberService {
 
     public void toggleFavorites(Long fromMemberId, Long toMemberId) {
         Member fromMember = memberRepository.findById(fromMemberId)
-                .orElseThrow(MemberNotFoundException::new);
+                .orElseThrow(EntityNotFoundException::new);
 
         Member toMember = memberRepository.findById(toMemberId)
-                .orElseThrow(MemberNotFoundException::new);
+                .orElseThrow(EntityNotFoundException::new);
 
         fromMember.toggleFavorite(toMember.getId());
     }
