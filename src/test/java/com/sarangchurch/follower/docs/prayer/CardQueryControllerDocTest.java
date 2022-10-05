@@ -3,9 +3,11 @@ package com.sarangchurch.follower.docs.prayer;
 import com.sarangchurch.follower.docs.DocTest;
 import com.sarangchurch.follower.member.domain.Gender;
 import com.sarangchurch.follower.prayer.dao.CardDao;
-import com.sarangchurch.follower.prayer.dao.dto.CardList;
+import com.sarangchurch.follower.prayer.dao.dto.CardDetails;
+import com.sarangchurch.follower.prayer.dao.dto.MemberDetails;
 import com.sarangchurch.follower.prayer.dao.dto.MyCardDetails;
-import com.sarangchurch.follower.prayer.dao.dto.MyCardDetails.MyPrayerList;
+import com.sarangchurch.follower.prayer.dao.dto.MyPrayerDetails;
+import com.sarangchurch.follower.prayer.dao.dto.PrayerDetails;
 import com.sarangchurch.follower.prayer.ui.CardQueryController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,6 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,11 +66,12 @@ class CardQueryControllerDocTest extends DocTest {
     void findThisWeekCards() throws Exception {
         // given
         given(cardDao.findCardsByTeamAndWeek(any(), any())).willReturn(List.of(
-                new CardList(
+                new CardDetails(
                         1L,
                         UPDATE_TIME,
-                        List.of(new CardList.PrayerList(1L, UPDATE_TIME, 1L, "밥 잘 먹게 해주세요", true, 1L, "이순종", Gender.MALE, LocalDate.of(1991, 11, 11))),
-                        new CardList.MemberDetails(1L, "이순종", Gender.MALE, LocalDate.of(1991, 11, 11))
+                        List.of(new PrayerDetails(1L, UPDATE_TIME, 1L, "밥 잘 먹게 해주세요", true, 1L, "이순종", Gender.MALE, LocalDate.of(1991, 11, 11))),
+                        new MemberDetails(1L, "이순종", Gender.MALE, LocalDate.of(1991, 11, 11)),
+                        Collections.emptyList()
                 )
         ));
 
@@ -93,7 +97,7 @@ class CardQueryControllerDocTest extends DocTest {
                         ),
                         responseFields(
                                 fieldWithPath("content[0].cardId").description("카드 id"),
-                                fieldWithPath("content[0].updateTime").description("카드 수정 시간"),
+                                fieldWithPath("content[0].updatedAt").description("카드 수정 시간"),
                                 fieldWithPath("content[0].prayers[0].cardId").description("기도가 속한 카드 id"),
                                 fieldWithPath("content[0].prayers[0].seq").description("기도 순서 (카드 내에서)"),
                                 fieldWithPath("content[0].prayers[0].content").description("기도 내용"),
@@ -113,7 +117,7 @@ class CardQueryControllerDocTest extends DocTest {
         given(cardDao.findCardByMemberAndWeek(any(), any())).willReturn(Optional.of(new MyCardDetails(
                 1L,
                 UPDATE_TIME,
-                List.of(new MyPrayerList(1L, UPDATE_TIME, 1L, "밥 잘먹게 해주세요", false))
+                List.of(new MyPrayerDetails(1L, UPDATE_TIME, 1L, "밥 잘먹게 해주세요", false))
         )));
 
         // when
@@ -131,7 +135,7 @@ class CardQueryControllerDocTest extends DocTest {
                         ),
                         responseFields(
                                 fieldWithPath("content.cardId").description("카드 id"),
-                                fieldWithPath("content.updateTime").description("카드 수정 시간"),
+                                fieldWithPath("content.updatedAt").description("카드 수정 시간"),
                                 fieldWithPath("content.prayers[0].cardId").description("기도가 속한 카드 id"),
                                 fieldWithPath("content.prayers[0].seq").description("기도 순서 (카드 내에서)"),
                                 fieldWithPath("content.prayers[0].content").description("기도 내용"),
@@ -147,7 +151,7 @@ class CardQueryControllerDocTest extends DocTest {
         given(cardDao.findLatestPastCardByMember(any())).willReturn(Optional.of(new MyCardDetails(
                 1L,
                 UPDATE_TIME,
-                List.of(new MyPrayerList(1L, UPDATE_TIME, 1L, "밥 잘먹게 해주세요", false))
+                List.of(new MyPrayerDetails(1L, UPDATE_TIME, 1L, "밥 잘먹게 해주세요", false))
         )));
 
         // when
@@ -165,7 +169,7 @@ class CardQueryControllerDocTest extends DocTest {
                         ),
                         responseFields(
                                 fieldWithPath("content.cardId").description("카드 id"),
-                                fieldWithPath("content.updateTime").description("카드 수정 시간"),
+                                fieldWithPath("content.updatedAt").description("카드 수정 시간"),
                                 fieldWithPath("content.prayers[0].cardId").description("기도가 속한 카드 id"),
                                 fieldWithPath("content.prayers[0].seq").description("기도 순서 (카드 내에서)"),
                                 fieldWithPath("content.prayers[0].content").description("기도 내용"),

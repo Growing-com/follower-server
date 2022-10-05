@@ -10,16 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.sarangchurch.follower.prayer.domain.exception.CommentCreateException.ALREADY_HAS_PARENT;
 import static com.sarangchurch.follower.prayer.domain.exception.CommentCreateException.IS_NOT_TOP;
-import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -36,10 +30,6 @@ public class Comment extends BaseEntity {
     private Long memberId;
     private Long cardId;
     private boolean deleted;
-
-    @OneToMany(mappedBy = "parent", fetch = EAGER, cascade = ALL, orphanRemoval = true)
-    @OrderBy("createDate asc")
-    private List<Comment> children = new ArrayList<>();
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "parent_id")
     private Comment parent;
@@ -53,17 +43,19 @@ public class Comment extends BaseEntity {
     }
 
     public void toParent(Comment parent) {
-        if (parent.hasParent()) {
+        if (parent.belongsToAnotherComment()) {
             throw new CommentCreateException(IS_NOT_TOP);
         }
-        if (hasParent()) {
+        if (belongsToAnotherComment()) {
             throw new CommentCreateException(ALREADY_HAS_PARENT);
         }
         this.parent = parent;
-        parent.children.add(this);
     }
 
-    private boolean hasParent() {
-        return parent != null;
+    private boolean belongsToAnotherComment() {
+        if (this.parent == null) {
+            return false;
+        }
+        return this.parent != this;
     }
 }

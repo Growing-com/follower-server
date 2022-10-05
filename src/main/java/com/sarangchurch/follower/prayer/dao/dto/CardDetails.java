@@ -1,6 +1,7 @@
 package com.sarangchurch.follower.prayer.dao.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -9,9 +10,12 @@ import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
-public class MyCardDetails {
+public class CardDetails {
     private final Long cardId;
     @JsonFormat(pattern = "yyyy/MM/dd hh:mm:ss")
     private final LocalDateTime updatedAt;
-    private final List<MyPrayerDetails> prayers;
+    private final List<PrayerDetails> prayers;
+    private final MemberDetails member;
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private final List<CommentDetails> comments;
 }

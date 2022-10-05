@@ -34,6 +34,8 @@ public class CommentService {
             Comment parent = commentRepository.findById(request.getParentId())
                     .orElseThrow(CommentNotFoundException::new);
             comment.toParent(parent);
+        } else {
+            comment.toParent(comment);
         }
 
         commentRepository.save(comment);

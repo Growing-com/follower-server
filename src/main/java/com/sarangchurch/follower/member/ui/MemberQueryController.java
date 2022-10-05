@@ -2,7 +2,7 @@ package com.sarangchurch.follower.member.ui;
 
 import com.sarangchurch.follower.common.ApiResponse;
 import com.sarangchurch.follower.member.dao.MemberDao;
-import com.sarangchurch.follower.member.dao.dto.CurrentTeamList;
+import com.sarangchurch.follower.member.dao.dto.CurrentTeam;
 import com.sarangchurch.follower.member.dao.dto.MemberDetails;
 import com.sarangchurch.follower.member.domain.Member;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class MemberQueryController {
     }
 
     @GetMapping("/my/team")
-    public ApiResponse<List<CurrentTeamList>> myTeam(@AuthMember Member member) {
+    public ApiResponse<List<CurrentTeam>> myTeam(@AuthMember Member member) {
         return ApiResponse.of(memberDao.findCurrentTeam(member.getId()));
     }
 }

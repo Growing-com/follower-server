@@ -3,7 +3,7 @@ package com.sarangchurch.follower.docs.member;
 import com.sarangchurch.follower.auth.domain.RoleType;
 import com.sarangchurch.follower.docs.DocTest;
 import com.sarangchurch.follower.member.dao.MemberDao;
-import com.sarangchurch.follower.member.dao.dto.CurrentTeamList;
+import com.sarangchurch.follower.member.dao.dto.CurrentTeam;
 import com.sarangchurch.follower.member.dao.dto.MemberDetails;
 import com.sarangchurch.follower.member.ui.MemberQueryController;
 import org.junit.jupiter.api.BeforeEach;
@@ -88,8 +88,8 @@ class MemberQueryControllerDocTest extends DocTest {
     void myTeam() throws Exception {
         // given
         given(memberDao.findCurrentTeam(any())).willReturn(List.of(
-                new CurrentTeamList(1L, "이종민 LBS"),
-                new CurrentTeamList(2L, "우상욱 LBS")
+                new CurrentTeam(1L, "이종민 LBS"),
+                new CurrentTeam(2L, "우상욱 LBS")
         ));
 
         // when

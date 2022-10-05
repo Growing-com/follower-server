@@ -2,7 +2,7 @@ package com.sarangchurch.follower.member.dao;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.sarangchurch.follower.member.dao.dto.CurrentTeamList;
+import com.sarangchurch.follower.member.dao.dto.CurrentTeam;
 import com.sarangchurch.follower.member.dao.dto.MemberDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -36,10 +36,10 @@ public class MemberDao {
                 .fetchOne();
     }
 
-    public List<CurrentTeamList> findCurrentTeam(Long memberId) {
+    public List<CurrentTeam> findCurrentTeam(Long memberId) {
         return queryFactory
                 .select(Projections.constructor(
-                        CurrentTeamList.class,
+                        CurrentTeam.class,
                         team.id.as("teamId"),
                         team.name.as("teamName")
                 ))
