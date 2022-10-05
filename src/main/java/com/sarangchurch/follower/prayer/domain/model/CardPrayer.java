@@ -19,10 +19,10 @@ public class CardPrayer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "seq")
     private Long id;
-    private Long prayerId;
     @ManyToOne(optional = false)
     @JoinColumn(name = "card_id")
     private Card card;
+    private Long prayerId;
 
     CardPrayer(Card card, Long prayerId) {
         this.card = card;
