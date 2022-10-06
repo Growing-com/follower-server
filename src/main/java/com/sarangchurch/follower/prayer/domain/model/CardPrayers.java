@@ -23,7 +23,7 @@ public class CardPrayers {
     @OrderBy("id asc")
     private List<CardPrayer> cardPrayers = new ArrayList<>();
 
-    void setPrayers(Card card, List<Long> prayerIds) {
+    void update(Card card, List<Long> prayerIds) {
         cardPrayers.clear();
         cardPrayers.addAll(toCardPrayers(card, prayerIds));
     }

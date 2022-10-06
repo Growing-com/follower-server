@@ -1,11 +1,9 @@
-package com.sarangchurch.follower.prayer.domain.events.handler;
+package com.sarangchurch.follower.prayer.domain.service;
 
-import com.sarangchurch.follower.prayer.domain.events.type.CardRefreshedEvent;
 import com.sarangchurch.follower.prayer.domain.model.Card;
 import com.sarangchurch.follower.prayer.domain.model.Prayer;
 import com.sarangchurch.follower.prayer.domain.repository.PrayerRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,19 +11,17 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class CardRefreshedHandler {
+public class CardUpdater {
+
     private final PrayerRepository prayerRepository;
 
-    @EventListener(CardRefreshedEvent.class)
-    public void handleCardRefreshed(CardRefreshedEvent evt) {
-        Card card = evt.getCard();
-        List<Prayer> newPrayers = evt.getNewPrayers();
-
+    public void update(Card card, List<Prayer> newPrayers) {
         prayerRepository.deleteByInitialCardId(card.getId());
+
         List<Long> newPrayerIds = prayerRepository.saveAll(newPrayers)
                 .stream()
                 .map(Prayer::getId)
                 .collect(Collectors.toList());
-        card.setPrayers(newPrayerIds);
+        card.updatePrayers(newPrayerIds);
     }
 }

@@ -1,14 +1,13 @@
 package com.sarangchurch.follower.prayer.application;
 
-import com.sarangchurch.follower.common.events.Events;
 import com.sarangchurch.follower.member.domain.model.Member;
 import com.sarangchurch.follower.prayer.application.dto.request.CardCreate;
-import com.sarangchurch.follower.prayer.domain.events.type.CardRefreshedEvent;
 import com.sarangchurch.follower.prayer.domain.model.Card;
 import com.sarangchurch.follower.prayer.domain.model.Prayer;
 import com.sarangchurch.follower.prayer.domain.model.Week;
 import com.sarangchurch.follower.prayer.domain.repository.CardRepository;
 import com.sarangchurch.follower.prayer.domain.repository.PrayerRepository;
+import com.sarangchurch.follower.prayer.domain.service.CardUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +20,7 @@ import java.util.stream.Collectors;
 public class CardCreateService {
     private final CardRepository cardRepository;
     private final PrayerRepository prayerRepository;
+    private final CardUpdater cardUpdater;
 
     @Transactional
     public void create(Member member, CardCreate request, Week week) {
@@ -47,6 +47,6 @@ public class CardCreateService {
                 })
                 .collect(Collectors.toList());
 
-        Events.raise(new CardRefreshedEvent(card, newPrayers));
+        cardUpdater.update(card, newPrayers);
     }
 }

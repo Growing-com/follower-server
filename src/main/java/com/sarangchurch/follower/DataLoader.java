@@ -64,7 +64,7 @@ public class DataLoader {
                 Prayer.builder().responded(true).content("abcd").initialCardId(card.getId()).memberId(이순종.getId()).build(),
                 Prayer.builder().responded(false).content("1234").initialCardId(card.getId()).memberId(이순종.getId()).build()
         ));
-        card.setPrayers(List.of(prayers.get(0).getId(), prayers.get(1).getId()));
+        card.updatePrayers(List.of(prayers.get(0).getId(), prayers.get(1).getId()));
 
         Season univPastSeason = seasonRepository.save(Season.builder().name("2022-1학기").departmentId(univ.getId()).isActive(false).build());
         Season univCurrentSeason = seasonRepository.save(Season.builder().name("2022-2학기").departmentId(univ.getId()).isActive(true).build());

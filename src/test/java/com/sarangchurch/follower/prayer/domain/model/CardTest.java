@@ -1,8 +1,6 @@
 package com.sarangchurch.follower.prayer.domain.model;
 
 import com.sarangchurch.follower.prayer.domain.exception.DuplicatePrayerException;
-import com.sarangchurch.follower.prayer.domain.model.Card;
-import com.sarangchurch.follower.prayer.domain.model.Week;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,20 +14,20 @@ class CardTest {
 
     @DisplayName("중복된 기도를 카드에 넣을 수 없다.")
     @Test
-    void setPrayers_Exception() {
+    void updatePrayers_Exception() {
         Card card = Card.builder()
                 .memberId(1L)
                 .departmentId(1L)
                 .week(Week.previousSunday(now()))
                 .build();
 
-        assertThatThrownBy(() -> card.setPrayers(List.of(1L, 1L, 2L)))
+        assertThatThrownBy(() -> card.updatePrayers(List.of(1L, 1L, 2L)))
                 .isInstanceOf(DuplicatePrayerException.class);
     }
 
     @DisplayName("카드에 기도를 세팅할 수 있다.")
     @Test
-    void setPrayers() {
+    void updatePrayers() {
         Card card = Card.builder()
                 .memberId(1L)
                 .departmentId(1L)
@@ -37,7 +35,7 @@ class CardTest {
                 .build();
 
         assertThatNoException().isThrownBy(
-                () -> card.setPrayers(List.of(1L, 2L, 3L))
+                () -> card.updatePrayers(List.of(1L, 2L, 3L))
         );
     }
 }

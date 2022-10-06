@@ -47,8 +47,8 @@ public class Card extends BaseEntity {
                 .build();
     }
 
-    public void setPrayers(List<Long> prayerIds) {
-        cardPrayers.setPrayers(this, prayerIds);
+    public void updatePrayers(List<Long> prayerIds) {
+        cardPrayers.update(this, prayerIds);
     }
 
     public Long getId() {
