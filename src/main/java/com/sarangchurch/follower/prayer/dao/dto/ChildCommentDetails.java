@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class ChildCommentDetails {
     private final Long commentId;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private final LocalDateTime createdAt;
     private final Long cardId;
     private final Long parentId;

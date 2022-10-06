@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CardDetails {
     private final Long cardId;
-    @JsonFormat(pattern = "yyyy/MM/dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private final LocalDateTime updatedAt;
     private final List<PrayerDetails> prayers;
     private final MemberDetails member;

@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MyCardDetails {
     private final Long cardId;
-    @JsonFormat(pattern = "yyyy/MM/dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private final LocalDateTime updatedAt;
     private final List<MyPrayerDetails> prayers;
 }

@@ -187,8 +187,8 @@ class CardQueryControllerDocTest extends DocTest {
         LocalDateTime now = LocalDateTime.now();
         MemberDetails memberDetails = new MemberDetails(1L, "이순종", Gender.MALE, LocalDate.of(1991, 3, 3));
         PrayerDetails prayerDetails = new PrayerDetails(1L, now, 1L, "응애", false, 1L, "이순종", Gender.MALE, LocalDate.of(1991, 3, 3));
-        ChildCommentDetails childCommentDetails = new ChildCommentDetails(4L, now, 1L, 3L, "응애 대댓글", memberDetails);
-        CommentDetails commentDetails = new CommentDetails(3L, now, 1L, 1L, "응애 댓글", memberDetails, List.of(childCommentDetails));
+        ChildCommentDetails childCommentDetails = new ChildCommentDetails(9L, now, 1L, 3L, "응애 대댓글", memberDetails);
+        CommentDetails commentDetails = new CommentDetails(3L, now, 1L, 3L, "응애 댓글", memberDetails, List.of(childCommentDetails));
 
         given(cardDao.findCardById(any())).willReturn(Optional.of(new CardDetails(
                 1L,

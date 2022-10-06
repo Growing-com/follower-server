@@ -641,7 +641,7 @@ Content-Length: 297
 {
   "content" : {
     "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-    "refreshToken" : "cc6b0eba-c923-43f3-af4a-9238253bf9f6"
+    "refreshToken" : "f5beffea-a694-45c9-a6f8-de1767ffe933"
   }
 }</code></pre>
 </div>
@@ -744,7 +744,7 @@ Content-Length: 297
 {
   "content" : {
     "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-    "refreshToken" : "cc6b0eba-c923-43f3-af4a-9238253bf9f6"
+    "refreshToken" : "f5beffea-a694-45c9-a6f8-de1767ffe933"
   }
 }</code></pre>
 </div>
@@ -793,7 +793,7 @@ Content-Length: 61
 Host: docs.follower.com
 
 {
-  "refreshToken" : "13ad1616-2318-4f71-87eb-529ac6c56d9d"
+  "refreshToken" : "102cc2d8-3eb7-4d50-a925-a9e8b45b6e6a"
 }</code></pre>
 </div>
 </div>
@@ -839,7 +839,7 @@ Content-Length: 297
 {
   "content" : {
     "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-    "refreshToken" : "cc6b0eba-c923-43f3-af4a-9238253bf9f6"
+    "refreshToken" : "f5beffea-a694-45c9-a6f8-de1767ffe933"
   }
 }</code></pre>
 </div>
@@ -1579,12 +1579,12 @@ Host: docs.follower.com</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 957
+Content-Length: 975
 
 {
   "content" : {
     "cardId" : 1,
-    "updatedAt" : "2022/10/06 06:25:17",
+    "updatedAt" : "2022/10/06 06:47:54",
     "prayers" : [ {
       "cardId" : 1,
       "seq" : 1,
@@ -1599,9 +1599,9 @@ Content-Length: 957
     },
     "comments" : [ {
       "commentId" : 3,
-      "createdAt" : "2022-10-06",
+      "createdAt" : "2022-10-06 06:47:54",
       "cardId" : 1,
-      "parentId" : 1,
+      "parentId" : 3,
       "content" : "응애 댓글",
       "member" : {
         "id" : 1,
@@ -1610,8 +1610,8 @@ Content-Length: 957
         "birthDate" : "1991-03-03"
       },
       "children" : [ {
-        "commentId" : 4,
-        "createdAt" : "2022-10-06",
+        "commentId" : 9,
+        "createdAt" : "2022-10-06 06:47:54",
         "cardId" : 1,
         "parentId" : 3,
         "content" : "응애 대댓글",
@@ -1767,22 +1767,22 @@ Content-Length: 957
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>content.comments[0].children[0].member.id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">카드 작성자 id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">대댓글 작성자 id</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>content.comments[0].children[0].member.name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">카드 작성자 이름</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">대댓글 작성자 이름</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>content.comments[0].children[0].member.gender</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">카드 작성자 성별</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">대댓글 작성자 성별</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>content.comments[0].children[0].member.birthDate</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">카드 작성자 생년월일</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">대댓글 작성자 생년월일</p></td>
 </tr>
 </tbody>
 </table>
