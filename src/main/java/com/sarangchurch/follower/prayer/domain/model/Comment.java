@@ -14,8 +14,7 @@ import javax.persistence.Table;
 
 import java.util.Objects;
 
-import static com.sarangchurch.follower.prayer.domain.exception.CommentCreateException.ALREADY_HAS_PARENT;
-import static com.sarangchurch.follower.prayer.domain.exception.CommentCreateException.IS_NOT_TOP;
+import static com.sarangchurch.follower.prayer.domain.exception.CommentCreateException.*;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -45,20 +44,24 @@ public class Comment extends BaseEntity {
     }
 
     public void toParent(Comment parent) {
-        if (parent.belongsToAnotherComment()) {
-            throw new CommentCreateException(IS_NOT_TOP);
-        }
-        if (belongsToAnotherComment()) {
-            throw new CommentCreateException(ALREADY_HAS_PARENT);
-        }
+        validateParent(parent);
         this.parent = parent;
     }
 
-    private boolean belongsToAnotherComment() {
-        if (this.parent == null) {
-            return false;
+    private void validateParent(Comment parent) {
+        if (this.parent != null) {
+            throw new CommentCreateException(CANT_CHANGE_PARENT);
         }
-        return this.parent != this;
+        if (this == parent) {
+            return;
+        }
+        if (!parent.isTop()) {
+            throw new CommentCreateException(IS_NOT_TOP);
+        }
+    }
+
+    private boolean isTop() {
+        return this.parent == this;
     }
 
     @Override
