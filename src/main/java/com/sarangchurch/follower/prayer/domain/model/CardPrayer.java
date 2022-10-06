@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.util.Objects;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -27,5 +28,18 @@ public class CardPrayer {
     CardPrayer(Card card, Long prayerId) {
         this.card = card;
         this.prayerId = prayerId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CardPrayer that = (CardPrayer) o;
+        return Objects.equals(card, that.card) && Objects.equals(prayerId, that.prayerId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(card, prayerId);
     }
 }

@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
+import java.util.Objects;
+
 import static com.sarangchurch.follower.prayer.domain.exception.CantLinkPrayerException.*;
 
 @Entity
@@ -50,5 +52,18 @@ public class Prayer {
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Prayer prayer = (Prayer) o;
+        return Objects.equals(getId(), prayer.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }

@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import java.util.Objects;
+
 import static com.sarangchurch.follower.prayer.domain.exception.CommentCreateException.ALREADY_HAS_PARENT;
 import static com.sarangchurch.follower.prayer.domain.exception.CommentCreateException.IS_NOT_TOP;
 import static javax.persistence.FetchType.LAZY;
@@ -57,5 +59,18 @@ public class Comment extends BaseEntity {
             return false;
         }
         return this.parent != this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comment comment = (Comment) o;
+        return Objects.equals(id, comment.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
