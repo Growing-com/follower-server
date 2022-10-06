@@ -75,6 +75,11 @@ operation::prayer-findMyThisWeekCard[snippets='http-request,request-headers,http
 === 3.4 내 최근 기도 카드 조회 (연결용)
 operation::prayer-findMyLatestPastCard[snippets='http-request,request-headers,http-response,response-fields']
 
+=== 3.5 기도 카드 상세 조회
+operation::prayer-findCardById[snippets='http-request,path-parameters,request-headers,http-response,response-fields']
+
+=== 3.6 댓글 등록
+operation::prayer-createComment[snippets='http-request,path-parameters,request-headers,request-fields,http-response']
 
 [[member]]
 == 4. 멤버 API

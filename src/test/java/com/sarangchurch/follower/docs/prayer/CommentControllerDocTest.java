@@ -1,25 +1,18 @@
 package com.sarangchurch.follower.docs.prayer;
 
 import com.sarangchurch.follower.docs.DocTest;
-import com.sarangchurch.follower.prayer.application.CardCreateService;
-import com.sarangchurch.follower.prayer.application.dto.request.CardCreate;
-import com.sarangchurch.follower.prayer.ui.CardController;
+import com.sarangchurch.follower.prayer.application.CommentService;
+import com.sarangchurch.follower.prayer.application.dto.request.CommentCreate;
+import com.sarangchurch.follower.prayer.ui.CommentController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.restdocs.RestDocumentationContextProvider;
-import org.springframework.restdocs.RestDocumentationExtension;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.util.List;
 
 import static com.sarangchurch.follower.Fixtures.aToken;
 import static com.sarangchurch.follower.docs.utils.ApiDocumentUtils.getDocumentRequest;
@@ -31,42 +24,41 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.headerWit
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
 import static org.springframework.restdocs.payload.JsonFieldType.STRING;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class CardControllerDocTest extends DocTest {
+class CommentControllerDocTest extends DocTest {
     private MockMvc mockMvc;
 
     @Mock
-    private CardCreateService cardCreateService;
+    private CommentService cardCreateService;
 
     @InjectMocks
-    private CardController cardController;
+    private CommentController commentController;
 
     @BeforeEach
     void setUp(RestDocumentationContextProvider restDocumentation) {
-        mockMvc = MockMvcBuilders.standaloneSetup(cardController)
+        mockMvc = MockMvcBuilders.standaloneSetup(commentController)
                 .apply(documentationConfiguration(restDocumentation))
                 .build();
     }
 
-    @DisplayName("기도카드 생성 - POST /api/prayer/my/cards")
+    @DisplayName("댓글 생성 - POST /api/prayers/cards/{cardId}/comments")
     @Test
-    void createCard() throws Exception {
+    void createComment() throws Exception {
         // given
-        doNothing().when(cardCreateService).create(any(), any(), any());
+        doNothing().when(cardCreateService).createComment(any(), any(), any());
 
-        CardCreate request = new CardCreate(List.of(
-                new CardCreate.PrayerCreate(23L, null),
-                new CardCreate.PrayerCreate(null, "밥 잘먹게 해주세요.")
-        ));
+        CommentCreate request = new CommentCreate(1L, "응애");
 
         // when
-        ResultActions result = this.mockMvc.perform(post("/api/prayers/my/cards")
+        ResultActions result = this.mockMvc.perform(post("/api/prayers/cards/{cardId}/comments", 1L)
                 .header("Authorization", "Bearer " + aToken())
                 .contentType(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
@@ -74,15 +66,18 @@ class CardControllerDocTest extends DocTest {
 
         // then
         result.andExpect(status().isOk())
-                .andDo(document("prayer-createCard",
+                .andDo(document("prayer-createComment",
                         getDocumentRequest(),
                         getDocumentResponse(),
+                        pathParameters(
+                            parameterWithName("cardId").description("카드 id")
+                        ),
                         requestHeaders(
                                 headerWithName("Authorization").description("JWT 토큰")
                         ),
                         requestFields(
-                             fieldWithPath("prayers[0].linkPrayerId").type(NUMBER).description("연결 기도 id(선 처리)").optional(),
-                             fieldWithPath("prayers[1].content").type(STRING).description("새 기도 내용(후 처리)").optional()
+                             fieldWithPath("parentId").type(NUMBER).description("부모 댓글 id").optional(),
+                             fieldWithPath("content").type(STRING).description("댓글 내용")
                         )
                 ));
     }
