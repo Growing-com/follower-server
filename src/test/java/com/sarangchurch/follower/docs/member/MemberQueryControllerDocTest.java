@@ -4,7 +4,7 @@ import com.sarangchurch.follower.auth.domain.model.RoleType;
 import com.sarangchurch.follower.docs.DocTest;
 import com.sarangchurch.follower.member.dao.MemberDao;
 import com.sarangchurch.follower.member.dao.dto.CurrentTeam;
-import com.sarangchurch.follower.member.dao.dto.Favorites;
+import com.sarangchurch.follower.member.dao.dto.MemberSearchResult;
 import com.sarangchurch.follower.member.dao.dto.MemberDetails;
 import com.sarangchurch.follower.member.domain.model.Gender;
 import com.sarangchurch.follower.member.ui.MemberQueryController;
@@ -119,7 +119,7 @@ class MemberQueryControllerDocTest extends DocTest {
     void myFavorites() throws Exception {
         // given
         given(memberDao.findMemberFavorites(any())).willReturn(List.of(
-                new Favorites(1L, "우상욱", LocalDate.now(), Gender.MALE)
+                new MemberSearchResult(1L, "우상욱", LocalDate.now(), Gender.MALE)
         ));
 
         // when

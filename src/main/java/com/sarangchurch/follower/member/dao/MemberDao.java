@@ -3,9 +3,10 @@ package com.sarangchurch.follower.member.dao;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sarangchurch.follower.member.dao.dto.CurrentTeam;
-import com.sarangchurch.follower.member.dao.dto.Favorites;
+import com.sarangchurch.follower.member.dao.dto.MemberSearchResult;
 import com.sarangchurch.follower.member.dao.dto.MemberDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -51,10 +52,10 @@ public class MemberDao {
                 .fetch();
     }
 
-    public List<Favorites> findMemberFavorites(Long memberId) {
+    public List<MemberSearchResult> findMemberFavorites(Long memberId) {
         return queryFactory
                 .select(Projections.constructor(
-                        Favorites.class,
+                        MemberSearchResult.class,
                         member.id.as("memberId"),
                         member.name,
                         member.birthDate,
@@ -63,6 +64,24 @@ public class MemberDao {
                 .from(favorite)
                 .join(member).on(member.id.eq(favorite.toMemberId))
                 .where(favorite.fromMember.id.eq(memberId))
+                .orderBy(member.name.asc())
+                .fetch();
+    }
+
+    public List<MemberSearchResult> search(Long departmentId, String name, Pageable pageable) {
+        return queryFactory
+                .select(Projections.constructor(
+                        MemberSearchResult.class,
+                        member.id.as("memberId"),
+                        member.name,
+                        member.birthDate,
+                        member.gender
+                ))
+                .from(member)
+                .where(member.departmentId.eq(departmentId), member.name.like(name + "%"))
+                .orderBy(member.name.asc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize() + 1L)
                 .fetch();
     }
 }

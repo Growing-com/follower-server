@@ -1,18 +1,24 @@
 package com.sarangchurch.follower.member.ui;
 
 import com.sarangchurch.follower.common.types.ApiResponse;
+import com.sarangchurch.follower.common.types.OffsetBasedPageRequest;
 import com.sarangchurch.follower.member.dao.MemberDao;
 import com.sarangchurch.follower.member.dao.dto.CurrentTeam;
-import com.sarangchurch.follower.member.dao.dto.Favorites;
 import com.sarangchurch.follower.member.dao.dto.MemberDetails;
+import com.sarangchurch.follower.member.dao.dto.MemberSearchResult;
 import com.sarangchurch.follower.member.domain.model.Member;
 import com.sarangchurch.follower.member.ui.argumentresolver.AuthMember;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
+import static com.sarangchurch.follower.common.types.OffsetBasedPageRequest.*;
 
 @RestController
 @RequestMapping("/api/members")
@@ -32,7 +38,18 @@ public class MemberQueryController {
     }
 
     @GetMapping("/my/favorites")
-    public ApiResponse<List<Favorites>> myFavorites(@AuthMember Member member) {
+    public ApiResponse<List<MemberSearchResult>> myFavorites(@AuthMember Member member) {
         return ApiResponse.of(memberDao.findMemberFavorites(member.getId()));
+    }
+
+    @GetMapping("/search")
+    public SliceImpl<MemberSearchResult> search(
+            @AuthMember Member member,
+            @RequestParam String name,
+            @ModelAttribute OffsetBasedPageRequest pageRequest
+    ) {
+        List<MemberSearchResult> content = memberDao.search(member.getDepartmentId(), name, pageRequest);
+        boolean hasNext = popIfHasNext(content, pageRequest);
+        return new SliceImpl<>(content, pageRequest, hasNext);
     }
 }
