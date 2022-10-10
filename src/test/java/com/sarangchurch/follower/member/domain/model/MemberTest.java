@@ -1,7 +1,10 @@
 package com.sarangchurch.follower.member.domain.model;
 
+import com.sarangchurch.follower.member.domain.exception.IllegalFavoriteException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -28,8 +31,34 @@ class MemberTest {
                 .build();
 
         assertThatThrownBy(() -> member.toggleFavorite(1L))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("자기 자신을 즐겨찾기 할 수 없습니다.");
+                .isInstanceOf(IllegalFavoriteException.class);
+    }
+
+    @DisplayName("즐겨찾기를 한 번에 수정한다.")
+    @Test
+    void bulkUpdateFavorites() {
+        Member member = Member.builder()
+                .id(1L)
+                .build();
+
+        List<Long> add = List.of(2L, 3L, 4L);
+        List<Long> remove = List.of(5L, 6L);
+
+        assertThatNoException().isThrownBy(() -> member.bulkUpdateFavorites(add, remove));
+    }
+
+    @DisplayName("자기 자신을 즐겨찾기 할 수 없다.")
+    @Test
+    void bulkUpdateFavorites_Exception() {
+        Member member = Member.builder()
+                .id(1L)
+                .build();
+
+        List<Long> add = List.of(1L);
+        List<Long> remove = List.of(5L, 6L);
+
+        assertThatThrownBy(() -> member.bulkUpdateFavorites(add, remove))
+                .isInstanceOf(IllegalFavoriteException.class);
     }
 
     @DisplayName("id가 같으면 동등성 비교 성공")

@@ -1,5 +1,6 @@
 package com.sarangchurch.follower.member.domain.model;
 
+import com.sarangchurch.follower.member.domain.exception.IllegalFavoriteException;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
@@ -21,7 +22,7 @@ public class Favorites {
 
     void toggle(Member fromMember, Long toMemberId) {
          if (fromMember.getId().equals(toMemberId)) {
-             throw new IllegalArgumentException("자기 자신을 즐겨찾기 할 수 없습니다.");
+             throw new IllegalFavoriteException();
          }
 
          Favorite favorite = new Favorite(fromMember, toMemberId);
@@ -42,7 +43,7 @@ public class Favorites {
 
     private void addFavorites(Member fromMember, List<Long> add) {
         if (add.contains(fromMember.getId())) {
-            throw new IllegalArgumentException("자기 자신을 즐겨찾기 할 수 없습니다.");
+            throw new IllegalFavoriteException();
         }
 
         add.stream()
