@@ -4,8 +4,8 @@ import com.sarangchurch.follower.auth.domain.model.RoleType;
 import com.sarangchurch.follower.docs.DocTest;
 import com.sarangchurch.follower.member.dao.MemberDao;
 import com.sarangchurch.follower.member.dao.dto.CurrentTeam;
-import com.sarangchurch.follower.member.dao.dto.MemberSearchResult;
 import com.sarangchurch.follower.member.dao.dto.MemberDetails;
+import com.sarangchurch.follower.member.dao.dto.MemberSearchResult;
 import com.sarangchurch.follower.member.domain.model.Gender;
 import com.sarangchurch.follower.member.ui.MemberQueryController;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,8 +22,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static com.sarangchurch.follower.Fixtures.aToken;
-import static com.sarangchurch.follower.docs.utils.ApiDocumentUtils.getDocumentRequest;
-import static com.sarangchurch.follower.docs.utils.ApiDocumentUtils.getDocumentResponse;
+import static com.sarangchurch.follower.docs.utils.ApiDocumentUtils.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -31,9 +30,12 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.headerWit
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-import static org.springframework.restdocs.payload.JsonFieldType.*;
+import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
+import static org.springframework.restdocs.payload.JsonFieldType.STRING;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -55,7 +57,7 @@ class MemberQueryControllerDocTest extends DocTest {
                 .build();
     }
 
-    @DisplayName("내 정보 가져오기 - GET /api/member/my/info")
+    @DisplayName("내 정보 가져오기 - GET /api/members/my/info")
     @Test
     void myInfo() throws Exception {
         // given
@@ -85,7 +87,7 @@ class MemberQueryControllerDocTest extends DocTest {
                 ));
     }
 
-    @DisplayName("활성화된 소속팀 가져오기 - GET /api/member/my/team")
+    @DisplayName("활성화된 소속팀 가져오기 - GET /api/members/my/team")
     @Test
     void myTeam() throws Exception {
         // given
@@ -114,7 +116,7 @@ class MemberQueryControllerDocTest extends DocTest {
                 ));
     }
 
-    @DisplayName("내 즐겨찾기 목록 조회 - GET /api/member/my/favorites")
+    @DisplayName("내 즐겨찾기 목록 조회 - GET /api/members/my/favorites")
     @Test
     void myFavorites() throws Exception {
         // given
@@ -143,4 +145,42 @@ class MemberQueryControllerDocTest extends DocTest {
                         )
                 ));
     }
+
+    @DisplayName("부서 내에서 멤버 검색 by 이름 - GET /api/members/search")
+    @Test
+    void search() throws Exception {
+        // given
+        given(memberDao.search(any(), any(), any())).willReturn(List.of(
+                new MemberSearchResult(1L, "우상욱", LocalDate.now(), Gender.MALE)
+        ));
+
+        // when
+        ResultActions result = this.mockMvc.perform(get("/api/members/search")
+                .header("Authorization", "Bearer " + aToken())
+                .accept(APPLICATION_JSON)
+                .param("name", "우")
+                .param("offset", "5")
+        );
+
+        // then
+        result.andExpect(status().isOk())
+                .andDo(document("member-search",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestHeaders(
+                                headerWithName("Authorization").description("JWT 토큰")
+                        ),
+                        requestParameters(
+                                parameterWithName("name").description("검색어"),
+                                parameterWithName("offset").description("페이징용 offset (0부터)")
+                        ),
+                        responseFields(getPagingFieldDescriptors(
+                                fieldWithPath("content[0].memberId").type(NUMBER).description("멤버 id"),
+                                fieldWithPath("content[0].name").type(STRING).description("멤버 이름"),
+                                fieldWithPath("content[0].birthDate").type(STRING).description("멤버 생년월일"),
+                                fieldWithPath("content[0].gender").type(STRING).description("멤버 성별"))
+                        )
+                ));
+    }
+
 }

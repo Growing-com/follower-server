@@ -95,3 +95,6 @@ operation::member-toggleFavorite[snippets='http-request,request-headers,request-
 
 === 4.4 내 즐겨찾기 목록 조회
 operation::member-myFavorites[snippets='http-request,request-headers,http-response,response-fields']
+
+=== 4.5 멤버 검색 By 이름
+operation::member-search[snippets='http-request,request-headers,request-parameters,http-response,response-fields']

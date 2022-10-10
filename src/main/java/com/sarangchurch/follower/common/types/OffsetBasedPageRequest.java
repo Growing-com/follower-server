@@ -11,7 +11,7 @@ import java.util.Optional;
 public class OffsetBasedPageRequest implements Pageable, Serializable {
 
     private static final long serialVersionUID = -25822477129613575L;
-    private static final int limit = 10;
+    private static final int LIMIT = 10;
 
     private final int offset;
 
@@ -34,12 +34,12 @@ public class OffsetBasedPageRequest implements Pageable, Serializable {
 
     @Override
     public int getPageNumber() {
-        return offset / limit;
+        return offset / LIMIT;
     }
 
     @Override
     public int getPageSize() {
-        return limit;
+        return LIMIT;
     }
 
     @Override
@@ -85,7 +85,7 @@ public class OffsetBasedPageRequest implements Pageable, Serializable {
 
     @Override
     public boolean hasPrevious() {
-        return offset > limit;
+        return offset > LIMIT;
     }
 
     @Override
