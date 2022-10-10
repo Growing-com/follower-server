@@ -3,6 +3,7 @@ package com.sarangchurch.follower.member.dao;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sarangchurch.follower.member.dao.dto.CurrentTeam;
+import com.sarangchurch.follower.member.dao.dto.Favorites;
 import com.sarangchurch.follower.member.dao.dto.MemberDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -13,6 +14,7 @@ import static com.sarangchurch.follower.department.domain.model.QDepartment.depa
 import static com.sarangchurch.follower.department.domain.model.QSeason.season;
 import static com.sarangchurch.follower.department.domain.model.QTeam.team;
 import static com.sarangchurch.follower.department.domain.model.QTeamMember.teamMember;
+import static com.sarangchurch.follower.member.domain.model.QFavorite.favorite;
 import static com.sarangchurch.follower.member.domain.model.QMember.member;
 
 @Repository
@@ -46,6 +48,21 @@ public class MemberDao {
                 .from(team)
                 .join(teamMember).on(teamMember.team.id.eq(team.id), teamMember.memberId.eq(memberId))
                 .join(season).on(season.id.eq(team.seasonId), season.isActive.isTrue())
+                .fetch();
+    }
+
+    public List<Favorites> findMemberFavorites(Long memberId) {
+        return queryFactory
+                .select(Projections.constructor(
+                        Favorites.class,
+                        member.id.as("memberId"),
+                        member.name,
+                        member.birthDate,
+                        member.gender
+                ))
+                .from(favorite)
+                .join(member).on(member.id.eq(favorite.toMemberId))
+                .where(favorite.fromMember.id.eq(memberId))
                 .fetch();
     }
 }

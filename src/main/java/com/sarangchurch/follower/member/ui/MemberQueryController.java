@@ -3,6 +3,7 @@ package com.sarangchurch.follower.member.ui;
 import com.sarangchurch.follower.common.types.ApiResponse;
 import com.sarangchurch.follower.member.dao.MemberDao;
 import com.sarangchurch.follower.member.dao.dto.CurrentTeam;
+import com.sarangchurch.follower.member.dao.dto.Favorites;
 import com.sarangchurch.follower.member.dao.dto.MemberDetails;
 import com.sarangchurch.follower.member.domain.model.Member;
 import com.sarangchurch.follower.member.ui.argumentresolver.AuthMember;
@@ -28,5 +29,10 @@ public class MemberQueryController {
     @GetMapping("/my/team")
     public ApiResponse<List<CurrentTeam>> myTeam(@AuthMember Member member) {
         return ApiResponse.of(memberDao.findCurrentTeam(member.getId()));
+    }
+
+    @GetMapping("/my/favorites")
+    public ApiResponse<List<Favorites>> myFavorites(@AuthMember Member member) {
+        return ApiResponse.of(memberDao.findMemberFavorites(member.getId()));
     }
 }

@@ -14,6 +14,6 @@ public class DataLoaderBootstrap implements ApplicationListener<ContextRefreshed
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        dataLoader.loadData();
+        //dataLoader.loadData();
     }
 }
