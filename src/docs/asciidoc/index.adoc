@@ -92,3 +92,6 @@ operation::member-myTeam[snippets='http-request,request-headers,http-response,re
 
 === 4.3 즐겨찾기 토글하기
 operation::member-toggleFavorite[snippets='http-request,request-headers,request-fields,http-response']
+
+=== 4.4 내 즐겨찾기 목록 조회
+operation::member-myFavorites[snippets='http-request,request-headers,http-response,response-fields']

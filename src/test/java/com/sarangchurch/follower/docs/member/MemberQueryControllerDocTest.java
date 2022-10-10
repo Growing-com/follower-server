@@ -4,7 +4,9 @@ import com.sarangchurch.follower.auth.domain.model.RoleType;
 import com.sarangchurch.follower.docs.DocTest;
 import com.sarangchurch.follower.member.dao.MemberDao;
 import com.sarangchurch.follower.member.dao.dto.CurrentTeam;
+import com.sarangchurch.follower.member.dao.dto.Favorites;
 import com.sarangchurch.follower.member.dao.dto.MemberDetails;
+import com.sarangchurch.follower.member.domain.model.Gender;
 import com.sarangchurch.follower.member.ui.MemberQueryController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -108,6 +110,36 @@ class MemberQueryControllerDocTest extends DocTest {
                         responseFields(
                                 fieldWithPath("content[0].teamId").type(NUMBER).description("팀 id"),
                                 fieldWithPath("content[0].teamName").type(STRING).description("팀 이름")
+                        )
+                ));
+    }
+
+    @DisplayName("내 즐겨찾기 목록 조회 - GET /api/member/my/favorites")
+    @Test
+    void myFavorites() throws Exception {
+        // given
+        given(memberDao.findMemberFavorites(any())).willReturn(List.of(
+                new Favorites(1L, "우상욱", LocalDate.now(), Gender.MALE)
+        ));
+
+        // when
+        ResultActions result = this.mockMvc.perform(get("/api/members/my/favorites")
+                .header("Authorization", "Bearer " + aToken())
+                .accept(APPLICATION_JSON));
+
+        // then
+        result.andExpect(status().isOk())
+                .andDo(document("member-myFavorites",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestHeaders(
+                                headerWithName("Authorization").description("JWT 토큰")
+                        ),
+                        responseFields(
+                                fieldWithPath("content[0].memberId").type(NUMBER).description("멤버 id"),
+                                fieldWithPath("content[0].name").type(STRING).description("멤버 이름"),
+                                fieldWithPath("content[0].birthDate").type(STRING).description("멤버 생년월일"),
+                                fieldWithPath("content[0].gender").type(STRING).description("멤버 성별")
                         )
                 ));
     }

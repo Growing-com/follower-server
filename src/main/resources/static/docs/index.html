@@ -479,6 +479,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_4_1_내_정보_조회">4.1 내 정보 조회</a></li>
 <li><a href="#_4_2_내_활성화된_소속팀_조회">4.2 내 활성화된 소속팀 조회</a></li>
 <li><a href="#_4_3_즐겨찾기_토글하기">4.3 즐겨찾기 토글하기</a></li>
+<li><a href="#_4_4_내_즐겨찾기_목록_조회">4.4 내 즐겨찾기 목록 조회</a></li>
 </ul>
 </li>
 </ul>
@@ -641,7 +642,7 @@ Content-Length: 297
 {
   "content" : {
     "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-    "refreshToken" : "86f0c203-dcd4-42af-bf50-756c8a01cb68"
+    "refreshToken" : "4ac48947-0857-42f2-8c10-c8bc4d927296"
   }
 }</code></pre>
 </div>
@@ -744,7 +745,7 @@ Content-Length: 297
 {
   "content" : {
     "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-    "refreshToken" : "86f0c203-dcd4-42af-bf50-756c8a01cb68"
+    "refreshToken" : "4ac48947-0857-42f2-8c10-c8bc4d927296"
   }
 }</code></pre>
 </div>
@@ -793,7 +794,7 @@ Content-Length: 61
 Host: docs.follower.com
 
 {
-  "refreshToken" : "187daf64-9da3-486a-9d9c-8073f9107fdc"
+  "refreshToken" : "ae13ccc0-0235-49e5-849b-ce4d8cbcd1f9"
 }</code></pre>
 </div>
 </div>
@@ -839,7 +840,7 @@ Content-Length: 297
 {
   "content" : {
     "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g",
-    "refreshToken" : "86f0c203-dcd4-42af-bf50-756c8a01cb68"
+    "refreshToken" : "4ac48947-0857-42f2-8c10-c8bc4d927296"
   }
 }</code></pre>
 </div>
@@ -1584,7 +1585,7 @@ Content-Length: 975
 {
   "content" : {
     "cardId" : 1,
-    "updatedAt" : "2022-10-06 06:49:25",
+    "updatedAt" : "2022-10-10 03:03:46",
     "prayers" : [ {
       "cardId" : 1,
       "seq" : 1,
@@ -1599,7 +1600,7 @@ Content-Length: 975
     },
     "comments" : [ {
       "commentId" : 3,
-      "createdAt" : "2022-10-06 06:49:25",
+      "createdAt" : "2022-10-10 03:03:46",
       "cardId" : 1,
       "parentId" : 3,
       "content" : "응애 댓글",
@@ -1611,7 +1612,7 @@ Content-Length: 975
       },
       "children" : [ {
         "commentId" : 9,
-        "createdAt" : "2022-10-06 06:49:25",
+        "createdAt" : "2022-10-10 03:03:46",
         "cardId" : 1,
         "parentId" : 3,
         "content" : "응애 대댓글",
@@ -2164,13 +2165,106 @@ Host: docs.follower.com
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_4_4_내_즐겨찾기_목록_조회"><a class="link" href="#_4_4_내_즐겨찾기_목록_조회">4.4 내 즐겨찾기 목록 조회</a></h3>
+<div class="sect3">
+<h4 id="_4_4_내_즐겨찾기_목록_조회_http_request"><a class="link" href="#_4_4_내_즐겨찾기_목록_조회_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/members/my/favorites HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMyIsImlhdCI6MTY2MjcwMDcxNSwiZXhwIjoxNjYyNzYwNzE1fQ.HCSS2ocAF5i380GvIv-MJuEs7J6a6FitGTj29F2XoOIDjloNEDSnryPFODpI1CU3BgfbK9KKN1WosPAHnt51-g
+Accept: application/json
+Host: docs.follower.com</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_4_내_즐겨찾기_목록_조회_request_headers"><a class="link" href="#_4_4_내_즐겨찾기_목록_조회_request_headers">Request headers</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_4_4_내_즐겨찾기_목록_조회_http_response"><a class="link" href="#_4_4_내_즐겨찾기_목록_조회_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 127
+
+{
+  "content" : [ {
+    "memberId" : 1,
+    "name" : "우상욱",
+    "birthDate" : "2022-10-10",
+    "gender" : "MALE"
+  } ]
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_4_내_즐겨찾기_목록_조회_response_fields"><a class="link" href="#_4_4_내_즐겨찾기_목록_조회_response_fields">Response fields</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[0].memberId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">멤버 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[0].name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">멤버 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[0].birthDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">멤버 생년월일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[0].gender</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">멤버 성별</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-10-06 18:22:40 +0900
+Last updated 2022-10-10 14:53:59 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
