@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import static lombok.AccessLevel.PROTECTED;
@@ -54,6 +55,10 @@ public class Member {
 
     public void toggleFavorite(Long toMemberId) {
         favorites.toggle(this, toMemberId);
+    }
+
+    public void bulkUpdateFavorites(List<Long> add, List<Long> remove) {
+        favorites.bulkUpdate(this, add, remove);
     }
 
     public void changePassword(String password) {

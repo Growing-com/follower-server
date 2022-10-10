@@ -1,8 +1,9 @@
 package com.sarangchurch.follower.member.application;
 
+import com.sarangchurch.follower.member.application.dto.BulkUpdateFavorite;
+import com.sarangchurch.follower.member.domain.exception.IllegalMemberException;
 import com.sarangchurch.follower.member.domain.model.Member;
 import com.sarangchurch.follower.member.domain.repository.MemberRepository;
-import com.sarangchurch.follower.member.domain.exception.IllegalMemberException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,5 +46,15 @@ public class MemberService {
                 .orElseThrow(EntityNotFoundException::new);
 
         fromMember.toggleFavorite(toMember.getId());
+    }
+
+    public void bulkUpdateFavorites(Long fromMemberId, BulkUpdateFavorite request) {
+        if (memberRepository.countByIdIn(request.getAdd()) != request.getAdd().size()) {
+            throw new EntityNotFoundException("존재하지 않는 멤버를 즐겨찾기에 추가할 수 없습니다.");
+        }
+
+        memberRepository.findById(fromMemberId)
+                .orElseThrow(EntityNotFoundException::new)
+                .bulkUpdateFavorites(request.getAdd(), request.getRemove());
     }
 }

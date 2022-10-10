@@ -2,6 +2,7 @@ package com.sarangchurch.follower.member.domain.repository;
 
 import com.sarangchurch.follower.member.domain.model.Member;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository {
@@ -10,6 +11,8 @@ public interface MemberRepository {
     Optional<Member> findByUsername(String username);
 
     Optional<Member> findById(Long id);
+
+    long countByIdIn(List<Long> ids);
 
     boolean existsByName(String name);
 
