@@ -9,6 +9,8 @@ import com.sarangchurch.follower.prayer.dao.dto.CommentDetails;
 import com.sarangchurch.follower.prayer.dao.dto.MemberDetails;
 import com.sarangchurch.follower.prayer.dao.dto.MyCardDetails;
 import com.sarangchurch.follower.prayer.dao.dto.MyPrayerDetails;
+import com.sarangchurch.follower.prayer.dao.dto.PersonalCardDetails;
+import com.sarangchurch.follower.prayer.dao.dto.PersonalPrayerDetails;
 import com.sarangchurch.follower.prayer.dao.dto.PrayerDetails;
 import com.sarangchurch.follower.prayer.ui.CardQueryController;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,8 +30,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.sarangchurch.follower.Fixtures.aToken;
-import static com.sarangchurch.follower.docs.utils.ApiDocumentUtils.getDocumentRequest;
-import static com.sarangchurch.follower.docs.utils.ApiDocumentUtils.getDocumentResponse;
+import static com.sarangchurch.follower.docs.utils.ApiDocumentUtils.*;
 import static com.sarangchurch.follower.docs.utils.DocumentFormatGenerator.getDateFormant;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -109,6 +110,49 @@ class CardQueryControllerDocTest extends DocTest {
                                 fieldWithPath("content[0].member.gender").description("멤버 성별"),
                                 fieldWithPath("content[0].member.birthDate").description("멤버 생일")
                         )
+                ));
+    }
+
+    @DisplayName("기도 창고 조회 - GET /api/prayers/members/{memberId}/cards")
+    @Test
+    void findCardsByMemberAndYear() throws Exception {
+        // given
+        PersonalCardDetails card = new PersonalCardDetails(1L, LocalDate.of(2022, 9, 26));
+        card.setPrayers(List.of(new PersonalPrayerDetails(1L, 2L, 3L, "하하호호", false)));
+
+        given(cardDao.findCardsByMemberAndYear(any(), any(), any())).willReturn(List.of(card));
+
+        // when
+        ResultActions result = this.mockMvc.perform(get("/api/prayers/members/{memberId}/cards", 1)
+                .header("Authorization", "Bearer " + aToken())
+                .accept(APPLICATION_JSON)
+                .param("year", "2022")
+                .param("offset", "0"));
+
+        // then
+        result.andExpect(status().isOk())
+                .andDo(document("prayer-findCardsByMemberAndYear",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        pathParameters(
+                                parameterWithName("memberId").description("멤버 id")
+                        ),
+                        requestHeaders(
+                                headerWithName("Authorization").description("JWT 토큰")
+                        ),
+                        requestParameters(
+                                parameterWithName("year").description("연도"),
+                                parameterWithName("offset").description("페이징 offset")
+                        ),
+                        responseFields(getPagingFieldDescriptors(
+                                fieldWithPath("content[0].cardId").description("카드 id"),
+                                fieldWithPath("content[0].week").description("카드 수정 시간"),
+                                fieldWithPath("content[0].prayers[0].cardId").description("기도가 속한 카드 id"),
+                                fieldWithPath("content[0].prayers[0].seq").description("기도 순서 (카드 내에서)"),
+                                fieldWithPath("content[0].prayers[0].prayerId").description("기도 id"),
+                                fieldWithPath("content[0].prayers[0].content").description("기도 내용"),
+                                fieldWithPath("content[0].prayers[0].response").description("기도 응답 여부")
+                                ))
                 ));
     }
 
