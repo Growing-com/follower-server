@@ -1,5 +1,6 @@
 package com.sarangchurch.follower.prayer.dao;
 
+import com.sarangchurch.follower.common.types.OffsetBasedPageRequest;
 import com.sarangchurch.follower.member.domain.model.Gender;
 import com.sarangchurch.follower.prayer.dao.dto.CardDetails;
 import com.sarangchurch.follower.prayer.dao.dto.ChildCommentDetails;
@@ -7,6 +8,8 @@ import com.sarangchurch.follower.prayer.dao.dto.CommentDetails;
 import com.sarangchurch.follower.prayer.dao.dto.MemberDetails;
 import com.sarangchurch.follower.prayer.dao.dto.MyCardDetails;
 import com.sarangchurch.follower.prayer.dao.dto.MyPrayerDetails;
+import com.sarangchurch.follower.prayer.dao.dto.PersonalCardDetails;
+import com.sarangchurch.follower.prayer.dao.dto.PersonalPrayerDetails;
 import com.sarangchurch.follower.prayer.dao.dto.PrayerDetails;
 import com.sarangchurch.follower.prayer.domain.model.Week;
 import org.springframework.jdbc.core.RowMapper;
@@ -73,6 +76,40 @@ public class CardDao {
                 .collect(toList());
     }
 
+    public List<PersonalCardDetails> findCardsByMemberAndYear(Long memberId, Integer year, OffsetBasedPageRequest pageRequest) {
+        String cardSql = "" +
+                "select c.id as card_id, c.week as card_week " +
+                "from card c " +
+                "where c.member_id = :memberId and extract(year from c.week) = :year " +
+                "order by c.week desc " +
+                "limit :limit " +
+                "offset :offset";
+
+        SqlParameterSource cardParam = new MapSqlParameterSource()
+                .addValue("memberId", memberId)
+                .addValue("year", year)
+                .addValue("limit", pageRequest.getPageSize() + 1)
+                .addValue("offset", pageRequest.getOffset());
+
+        List<PersonalCardDetails> cards = template.query(cardSql, cardParam, personalCardRowMapper());
+
+        String prayerSql = "" +
+                "select cp.card_id as card_id, cp.seq as prayer_seq, " +
+                "   p.id as prayer_id, p.content as prayer_content, p.responded as prayer_responded " +
+                "from card_prayer cp " +
+                "join prayer p on(p.id = cp.prayer_id and cp.card_id in (:ids))";
+
+        MapSqlParameterSource prayerParam = new MapSqlParameterSource()
+                .addValue("ids", cards.stream().map(PersonalCardDetails::getCardId).collect(toList()));
+
+        Map<Long, List<PersonalPrayerDetails>> cardIdToPrayers = template.query(prayerSql, prayerParam, personalPrayerDetailsRowMapper())
+                .stream()
+                .collect(groupingBy(PersonalPrayerDetails::getCardId));
+
+        cards.forEach(it -> it.setPrayers(cardIdToPrayers.get(it.getCardId())));
+        return cards;
+    }
+
     public Optional<CardDetails> findCardById(Long cardId) {
         String prayerSql = "" +
                 "select c.id as card_id, c.updated_at as card_updated_at, c.week as card_week, " +
@@ -129,36 +166,6 @@ public class CardDao {
         ));
     }
 
-    private RowMapper<PrayerDetails> prayerRowMapper() {
-        return (rs, rowNum) -> new PrayerDetails(
-                rs.getLong("card_id"),
-                rs.getTimestamp("card_updated_at").toLocalDateTime(),
-                rs.getLong("prayer_id"),
-                rs.getString("prayer_content"),
-                rs.getBoolean("prayer_responded"),
-                rs.getLong("member_id"),
-                rs.getString("member_name"),
-                Gender.valueOf(rs.getString("member_gender")),
-                rs.getDate("member_birth_date").toLocalDate()
-        );
-    }
-
-    private RowMapper<ChildCommentDetails> childCommentRowMapper() {
-        return (rs, rowNum) -> new ChildCommentDetails(
-                rs.getLong("comments_id"),
-                rs.getTimestamp("comments_created_at").toLocalDateTime(),
-                rs.getLong("comments_card_id"),
-                rs.getLong("comments_parent_id"),
-                rs.getString("comments_content"),
-                new MemberDetails(
-                        rs.getLong("member_id"),
-                        rs.getString("member_name"),
-                        Gender.valueOf(rs.getString("member_gender")),
-                        rs.getDate("member_birth_date").toLocalDate()
-                )
-        );
-    }
-
     public Optional<MyCardDetails> findCardByMemberAndWeek(Long memberId, Week week) {
         String sql = "" +
                 "select c.id as card_id, c.updated_at as card_updated_at, " +
@@ -201,6 +208,53 @@ public class CardDao {
             return Optional.empty();
         }
         return Optional.of(new MyCardDetails(prayers.get(0).getCardId(), prayers.get(0).getCardUpdateTime(), prayers));
+    }
+
+    private RowMapper<PersonalCardDetails> personalCardRowMapper() {
+        return (rs, rowNum) -> new PersonalCardDetails(
+                rs.getLong("card_id"),
+                rs.getDate("card_week").toLocalDate()
+        );
+    }
+
+    private RowMapper<PersonalPrayerDetails> personalPrayerDetailsRowMapper() {
+        return (rs, rowNum) -> new PersonalPrayerDetails(
+                rs.getLong("card_id"),
+                rs.getLong("prayer_seq"),
+                rs.getLong("prayer_id"),
+                rs.getString("prayer_content"),
+                rs.getBoolean("prayer_responded")
+        );
+    }
+
+    private RowMapper<PrayerDetails> prayerRowMapper() {
+        return (rs, rowNum) -> new PrayerDetails(
+                rs.getLong("card_id"),
+                rs.getTimestamp("card_updated_at").toLocalDateTime(),
+                rs.getLong("prayer_id"),
+                rs.getString("prayer_content"),
+                rs.getBoolean("prayer_responded"),
+                rs.getLong("member_id"),
+                rs.getString("member_name"),
+                Gender.valueOf(rs.getString("member_gender")),
+                rs.getDate("member_birth_date").toLocalDate()
+        );
+    }
+
+    private RowMapper<ChildCommentDetails> childCommentRowMapper() {
+        return (rs, rowNum) -> new ChildCommentDetails(
+                rs.getLong("comments_id"),
+                rs.getTimestamp("comments_created_at").toLocalDateTime(),
+                rs.getLong("comments_card_id"),
+                rs.getLong("comments_parent_id"),
+                rs.getString("comments_content"),
+                new MemberDetails(
+                        rs.getLong("member_id"),
+                        rs.getString("member_name"),
+                        Gender.valueOf(rs.getString("member_gender")),
+                        rs.getDate("member_birth_date").toLocalDate()
+                )
+        );
     }
 
     private RowMapper<MyPrayerDetails> myPrayerRowMapper() {

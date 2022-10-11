@@ -23,6 +23,10 @@ public class Week {
         this.week = week;
     }
 
+    public Week lastWeek() {
+        return Week.previousSunday(week.minusWeeks(1L));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

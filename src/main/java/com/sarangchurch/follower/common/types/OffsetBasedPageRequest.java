@@ -15,10 +15,11 @@ public class OffsetBasedPageRequest implements Pageable, Serializable {
 
     private final int offset;
 
-    public static boolean popIfHasNext(List<? extends Object> content, Pageable pageable) {
-        boolean hasNext = content.size() > pageable.getPageSize();
-        if (hasNext) {
+    public static boolean popIfHasNext(List<?> content, Pageable pageable) {
+        boolean hasNext = false;
+        if (content.size() > pageable.getPageSize()) {
             content.remove(pageable.getPageSize());
+            hasNext = true;
         }
         return hasNext;
     }

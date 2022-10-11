@@ -2,19 +2,19 @@ package com.sarangchurch.follower;
 
 import com.sarangchurch.follower.auth.domain.model.RoleType;
 import com.sarangchurch.follower.department.domain.model.Department;
-import com.sarangchurch.follower.department.domain.repository.DepartmentRepository;
 import com.sarangchurch.follower.department.domain.model.Season;
-import com.sarangchurch.follower.department.domain.repository.SeasonRepository;
 import com.sarangchurch.follower.department.domain.model.Team;
+import com.sarangchurch.follower.department.domain.repository.DepartmentRepository;
+import com.sarangchurch.follower.department.domain.repository.SeasonRepository;
 import com.sarangchurch.follower.department.domain.repository.TeamRepository;
 import com.sarangchurch.follower.member.domain.model.Member;
-import com.sarangchurch.follower.member.domain.repository.MemberRepository;
 import com.sarangchurch.follower.member.domain.model.MemberRole;
+import com.sarangchurch.follower.member.domain.repository.MemberRepository;
 import com.sarangchurch.follower.prayer.domain.model.Card;
-import com.sarangchurch.follower.prayer.domain.repository.CardRepository;
 import com.sarangchurch.follower.prayer.domain.model.Prayer;
-import com.sarangchurch.follower.prayer.domain.repository.PrayerRepository;
 import com.sarangchurch.follower.prayer.domain.model.Week;
+import com.sarangchurch.follower.prayer.domain.repository.CardRepository;
+import com.sarangchurch.follower.prayer.domain.repository.PrayerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.sarangchurch.follower.auth.domain.model.RoleType.*;
 import static com.sarangchurch.follower.member.domain.model.Gender.MALE;
@@ -43,43 +44,37 @@ public class DataLoader {
 
     @Transactional
     public void loadData() {
-        // 대학부(회원 2명, 시즌 2개, 팀 3개)
+        // 대학부 회원 2명
         Department univ = departmentRepository.save(createDepartment("대학 8부", "이순종 목사"));
-
         Member 이순종 = createMember("soonjong", "이순종", MANAGER, univ);
         Member 우상욱 = createMember("sangwook", "우상욱", MEMBER, univ);
         memberRepository.save(이순종);
         memberRepository.save(우상욱);
 
-        우상욱.toggleFavorite(이순종.getId());
         em.flush();
         em.clear();
 
-        Card card = cardRepository.save(Card.builder()
-                .memberId(이순종.getId())
-                .week(Week.previousSunday(LocalDate.now()))
-                .departmentId(univ.getId())
-                .build());
-        List<Prayer> prayers = prayerRepository.saveAll(List.of(
-                Prayer.builder().responded(true).content("abcd").initialCardId(card.getId()).memberId(이순종.getId()).build(),
-                Prayer.builder().responded(false).content("1234").initialCardId(card.getId()).memberId(이순종.getId()).build()
-        ));
-        card.updatePrayers(List.of(prayers.get(0).getId(), prayers.get(1).getId()));
+        // 대학부 기도 카드 30개
+        saveCards(univ, 이순종);
 
+        // 대학부 시즌 2개
         Season univPastSeason = seasonRepository.save(Season.builder().name("2022-1학기").departmentId(univ.getId()).isActive(false).build());
         Season univCurrentSeason = seasonRepository.save(Season.builder().name("2022-2학기").departmentId(univ.getId()).isActive(true).build());
 
+        // 대학부 팀 3개
         teamRepository.save(createTeam(univPastSeason, "1학기 순모임", 우상욱));
         teamRepository.save(createTeam(univCurrentSeason, "2학기 순모임", 이순종, 우상욱));
         teamRepository.save(createTeam(univCurrentSeason, "간사 모임", 이순종));
 
-        // 청년부(회원 2명, 시즌 1개, 팀 2개)
+        // 청년부 회원 2명
         Department youth = departmentRepository.save(createDepartment("청년 6부", "이원준 목사"));
         Member 이원준 = memberRepository.save(createMember("wonjun", "이원준", MANAGER, youth));
         Member 이종민 = memberRepository.save(createMember("jongmin", "이종민", LEADER, youth));
 
+        // 청년부 시즌 1개
         Season youthCurrentSeason = seasonRepository.save(Season.builder().name("2022-2학기").departmentId(youth.getId()).isActive(true).build());
 
+        // 청년부 팀 1개
         teamRepository.save(createTeam(youthCurrentSeason, "청년부 모임", 이원준, 이종민));
     }
 
@@ -115,5 +110,25 @@ public class DataLoader {
         }
 
         return team;
+    }
+
+    private void saveCards(Department univ, Member 이순종) {
+        Week week = Week.previousSunday(LocalDate.now());
+
+        for (int i = 0; i < 100; i++) {
+            week = week.lastWeek();
+            Card card = cardRepository.save(Card.builder()
+                    .memberId(이순종.getId())
+                    .week(week)
+                    .departmentId(univ.getId())
+                    .build());
+            List<Prayer> prayers = prayerRepository.saveAll(List.of(
+                    Prayer.builder().responded(true).content("응답기도" + i).initialCardId(card.getId()).memberId(이순종.getId()).build(),
+                    Prayer.builder().responded(false).content("대기기도" + i).initialCardId(card.getId()).memberId(이순종.getId()).build()
+            ));
+            card.updatePrayers(prayers.stream().map(Prayer::getId).collect(Collectors.toList()));
+
+            cardRepository.save(card);
+        }
     }
 }
