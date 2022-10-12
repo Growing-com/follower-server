@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import static com.sarangchurch.follower.aceeptance.CommonAssertions.요청에_성공한다;
 import static com.sarangchurch.follower.aceeptance.CommonAssertions.요청에_실패한다;
 import static com.sarangchurch.follower.aceeptance.prayer.CardSteps.*;
+import static com.sarangchurch.follower.aceeptance.prayer.PrayerSteps.기도를_작성한다;
 
 class CardAcceptanceTest extends AcceptanceTest {
 

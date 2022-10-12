@@ -84,6 +84,9 @@ operation::prayer-createComment[snippets='http-request,path-parameters,request-h
 === 3.7 기도 창고 조회
 operation::prayer-findCardsByMemberAndYear[snippets='http-request,path-parameters,request-headers,http-response,response-fields']
 
+=== 3.8 기도 응답 처리
+operation::prayer-respond[snippets='http-request,request-headers,request-fields,http-response']
+
 [[member]]
 == 4. 멤버 API
 

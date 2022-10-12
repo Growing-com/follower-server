@@ -1,12 +1,13 @@
 package com.sarangchurch.follower.prayer.domain.model;
 
+import com.sarangchurch.follower.auth.domain.exception.ForbiddenException;
 import com.sarangchurch.follower.prayer.domain.exception.CantLinkPrayerException;
-import com.sarangchurch.follower.prayer.domain.model.Prayer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.sarangchurch.follower.prayer.domain.exception.CantLinkPrayerException.NOT_MY_PRAYER;
 import static com.sarangchurch.follower.prayer.domain.exception.CantLinkPrayerException.SAME_INITIAL_CARD;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class PrayerTest {
@@ -28,5 +29,26 @@ class PrayerTest {
         assertThatThrownBy(() -> prayer.validateLinkable(2L, 1L))
                 .isInstanceOf(CantLinkPrayerException.class)
                 .hasMessage(SAME_INITIAL_CARD);
+    }
+
+    @DisplayName("자신의 기도를 응답처리 할 수 있다.")
+    @Test
+    void respond() {
+        Prayer prayer = Prayer.builder()
+                .memberId(1L)
+                .build();
+
+        assertThatNoException().isThrownBy(() -> prayer.respond(1L));
+    }
+
+    @DisplayName("다른 사용자의 기도를 응답처리 할 수 없다.")
+    @Test
+    void respond_Exception() {
+        Prayer prayer = Prayer.builder()
+                .memberId(1L)
+                .build();
+
+        assertThatThrownBy(() -> prayer.respond(2L))
+                .isInstanceOf(ForbiddenException.class);
     }
 }
