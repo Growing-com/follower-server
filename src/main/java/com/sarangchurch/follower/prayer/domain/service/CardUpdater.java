@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -15,13 +14,8 @@ public class CardUpdater {
 
     private final PrayerRepository prayerRepository;
 
-    public void update(Card card, List<Prayer> newPrayers) {
+    public List<Prayer> update(Card card, List<Prayer> newPrayers) {
         prayerRepository.deleteByInitialCardId(card.getId());
-
-        List<Long> newPrayerIds = prayerRepository.saveAll(newPrayers)
-                .stream()
-                .map(Prayer::getId)
-                .collect(Collectors.toList());
-        card.updatePrayers(newPrayerIds);
+        return prayerRepository.saveAll(newPrayers);
     }
 }

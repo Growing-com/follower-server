@@ -1,6 +1,7 @@
 package com.sarangchurch.follower.prayer.domain.model;
 
 import com.sarangchurch.follower.common.jpa.BaseEntity;
+import com.sarangchurch.follower.prayer.domain.service.CardUpdater;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Version;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -48,8 +50,13 @@ public class Card extends BaseEntity {
                 .build();
     }
 
-    public void updatePrayers(List<Long> prayerIds) {
-        cardPrayers.update(this, prayerIds);
+    public void update(CardUpdater cardUpdater, List<Prayer> newPrayers) {
+        List<Long> newPrayerIds = cardUpdater.update(this, newPrayers)
+                .stream()
+                .map(Prayer::getId)
+                .collect(Collectors.toList());
+        
+        cardPrayers.update(this, newPrayerIds);
     }
 
     public Long getId() {

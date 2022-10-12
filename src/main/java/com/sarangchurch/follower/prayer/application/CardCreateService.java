@@ -47,6 +47,6 @@ public class CardCreateService {
                 })
                 .collect(Collectors.toList());
 
-        cardUpdater.update(card, newPrayers);
+        card.update(cardUpdater, newPrayers);
     }
 }

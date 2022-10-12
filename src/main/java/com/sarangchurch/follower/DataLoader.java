@@ -15,6 +15,7 @@ import com.sarangchurch.follower.prayer.domain.model.Prayer;
 import com.sarangchurch.follower.prayer.domain.model.Week;
 import com.sarangchurch.follower.prayer.domain.repository.CardRepository;
 import com.sarangchurch.follower.prayer.domain.repository.PrayerRepository;
+import com.sarangchurch.follower.prayer.domain.service.CardUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.sarangchurch.follower.auth.domain.model.RoleType.*;
 import static com.sarangchurch.follower.member.domain.model.Gender.MALE;
@@ -39,6 +39,7 @@ public class DataLoader {
     private final TeamRepository teamRepository;
     private final CardRepository cardRepository;
     private final PrayerRepository prayerRepository;
+    private final CardUpdater cardUpdater;
     private final EntityManager em;
     private final PasswordEncoder passwordEncoder;
 
@@ -126,7 +127,7 @@ public class DataLoader {
                     Prayer.builder().responded(true).content("응답기도" + i).initialCardId(card.getId()).memberId(이순종.getId()).build(),
                     Prayer.builder().responded(false).content("대기기도" + i).initialCardId(card.getId()).memberId(이순종.getId()).build()
             ));
-            card.updatePrayers(prayers.stream().map(Prayer::getId).collect(Collectors.toList()));
+            card.update(cardUpdater, prayers);
 
             cardRepository.save(card);
         }
