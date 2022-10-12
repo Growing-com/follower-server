@@ -1,5 +1,6 @@
 package com.sarangchurch.follower.prayer.domain.model;
 
+import com.sarangchurch.follower.auth.domain.exception.ForbiddenException;
 import com.sarangchurch.follower.prayer.domain.exception.CantLinkPrayerException;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -47,6 +48,17 @@ public class Prayer {
 
         if (responded) {
             throw new CantLinkPrayerException(ALREADY_RESPONDED);
+        }
+    }
+
+    public void respond(Long memberId) {
+        validateOwner(memberId);
+        responded = true;
+    }
+
+    private void validateOwner(Long memberId) {
+        if (!this.memberId.equals(memberId)) {
+            throw new ForbiddenException();
         }
     }
 

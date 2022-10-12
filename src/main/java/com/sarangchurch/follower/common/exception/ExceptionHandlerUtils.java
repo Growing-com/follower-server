@@ -5,7 +5,9 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-import static com.sarangchurch.follower.common.exception.ErrorResponse.*;
+import static com.sarangchurch.follower.common.exception.ErrorResponse.ValidationError;
+import static com.sarangchurch.follower.common.exception.ErrorResponse.builder;
+import static java.time.LocalDateTime.now;
 import static java.util.Collections.emptyList;
 
 @Slf4j
@@ -15,7 +17,7 @@ public class ExceptionHandlerUtils {
     }
 
     public static ResponseEntity<ErrorResponse> createErrorResponse(ErrorCode errorCode, Exception e) {
-        log.error("Error: ", e);
+        log.error("exception type: {}, time: {}, message: {}", e.getClass().getName(), now(), e.getMessage(), e);
         return createErrorResponse(errorCode, e, emptyList());
     }
 
