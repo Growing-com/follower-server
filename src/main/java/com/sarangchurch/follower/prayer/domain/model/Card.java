@@ -1,7 +1,6 @@
 package com.sarangchurch.follower.prayer.domain.model;
 
 import com.sarangchurch.follower.common.jpa.BaseEntity;
-import com.sarangchurch.follower.prayer.domain.service.CardUpdater;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
@@ -50,13 +49,14 @@ public class Card extends BaseEntity {
                 .build();
     }
 
-    public void update(CardUpdater cardUpdater, List<Prayer> newPrayers) {
-        List<Long> newPrayerIds = cardUpdater.update(this, newPrayers)
-                .stream()
+    public void update(List<Prayer> prayers) {
+        cardPrayers.update(this, extractIds(prayers));
+    }
+
+    private List<Long> extractIds(List<Prayer> prayers) {
+        return prayers.stream()
                 .map(Prayer::getId)
                 .collect(Collectors.toList());
-        
-        cardPrayers.update(this, newPrayerIds);
     }
 
     public Long getId() {

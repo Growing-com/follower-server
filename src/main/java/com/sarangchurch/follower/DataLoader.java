@@ -15,7 +15,6 @@ import com.sarangchurch.follower.prayer.domain.model.Prayer;
 import com.sarangchurch.follower.prayer.domain.model.Week;
 import com.sarangchurch.follower.prayer.domain.repository.CardRepository;
 import com.sarangchurch.follower.prayer.domain.repository.PrayerRepository;
-import com.sarangchurch.follower.prayer.domain.service.CardUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,7 +38,6 @@ public class DataLoader {
     private final TeamRepository teamRepository;
     private final CardRepository cardRepository;
     private final PrayerRepository prayerRepository;
-    private final CardUpdater cardUpdater;
     private final EntityManager em;
     private final PasswordEncoder passwordEncoder;
 
@@ -127,7 +125,7 @@ public class DataLoader {
                     Prayer.builder().responded(true).content("응답기도" + i).initialCardId(card.getId()).memberId(이순종.getId()).build(),
                     Prayer.builder().responded(false).content("대기기도" + i).initialCardId(card.getId()).memberId(이순종.getId()).build()
             ));
-            card.update(cardUpdater, prayers);
+            card.update(prayers);
 
             cardRepository.save(card);
         }

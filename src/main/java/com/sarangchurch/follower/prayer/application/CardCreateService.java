@@ -7,7 +7,6 @@ import com.sarangchurch.follower.prayer.domain.model.Prayer;
 import com.sarangchurch.follower.prayer.domain.model.Week;
 import com.sarangchurch.follower.prayer.domain.repository.CardRepository;
 import com.sarangchurch.follower.prayer.domain.repository.PrayerRepository;
-import com.sarangchurch.follower.prayer.domain.service.CardUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +19,6 @@ import java.util.stream.Collectors;
 public class CardCreateService {
     private final CardRepository cardRepository;
     private final PrayerRepository prayerRepository;
-    private final CardUpdater cardUpdater;
 
     @Transactional
     public void create(Member member, CardCreate request, Week week) {
@@ -31,10 +29,15 @@ public class CardCreateService {
                         .week(week)
                         .build()));
 
+        prayerRepository.deleteByInitialCardId(card.getId());
+        card.update(prayerRepository.saveAll(createPrayers(member, request, card)));
+    }
+
+    private List<Prayer> createPrayers(Member member, CardCreate request, Card card) {
         List<Prayer> linkPrayers = prayerRepository.findByIdIn(request.linkPrayerIds());
         linkPrayers.forEach(it -> it.validateLinkable(member.getId(), card.getId()));
 
-        List<Prayer> newPrayers = request.getPrayers()
+        return request.getPrayers()
                 .stream()
                 .map(prayerCreate -> {
                     if (prayerCreate.getLinkPrayerId() != null) {
@@ -46,7 +49,5 @@ public class CardCreateService {
                     return card.prayer(prayerCreate.getContent());
                 })
                 .collect(Collectors.toList());
-
-        card.update(cardUpdater, newPrayers);
     }
 }
