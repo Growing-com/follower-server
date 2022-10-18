@@ -4,7 +4,8 @@ import org.springframework.http.HttpStatus;
 
 public enum GlobalErrorCode implements ErrorCode {
     DB_INTEGRITY_VIOLATION(HttpStatus.BAD_REQUEST),
-    BAD_PARAMETER(HttpStatus.BAD_REQUEST);
+    BAD_PARAMETER(HttpStatus.BAD_REQUEST)
+    ;
 
     private final HttpStatus httpStatus;
 

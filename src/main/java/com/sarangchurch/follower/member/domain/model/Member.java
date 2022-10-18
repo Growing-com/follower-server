@@ -4,7 +4,6 @@ import com.sarangchurch.follower.auth.domain.model.RoleType;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -35,13 +34,13 @@ public class Member {
     private Boolean earlyBorn;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    @Embedded
-    private MemberRole role;
+    @Enumerated(EnumType.STRING)
+    private RoleType role;
     private Long departmentId;
     private Favorites favorites = new Favorites();
 
     @Builder
-    public Member(Long id, String username, String password, String name, LocalDate birthDate, Boolean earlyBorn, Gender gender, MemberRole role, Long departmentId) {
+    public Member(Long id, String username, String password, String name, LocalDate birthDate, Boolean earlyBorn, Gender gender, RoleType role, Long departmentId) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -65,6 +64,10 @@ public class Member {
         this.password = password;
     }
 
+    public void changeRole(RoleType role) {
+        this.role = role;
+    }
+
     public void toDepartment(Long departmentId) {
         this.departmentId = departmentId;
     }
@@ -83,7 +86,7 @@ public class Member {
     }
 
     public RoleType getRole() {
-        return role.getRoleType();
+        return role;
     }
 
     public Long getId() {

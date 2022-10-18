@@ -5,7 +5,6 @@ import com.sarangchurch.follower.department.domain.model.Department;
 import com.sarangchurch.follower.department.domain.repository.DepartmentRepository;
 import com.sarangchurch.follower.member.domain.model.Member;
 import com.sarangchurch.follower.member.domain.repository.MemberRepository;
-import com.sarangchurch.follower.member.domain.model.MemberRole;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -62,7 +61,7 @@ public class DataLoader {
                 .birthDate(LocalDate.of(1991, 11, 1))
                 .earlyBorn(false)
                 .gender(MALE)
-                .role(MemberRole.of(roleType))
+                .role(roleType)
                 .departmentId(department.getId())
                 .build();
     }

@@ -4,7 +4,6 @@ import com.sarangchurch.follower.auth.domain.model.RoleType;
 import com.sarangchurch.follower.common.types.EntitySupplier;
 import com.sarangchurch.follower.member.domain.model.Gender;
 import com.sarangchurch.follower.member.domain.model.Member;
-import com.sarangchurch.follower.member.domain.model.MemberRole;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,7 +54,7 @@ public class AddMemberRequest implements EntitySupplier<Member> {
                 .birthDate(getBirthDate())
                 .earlyBorn(getEarlyBorn())
                 .gender(getGender())
-                .role(MemberRole.of(getRole()))
+                .role(role)
                 .build();
     }
 }

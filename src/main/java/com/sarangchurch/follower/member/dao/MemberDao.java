@@ -32,7 +32,7 @@ public class MemberDao {
                         member.birthDate,
                         department.name.as("departmentName"),
                         department.id.as("departmentId"),
-                        member.role.roleType
+                        member.role
                 )).distinct()
                 .from(member)
                 .join(department).on(department.id.eq(member.departmentId), member.id.eq(memberId))

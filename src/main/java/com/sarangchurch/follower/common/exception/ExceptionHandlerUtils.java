@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 import static com.sarangchurch.follower.common.exception.ErrorResponse.ValidationError;
-import static com.sarangchurch.follower.common.exception.ErrorResponse.builder;
 import static java.time.LocalDateTime.now;
 import static java.util.Collections.emptyList;
 
@@ -27,7 +26,7 @@ public class ExceptionHandlerUtils {
             List<ValidationError> validationErrors
     ) {
 
-        ErrorResponse errorResponse = builder()
+        ErrorResponse errorResponse = ErrorResponse.builder()
                 .status(errorCode.getStatus())
                 .code(errorCode.getCode())
                 .message(e.getMessage())

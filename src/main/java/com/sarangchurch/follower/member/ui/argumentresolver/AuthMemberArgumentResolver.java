@@ -1,9 +1,8 @@
 package com.sarangchurch.follower.member.ui.argumentresolver;
 
-import com.sarangchurch.follower.auth.domain.model.LoginMember;
 import com.sarangchurch.follower.auth.domain.exception.UnauthorizedException;
+import com.sarangchurch.follower.auth.domain.model.LoginMember;
 import com.sarangchurch.follower.member.domain.model.Member;
-import com.sarangchurch.follower.member.domain.model.MemberRole;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,7 +36,7 @@ public class AuthMemberArgumentResolver implements HandlerMethodArgumentResolver
                 .birthDate(loginMember.getBirthDate())
                 .earlyBorn(loginMember.isEarlyBorn())
                 .gender(loginMember.getGender())
-                .role(MemberRole.of(loginMember.getRole()))
+                .role(loginMember.getRole())
                 .departmentId(loginMember.getDepartmentId())
                 .build();
     }
