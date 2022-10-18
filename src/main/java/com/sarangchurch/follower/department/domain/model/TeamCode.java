@@ -10,11 +10,7 @@ public class TeamCode {
     private String code;
 
     public TeamCode() {
-        this(UUID.randomUUID().toString().toUpperCase().substring(0, 6));
-    }
-
-    public TeamCode(String code) {
-        this.code = code;
+        this.code = UUID.randomUUID().toString().toUpperCase().substring(0, 6);
     }
 
     @Override
