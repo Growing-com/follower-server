@@ -4,11 +4,11 @@ import com.sarangchurch.follower.auth.domain.model.RoleType;
 import com.sarangchurch.follower.department.domain.model.Department;
 import com.sarangchurch.follower.department.domain.model.Season;
 import com.sarangchurch.follower.department.domain.model.Team;
+import com.sarangchurch.follower.department.domain.model.TeamCode;
 import com.sarangchurch.follower.department.domain.repository.DepartmentRepository;
 import com.sarangchurch.follower.department.domain.repository.SeasonRepository;
 import com.sarangchurch.follower.department.domain.repository.TeamRepository;
 import com.sarangchurch.follower.member.domain.model.Member;
-import com.sarangchurch.follower.member.domain.model.MemberRole;
 import com.sarangchurch.follower.member.domain.repository.MemberRepository;
 import com.sarangchurch.follower.prayer.domain.model.Card;
 import com.sarangchurch.follower.prayer.domain.model.Prayer;
@@ -93,19 +93,22 @@ public class DataLoader {
                 .birthDate(LocalDate.of(1991, 11, 1))
                 .earlyBorn(false)
                 .gender(MALE)
-                .role(MemberRole.of(roleType))
+                .role(roleType)
                 .departmentId(department.getId())
                 .build();
     }
 
     private Team createTeam(Season past, String name, Member... members) {
+        TeamCode code = new TeamCode();
+
         Team team = Team.builder()
                 .name(name)
                 .seasonId(past.getId())
+                .code(code)
                 .build();
 
         for (Member member : members) {
-            team.addMember(member.getId());
+            team.addMember(member, code);
         }
 
         return team;

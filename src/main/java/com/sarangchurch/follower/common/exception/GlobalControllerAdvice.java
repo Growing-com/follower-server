@@ -37,6 +37,11 @@ public class GlobalControllerAdvice {
         return createErrorResponse(BAD_PARAMETER, e);
     }
 
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ErrorResponse> handleIIllegalStateException(IllegalStateException e) {
+        return createErrorResponse(BAD_PARAMETER, e);
+    }
+
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleEntityNotFoundException(EntityNotFoundException e) {
         return createErrorResponse(BAD_PARAMETER, e);

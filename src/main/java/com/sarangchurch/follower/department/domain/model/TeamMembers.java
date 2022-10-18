@@ -1,5 +1,6 @@
 package com.sarangchurch.follower.department.domain.model;
 
+import com.sarangchurch.follower.department.domain.exception.DuplicateMemberException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +19,11 @@ public class TeamMembers {
     private List<TeamMember> teamMembers = new ArrayList<>();
 
     void add(Team team, Long memberId) {
-        teamMembers.add(new TeamMember(team, memberId));
+        TeamMember teamMember = new TeamMember(team, memberId);
+
+        if (teamMembers.contains(teamMember)) {
+            throw new DuplicateMemberException();
+        }
+        teamMembers.add(teamMember);
     }
 }
