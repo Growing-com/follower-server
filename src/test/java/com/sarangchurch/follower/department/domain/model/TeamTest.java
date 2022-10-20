@@ -2,6 +2,7 @@ package com.sarangchurch.follower.department.domain.model;
 
 import com.sarangchurch.follower.department.domain.exception.DuplicateMemberException;
 import com.sarangchurch.follower.department.domain.exception.IllegalTeamCodeException;
+import com.sarangchurch.follower.department.domain.service.TeamMemberValidator;
 import com.sarangchurch.follower.member.domain.model.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,23 +13,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class TeamTest {
+    private TeamMemberValidator teamMemberValidator = new TeamMemberValidator();
 
     @DisplayName("가입 코드가 불일치하면 가입에 실패한다.")
     @Test
     void addMember_Exception1() {
         // given
         TeamCode code = new TeamCode();
+        Team team = Team.builder()
+                .code(code)
+                .build();
 
         Member member = Member.builder()
                 .id(1L)
                 .build();
 
-        Team team = Team.builder()
-                .code(code)
-                .build();
-
         // expected
-        assertThatThrownBy(() -> team.addMember(member, new TeamCode()))
+        TeamCode wrongCode = new TeamCode();
+        assertThatThrownBy(() -> team.addMember(teamMemberValidator, member, wrongCode))
                 .isInstanceOf(IllegalTeamCodeException.class);
     }
 
@@ -37,19 +39,18 @@ class TeamTest {
     void addMember_Exception2() {
         // given
         TeamCode code = new TeamCode();
+        Team team = Team.builder()
+                .code(code)
+                .build();
 
         Member member = Member.builder()
                 .id(1L)
                 .build();
 
-        Team team = Team.builder()
-                .code(code)
-                .build();
-
-        team.addMember(member, code);
+        team.addMember(teamMemberValidator, member, code);
 
         // expected
-        assertThatThrownBy(() -> team.addMember(member, code))
+        assertThatThrownBy(() -> team.addMember(teamMemberValidator, member, code))
                 .isInstanceOf(DuplicateMemberException.class);
     }
 
@@ -57,6 +58,11 @@ class TeamTest {
     @Test
     void addMember() {
         // given
+        TeamCode code = new TeamCode();
+        Team team = Team.builder()
+                .code(code)
+                .build();
+
         Member firstMember = Member.builder()
                 .id(1L)
                 .role(MEMBER)
@@ -67,17 +73,13 @@ class TeamTest {
                 .role(MEMBER)
                 .build();
 
-        TeamCode code = new TeamCode();
-        Team team = Team.builder()
-                .code(code)
-                .build();
-
         // when
-        team.addMember(firstMember, code);
-        team.addMember(secondMember, code);
+        team.addMember(teamMemberValidator, firstMember, code);
+        team.addMember(teamMemberValidator, secondMember, code);
 
         // then
         assertThat(firstMember.getRole()).isEqualTo(LEADER);
         assertThat(secondMember.getRole()).isEqualTo(MEMBER);
     }
+
 }

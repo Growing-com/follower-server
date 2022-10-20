@@ -1,10 +1,11 @@
 package com.sarangchurch.follower.department.domain.model;
 
-import javax.persistence.Embeddable;
+import com.sarangchurch.follower.common.types.ValueObject;
+
 import java.util.Objects;
 import java.util.UUID;
 
-@Embeddable
+@ValueObject
 public class TeamCode {
 
     private String code;

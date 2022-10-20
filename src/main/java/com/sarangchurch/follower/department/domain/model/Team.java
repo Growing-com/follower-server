@@ -1,6 +1,6 @@
 package com.sarangchurch.follower.department.domain.model;
 
-import com.sarangchurch.follower.department.domain.exception.IllegalTeamCodeException;
+import com.sarangchurch.follower.department.domain.service.TeamMemberValidator;
 import com.sarangchurch.follower.member.domain.model.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -12,9 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Objects;
-
-import static com.sarangchurch.follower.auth.domain.model.RoleType.LEADER;
-import static com.sarangchurch.follower.auth.domain.model.RoleType.MEMBER;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,26 +36,25 @@ public class Team {
         this.code = code;
     }
 
-    public void addMember(Member member, TeamCode code) {
-        validateCode(code);
-        setLeader(member);
+    public void addMember(TeamMemberValidator teamMemberValidator, Member member, TeamCode code) {
+        teamMemberValidator.validate(this, member, code);
         teamMembers.add(this, member.getId());
     }
 
-    private void validateCode(TeamCode code) {
-        if (!this.code.equals(code)) {
-            throw new IllegalTeamCodeException();
-        }
+    public void changeLeader(Member member) {
+        this.leaderId = member.getId();
     }
 
-    private void setLeader(Member member) {
-        if (leaderId != null) {
-            return;
-        }
-        if (member.getRole() == MEMBER) {
-            member.changeRole(LEADER);
-        }
-        this.leaderId = member.getId();
+    public boolean matchCode(TeamCode code) {
+        return this.code.equals(code);
+    }
+
+    public int totalMembers() {
+        return teamMembers.size();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     @Override

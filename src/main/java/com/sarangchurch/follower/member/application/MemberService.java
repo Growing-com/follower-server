@@ -38,6 +38,11 @@ public class MemberService {
         }
     }
 
+    public Member findById(Long id) {
+        return memberRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
     public void toggleFavorites(Long fromMemberId, Long toMemberId) {
         Member fromMember = memberRepository.findById(fromMemberId)
                 .orElseThrow(EntityNotFoundException::new);

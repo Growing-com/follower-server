@@ -26,4 +26,8 @@ public class TeamMembers {
         }
         teamMembers.add(teamMember);
     }
+
+    int size() {
+        return teamMembers.size();
+    }
 }
