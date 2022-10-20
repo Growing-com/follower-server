@@ -1,6 +1,6 @@
 package com.sarangchurch.follower.aceeptance.member;
 
-import com.sarangchurch.follower.member.domain.model.Member;
+import com.sarangchurch.follower.member.command.domain.model.Member;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 

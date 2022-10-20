@@ -1,9 +1,9 @@
 package com.sarangchurch.follower.docs.prayer;
 
 import com.sarangchurch.follower.docs.DocTest;
-import com.sarangchurch.follower.prayer.application.CommentService;
-import com.sarangchurch.follower.prayer.application.dto.request.CommentCreate;
-import com.sarangchurch.follower.prayer.ui.CommentController;
+import com.sarangchurch.follower.prayer.command.application.CommentService;
+import com.sarangchurch.follower.prayer.command.application.dto.request.CommentCreate;
+import com.sarangchurch.follower.prayer.command.ui.CommentController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

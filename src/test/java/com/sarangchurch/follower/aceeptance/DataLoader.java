@@ -1,12 +1,12 @@
 package com.sarangchurch.follower.aceeptance;
 
 import com.sarangchurch.follower.auth.domain.model.RoleType;
-import com.sarangchurch.follower.department.domain.model.Department;
-import com.sarangchurch.follower.department.domain.model.DepartmentInformation;
-import com.sarangchurch.follower.department.domain.model.DepartmentLinks;
-import com.sarangchurch.follower.department.domain.repository.DepartmentRepository;
-import com.sarangchurch.follower.member.domain.model.Member;
-import com.sarangchurch.follower.member.domain.repository.MemberRepository;
+import com.sarangchurch.follower.department.command.domain.model.Department;
+import com.sarangchurch.follower.department.command.domain.model.DepartmentInformation;
+import com.sarangchurch.follower.department.command.domain.model.DepartmentLinks;
+import com.sarangchurch.follower.department.command.domain.repository.DepartmentRepository;
+import com.sarangchurch.follower.member.command.domain.model.Member;
+import com.sarangchurch.follower.member.command.domain.repository.MemberRepository;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 
 import static com.sarangchurch.follower.auth.domain.model.RoleType.ADMIN;
 import static com.sarangchurch.follower.auth.domain.model.RoleType.MANAGER;
-import static com.sarangchurch.follower.member.domain.model.Gender.MALE;
+import static com.sarangchurch.follower.member.command.domain.model.Gender.MALE;
 
 @Component
 @Profile("test")

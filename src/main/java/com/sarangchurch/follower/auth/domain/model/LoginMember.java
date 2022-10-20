@@ -1,7 +1,7 @@
 package com.sarangchurch.follower.auth.domain.model;
 
 import com.sarangchurch.follower.auth.domain.exception.ForbiddenException;
-import com.sarangchurch.follower.member.domain.model.Gender;
+import com.sarangchurch.follower.member.command.domain.model.Gender;
 import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

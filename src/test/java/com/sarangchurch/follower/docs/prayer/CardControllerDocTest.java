@@ -1,20 +1,15 @@
 package com.sarangchurch.follower.docs.prayer;
 
 import com.sarangchurch.follower.docs.DocTest;
-import com.sarangchurch.follower.prayer.application.CardCreateService;
-import com.sarangchurch.follower.prayer.application.dto.request.CardCreate;
-import com.sarangchurch.follower.prayer.ui.CardController;
+import com.sarangchurch.follower.prayer.command.application.CardCreateService;
+import com.sarangchurch.follower.prayer.command.application.dto.request.CardCreate;
+import com.sarangchurch.follower.prayer.command.ui.CardController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.restdocs.RestDocumentationContextProvider;
-import org.springframework.restdocs.RestDocumentationExtension;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;

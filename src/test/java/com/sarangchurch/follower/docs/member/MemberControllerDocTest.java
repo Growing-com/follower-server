@@ -1,10 +1,10 @@
 package com.sarangchurch.follower.docs.member;
 
 import com.sarangchurch.follower.docs.DocTest;
-import com.sarangchurch.follower.member.application.MemberService;
-import com.sarangchurch.follower.member.application.dto.BulkUpdateFavorite;
-import com.sarangchurch.follower.member.application.dto.ToggleFavorite;
-import com.sarangchurch.follower.member.ui.MemberController;
+import com.sarangchurch.follower.member.command.application.MemberService;
+import com.sarangchurch.follower.member.command.application.dto.BulkUpdateFavorite;
+import com.sarangchurch.follower.member.command.application.dto.ToggleFavorite;
+import com.sarangchurch.follower.member.command.ui.MemberController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

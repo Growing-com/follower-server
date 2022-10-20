@@ -2,7 +2,7 @@ package com.sarangchurch.follower.docs.common;
 
 import com.sarangchurch.follower.auth.domain.model.RoleType;
 import com.sarangchurch.follower.common.types.marker.EnumType;
-import com.sarangchurch.follower.member.domain.model.Gender;
+import com.sarangchurch.follower.member.command.domain.model.Gender;
 import lombok.Builder;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;

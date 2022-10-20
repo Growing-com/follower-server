@@ -2,12 +2,12 @@ package com.sarangchurch.follower.docs.member;
 
 import com.sarangchurch.follower.auth.domain.model.RoleType;
 import com.sarangchurch.follower.docs.DocTest;
-import com.sarangchurch.follower.member.dao.MemberDao;
-import com.sarangchurch.follower.member.dao.dto.CurrentTeam;
-import com.sarangchurch.follower.member.dao.dto.MemberDetails;
-import com.sarangchurch.follower.member.dao.dto.MemberSearchResult;
-import com.sarangchurch.follower.member.domain.model.Gender;
-import com.sarangchurch.follower.member.ui.MemberQueryController;
+import com.sarangchurch.follower.member.query.MemberDao;
+import com.sarangchurch.follower.member.query.dto.CurrentTeam;
+import com.sarangchurch.follower.member.query.dto.MemberDetails;
+import com.sarangchurch.follower.member.query.dto.MemberSearchResult;
+import com.sarangchurch.follower.member.command.domain.model.Gender;
+import com.sarangchurch.follower.member.query.MemberQueryController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

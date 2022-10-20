@@ -24,7 +24,7 @@ import static com.sarangchurch.follower.docs.utils.DocumentFormatGenerator.getDa
 import static com.sarangchurch.follower.docs.utils.DocumentLinkGenerator.DocUrl.GENDER;
 import static com.sarangchurch.follower.docs.utils.DocumentLinkGenerator.DocUrl.ROLE;
 import static com.sarangchurch.follower.docs.utils.DocumentLinkGenerator.generateLinkCode;
-import static com.sarangchurch.follower.member.domain.model.Gender.MALE;
+import static com.sarangchurch.follower.member.command.domain.model.Gender.MALE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;

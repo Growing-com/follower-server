@@ -16,7 +16,7 @@ class DepartmentAcceptanceTest extends AcceptanceTest {
         부서에_유저가_추가되었다(유저를_추가한다(대학8부.getId(), "우상욱"), 대학8부.getId());
     }
 
-    @DisplayName("같은 부서에 동일한 이름의 유저가 존재할 수 없다.")
+    @DisplayName("같은 부서에 동일한 유저가 중복으로 존재할 수 없다.")
     @Test
     void addMember_DuplicateName() {
         부서에_유저가_추가되었다(유저를_추가한다(대학8부.getId(), "우상욱"), 대학8부.getId());

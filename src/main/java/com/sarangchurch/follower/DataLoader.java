@@ -1,23 +1,23 @@
 package com.sarangchurch.follower;
 
 import com.sarangchurch.follower.auth.domain.model.RoleType;
-import com.sarangchurch.follower.department.domain.model.Department;
-import com.sarangchurch.follower.department.domain.model.DepartmentInformation;
-import com.sarangchurch.follower.department.domain.model.DepartmentLinks;
-import com.sarangchurch.follower.department.domain.model.Season;
-import com.sarangchurch.follower.department.domain.model.Team;
-import com.sarangchurch.follower.department.domain.model.TeamCode;
-import com.sarangchurch.follower.department.domain.repository.DepartmentRepository;
-import com.sarangchurch.follower.department.domain.repository.SeasonRepository;
-import com.sarangchurch.follower.department.domain.repository.TeamRepository;
-import com.sarangchurch.follower.department.domain.service.TeamMemberValidator;
-import com.sarangchurch.follower.member.domain.model.Member;
-import com.sarangchurch.follower.member.domain.repository.MemberRepository;
-import com.sarangchurch.follower.prayer.domain.model.Card;
-import com.sarangchurch.follower.prayer.domain.model.Prayer;
-import com.sarangchurch.follower.prayer.domain.model.Week;
-import com.sarangchurch.follower.prayer.domain.repository.CardRepository;
-import com.sarangchurch.follower.prayer.domain.repository.PrayerRepository;
+import com.sarangchurch.follower.department.command.domain.model.Department;
+import com.sarangchurch.follower.department.command.domain.model.DepartmentInformation;
+import com.sarangchurch.follower.department.command.domain.model.DepartmentLinks;
+import com.sarangchurch.follower.department.command.domain.model.Season;
+import com.sarangchurch.follower.department.command.domain.model.Team;
+import com.sarangchurch.follower.department.command.domain.model.TeamCode;
+import com.sarangchurch.follower.department.command.domain.repository.DepartmentRepository;
+import com.sarangchurch.follower.department.command.domain.repository.SeasonRepository;
+import com.sarangchurch.follower.department.command.domain.repository.TeamRepository;
+import com.sarangchurch.follower.department.command.domain.service.TeamMemberValidator;
+import com.sarangchurch.follower.member.command.domain.model.Member;
+import com.sarangchurch.follower.member.command.domain.repository.MemberRepository;
+import com.sarangchurch.follower.prayer.command.domain.model.Card;
+import com.sarangchurch.follower.prayer.command.domain.model.Prayer;
+import com.sarangchurch.follower.prayer.command.domain.model.Week;
+import com.sarangchurch.follower.prayer.command.domain.repository.CardRepository;
+import com.sarangchurch.follower.prayer.command.domain.repository.PrayerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,11 +25,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 
 import static com.sarangchurch.follower.auth.domain.model.RoleType.*;
-import static com.sarangchurch.follower.member.domain.model.Gender.MALE;
+import static com.sarangchurch.follower.member.command.domain.model.Gender.MALE;
 
 @Profile("local")
 @RequiredArgsConstructor
@@ -82,10 +83,11 @@ public class DataLoader {
     }
 
     private Department createDepartment(String name, String ministerName) {
+        URI uri = URI.create("https://sarangchurch.org");
         return Department.builder()
                 .name(name)
                 .information(new DepartmentInformation(ministerName, "010-1234-1234", "S802호"))
-                .links(new DepartmentLinks(null, null, null))
+                .links(new DepartmentLinks(uri, uri, uri))
                 .build();
     }
 
