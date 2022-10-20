@@ -1,6 +1,6 @@
 package com.sarangchurch.follower.prayer.dao;
 
-import com.sarangchurch.follower.common.types.OffsetBasedPageRequest;
+import com.sarangchurch.follower.common.types.dto.OffsetBasedPageRequest;
 import com.sarangchurch.follower.member.domain.model.Gender;
 import com.sarangchurch.follower.prayer.dao.dto.CardDetails;
 import com.sarangchurch.follower.prayer.dao.dto.ChildCommentDetails;

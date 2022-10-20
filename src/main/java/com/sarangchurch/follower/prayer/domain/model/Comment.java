@@ -1,6 +1,6 @@
 package com.sarangchurch.follower.prayer.domain.model;
 
-import com.sarangchurch.follower.common.jpa.BaseEntity;
+import com.sarangchurch.follower.common.jpa.entity.BaseEntity;
 import com.sarangchurch.follower.prayer.domain.exception.CommentCreateException;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

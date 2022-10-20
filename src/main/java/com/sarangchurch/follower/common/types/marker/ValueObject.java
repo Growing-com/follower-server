@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.common.types;
+package com.sarangchurch.follower.common.types.marker;
 
 import javax.persistence.Embeddable;
 import java.lang.annotation.Retention;

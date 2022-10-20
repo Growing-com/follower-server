@@ -1,13 +1,13 @@
 package com.sarangchurch.follower.department.domain.model;
 
+import com.sarangchurch.follower.common.types.marker.ValueObject;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embeddable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-@Embeddable
+@ValueObject
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SeasonPeriod {
 

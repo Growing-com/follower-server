@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.common.types;
+package com.sarangchurch.follower.common.types.dto;
 
 import lombok.Getter;
 

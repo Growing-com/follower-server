@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,14 +18,16 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String ministerName;
-    private String ministerPhone;
+    @Embedded
+    private DepartmentInformation information;
+    @Embedded
+    private DepartmentLinks links;
 
     @Builder
-    public Department(String name, String ministerName, String ministerPhone) {
+    public Department(String name, DepartmentInformation information, DepartmentLinks links) {
         this.name = name;
-        this.ministerName = ministerName;
-        this.ministerPhone = ministerPhone;
+        this.information = information;
+        this.links = links;
     }
 
     public Long getId() {

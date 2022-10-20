@@ -5,7 +5,7 @@ import com.sarangchurch.follower.auth.ui.dto.LoginRequest;
 import com.sarangchurch.follower.auth.ui.dto.TokenRefreshRequest;
 import com.sarangchurch.follower.auth.application.dto.TokenResponse;
 import com.sarangchurch.follower.auth.domain.model.LoginMember;
-import com.sarangchurch.follower.common.types.ApiResponse;
+import com.sarangchurch.follower.common.types.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

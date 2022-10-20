@@ -1,6 +1,6 @@
 package com.sarangchurch.follower.member.domain.model;
 
-import com.sarangchurch.follower.common.types.EnumType;
+import com.sarangchurch.follower.common.types.marker.EnumType;
 
 public enum Gender implements EnumType {
     MALE("남자"),

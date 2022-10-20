@@ -1,7 +1,7 @@
 package com.sarangchurch.follower.prayer.ui;
 
-import com.sarangchurch.follower.common.types.ApiResponse;
-import com.sarangchurch.follower.common.types.OffsetBasedPageRequest;
+import com.sarangchurch.follower.common.types.dto.ApiResponse;
+import com.sarangchurch.follower.common.types.dto.OffsetBasedPageRequest;
 import com.sarangchurch.follower.member.domain.model.Member;
 import com.sarangchurch.follower.member.ui.argumentresolver.AuthMember;
 import com.sarangchurch.follower.prayer.dao.CardDao;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.sarangchurch.follower.common.types.OffsetBasedPageRequest.popIfHasNext;
+import static com.sarangchurch.follower.common.types.dto.OffsetBasedPageRequest.popIfHasNext;
 import static java.time.LocalDate.now;
 
 @RestController

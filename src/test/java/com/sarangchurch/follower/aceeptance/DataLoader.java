@@ -2,6 +2,8 @@ package com.sarangchurch.follower.aceeptance;
 
 import com.sarangchurch.follower.auth.domain.model.RoleType;
 import com.sarangchurch.follower.department.domain.model.Department;
+import com.sarangchurch.follower.department.domain.model.DepartmentInformation;
+import com.sarangchurch.follower.department.domain.model.DepartmentLinks;
 import com.sarangchurch.follower.department.domain.repository.DepartmentRepository;
 import com.sarangchurch.follower.member.domain.model.Member;
 import com.sarangchurch.follower.member.domain.repository.MemberRepository;
@@ -43,8 +45,8 @@ public class DataLoader {
     private Department createDepartment(String name, String ministerName) {
         return Department.builder()
                 .name(name)
-                .ministerName(ministerName)
-                .ministerPhone("010-1234-1234")
+                .information(new DepartmentInformation(ministerName, "010-1234-1234", "S802호"))
+                .links(new DepartmentLinks(null, null, null))
                 .build();
     }
 

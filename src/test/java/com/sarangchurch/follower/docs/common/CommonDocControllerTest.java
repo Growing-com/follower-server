@@ -1,7 +1,7 @@
 package com.sarangchurch.follower.docs.common;
 
 import com.sarangchurch.follower.auth.domain.model.RoleType;
-import com.sarangchurch.follower.common.types.EnumType;
+import com.sarangchurch.follower.common.types.marker.EnumType;
 import com.sarangchurch.follower.common.exception.GlobalControllerAdvice;
 import com.sarangchurch.follower.docs.DocTest;
 import com.sarangchurch.follower.member.domain.model.Gender;

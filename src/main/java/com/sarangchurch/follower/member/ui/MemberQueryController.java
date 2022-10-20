@@ -1,7 +1,7 @@
 package com.sarangchurch.follower.member.ui;
 
-import com.sarangchurch.follower.common.types.ApiResponse;
-import com.sarangchurch.follower.common.types.OffsetBasedPageRequest;
+import com.sarangchurch.follower.common.types.dto.ApiResponse;
+import com.sarangchurch.follower.common.types.dto.OffsetBasedPageRequest;
 import com.sarangchurch.follower.member.dao.MemberDao;
 import com.sarangchurch.follower.member.dao.dto.CurrentTeam;
 import com.sarangchurch.follower.member.dao.dto.MemberDetails;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static com.sarangchurch.follower.common.types.OffsetBasedPageRequest.*;
+import static com.sarangchurch.follower.common.types.dto.OffsetBasedPageRequest.*;
 
 @RestController
 @RequestMapping("/api/members")

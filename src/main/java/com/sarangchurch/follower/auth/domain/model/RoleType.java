@@ -1,6 +1,6 @@
 package com.sarangchurch.follower.auth.domain.model;
 
-import com.sarangchurch.follower.common.types.EnumType;
+import com.sarangchurch.follower.common.types.marker.EnumType;
 
 public enum RoleType implements EnumType {
     ADMIN("웹 관리자"),

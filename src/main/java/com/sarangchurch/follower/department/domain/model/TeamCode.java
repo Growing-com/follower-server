@@ -1,6 +1,6 @@
 package com.sarangchurch.follower.department.domain.model;
 
-import com.sarangchurch.follower.common.types.ValueObject;
+import com.sarangchurch.follower.common.types.marker.ValueObject;
 
 import java.util.Objects;
 import java.util.UUID;

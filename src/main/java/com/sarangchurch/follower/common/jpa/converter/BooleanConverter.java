@@ -1,4 +1,4 @@
-package com.sarangchurch.follower.common.jpa;
+package com.sarangchurch.follower.common.jpa.converter;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

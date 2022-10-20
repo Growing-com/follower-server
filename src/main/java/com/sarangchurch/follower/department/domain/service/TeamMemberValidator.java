@@ -1,6 +1,6 @@
 package com.sarangchurch.follower.department.domain.service;
 
-import com.sarangchurch.follower.common.types.DomainService;
+import com.sarangchurch.follower.common.types.marker.DomainService;
 import com.sarangchurch.follower.department.domain.exception.IllegalTeamCodeException;
 import com.sarangchurch.follower.department.domain.model.Team;
 import com.sarangchurch.follower.department.domain.model.TeamCode;
