@@ -1,10 +1,10 @@
 package com.sarangchurch.follower.docs.member;
 
 import com.sarangchurch.follower.docs.DocTest;
-import com.sarangchurch.follower.member.command.application.MemberService;
+import com.sarangchurch.follower.member.command.application.FavoriteService;
 import com.sarangchurch.follower.member.command.application.dto.BulkUpdateFavorite;
 import com.sarangchurch.follower.member.command.application.dto.ToggleFavorite;
-import com.sarangchurch.follower.member.command.ui.MemberController;
+import com.sarangchurch.follower.member.command.ui.FavoriteController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,20 +34,20 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.requestF
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class MemberControllerDocTest extends DocTest {
+class FavoriteControllerDocTest extends DocTest {
 
     private MockMvc mockMvc;
 
     @Mock
-    private MemberService memberService;
+    private FavoriteService favoriteService;
 
     @InjectMocks
-    private MemberController memberController;
+    private FavoriteController favoriteController;
 
     @BeforeEach
     void setUp(RestDocumentationContextProvider restDocumentation) {
         super.setUp();
-        mockMvc = MockMvcBuilders.standaloneSetup(memberController)
+        mockMvc = MockMvcBuilders.standaloneSetup(favoriteController)
                 .apply(documentationConfiguration(restDocumentation))
                 .build();
     }
@@ -56,7 +56,7 @@ class MemberControllerDocTest extends DocTest {
     @Test
     void toggleFavorites() throws Exception {
         // given
-        doNothing().when(memberService).toggleFavorites(any(), any());
+        doNothing().when(favoriteService).toggleFavorites(any(), any());
 
         // when
         ResultActions result = this.mockMvc.perform(post("/api/members/my/favorites")
@@ -83,7 +83,7 @@ class MemberControllerDocTest extends DocTest {
     @Test
     void bulkUpdateFavorites() throws Exception {
         // given
-        doNothing().when(memberService).bulkUpdateFavorites(any(), any());
+        doNothing().when(favoriteService).bulkUpdateFavorites(any(), any());
 
         // when
         ResultActions result = this.mockMvc.perform(post("/api/members/my/favorites/bulk")

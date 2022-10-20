@@ -1,10 +1,7 @@
 package com.sarangchurch.follower.member.command.ui;
 
-import com.sarangchurch.follower.member.command.application.MemberService;
-import com.sarangchurch.follower.member.command.application.dto.BulkUpdateFavorite;
-import com.sarangchurch.follower.member.command.application.dto.ToggleFavorite;
-import com.sarangchurch.follower.member.command.domain.model.Member;
-import com.sarangchurch.follower.member.command.ui.argumentresolver.AuthMember;
+import com.sarangchurch.follower.member.command.application.MemberRegisterService;
+import com.sarangchurch.follower.member.command.application.dto.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,16 +14,17 @@ import javax.validation.Valid;
 @RequestMapping("/api/members")
 @RequiredArgsConstructor
 public class MemberController {
+    private final MemberRegisterService memberRegisterService;
 
-    private final MemberService memberService;
-
-    @PostMapping("/my/favorites")
-    public void toggleFavorites(@AuthMember Member member, @RequestBody @Valid ToggleFavorite request) {
-        memberService.toggleFavorites(member.getId(), request.getMemberId());
+    @PostMapping
+    public void register(@RequestBody @Valid RegisterRequest request) {
+        validatePasswordCheck(request);
+        memberRegisterService.register(request);
     }
 
-    @PostMapping("/my/favorites/bulk")
-    public void bulkUpdateFavorites(@AuthMember Member member, @RequestBody @Valid BulkUpdateFavorite request) {
-        memberService.bulkUpdateFavorites(member.getId(), request);
+    private void validatePasswordCheck(RegisterRequest request) {
+        if (!request.getPassword().equals(request.getPasswordCheck())) {
+            throw new IllegalArgumentException("비밀번호 확인이 일치하지 않습니다.");
+        }
     }
 }

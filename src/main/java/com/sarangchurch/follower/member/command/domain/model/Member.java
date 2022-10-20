@@ -1,6 +1,7 @@
 package com.sarangchurch.follower.member.command.domain.model;
 
 import com.sarangchurch.follower.auth.domain.model.RoleType;
+import com.sarangchurch.follower.common.jpa.entity.BaseEntity;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
@@ -23,7 +24,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Table(name = "member", uniqueConstraints = {
         @UniqueConstraint(columnNames = "username"),
         @UniqueConstraint(columnNames = "name")})
-public class Member {
+public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -36,6 +36,14 @@ public class Season {
         return id;
     }
 
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

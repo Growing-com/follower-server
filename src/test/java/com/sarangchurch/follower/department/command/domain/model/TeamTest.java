@@ -2,7 +2,7 @@ package com.sarangchurch.follower.department.command.domain.model;
 
 import com.sarangchurch.follower.department.command.domain.exception.DuplicateMemberException;
 import com.sarangchurch.follower.department.command.domain.exception.IllegalTeamCodeException;
-import com.sarangchurch.follower.department.command.domain.service.TeamMemberValidator;
+import com.sarangchurch.follower.department.command.domain.service.TeamMemberAssigner;
 import com.sarangchurch.follower.member.command.domain.model.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class TeamTest {
-    private TeamMemberValidator teamMemberValidator = new TeamMemberValidator();
+    private TeamMemberAssigner teamMemberAssigner = new TeamMemberAssigner();
 
     @DisplayName("가입 코드가 불일치하면 가입에 실패한다.")
     @Test
@@ -30,7 +30,7 @@ class TeamTest {
 
         // expected
         TeamCode wrongCode = new TeamCode();
-        assertThatThrownBy(() -> team.addMember(teamMemberValidator, member, wrongCode))
+        assertThatThrownBy(() -> team.addMember(teamMemberAssigner, member, wrongCode))
                 .isInstanceOf(IllegalTeamCodeException.class);
     }
 
@@ -47,10 +47,10 @@ class TeamTest {
                 .id(1L)
                 .build();
 
-        team.addMember(teamMemberValidator, member, code);
+        team.addMember(teamMemberAssigner, member, code);
 
         // expected
-        assertThatThrownBy(() -> team.addMember(teamMemberValidator, member, code))
+        assertThatThrownBy(() -> team.addMember(teamMemberAssigner, member, code))
                 .isInstanceOf(DuplicateMemberException.class);
     }
 
@@ -74,8 +74,8 @@ class TeamTest {
                 .build();
 
         // when
-        team.addMember(teamMemberValidator, firstMember, code);
-        team.addMember(teamMemberValidator, secondMember, code);
+        team.addMember(teamMemberAssigner, firstMember, code);
+        team.addMember(teamMemberAssigner, secondMember, code);
 
         // then
         assertThat(firstMember.getRole()).isEqualTo(LEADER);

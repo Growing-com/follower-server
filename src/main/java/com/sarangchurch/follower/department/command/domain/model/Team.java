@@ -1,6 +1,6 @@
 package com.sarangchurch.follower.department.command.domain.model;
 
-import com.sarangchurch.follower.department.command.domain.service.TeamMemberValidator;
+import com.sarangchurch.follower.department.command.domain.service.TeamMemberAssigner;
 import com.sarangchurch.follower.member.command.domain.model.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -36,8 +36,8 @@ public class Team {
         this.code = code;
     }
 
-    public void addMember(TeamMemberValidator teamMemberValidator, Member member, TeamCode code) {
-        teamMemberValidator.validate(this, member, code);
+    public void addMember(TeamMemberAssigner teamMemberAssigner, Member member, TeamCode code) {
+        teamMemberAssigner.assign(this, member, code);
         teamMembers.add(this, member.getId());
     }
 
@@ -55,6 +55,10 @@ public class Team {
 
     public Long getId() {
         return id;
+    }
+
+    public Long getSeasonId() {
+        return seasonId;
     }
 
     @Override

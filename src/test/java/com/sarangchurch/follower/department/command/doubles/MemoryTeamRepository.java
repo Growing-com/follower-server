@@ -1,6 +1,7 @@
 package com.sarangchurch.follower.department.command.doubles;
 
 import com.sarangchurch.follower.department.command.domain.model.Team;
+import com.sarangchurch.follower.department.command.domain.model.TeamCode;
 import com.sarangchurch.follower.department.command.domain.repository.TeamRepository;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -18,6 +19,14 @@ public class MemoryTeamRepository implements TeamRepository {
         return store.values()
                 .stream()
                 .filter(it -> it.getId().equals(id))
+                .findAny();
+    }
+
+    @Override
+    public Optional<Team> findByCode(TeamCode code) {
+        return store.values()
+                .stream()
+                .filter(it -> it.matchCode(code))
                 .findAny();
     }
 

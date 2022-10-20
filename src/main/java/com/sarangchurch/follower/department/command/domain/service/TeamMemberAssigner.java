@@ -11,10 +11,10 @@ import static com.sarangchurch.follower.auth.domain.model.RoleType.LEADER;
 import static com.sarangchurch.follower.auth.domain.model.RoleType.MEMBER;
 
 @DomainService
-public class TeamMemberValidator {
+public class TeamMemberAssigner {
 
     @Transactional
-    public void validate(Team team, Member member, TeamCode code) {
+    public void assign(Team team, Member member, TeamCode code) {
         if (!team.matchCode(code)) {
             throw new IllegalTeamCodeException();
         }

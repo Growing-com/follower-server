@@ -10,7 +10,7 @@ import com.sarangchurch.follower.department.command.domain.model.TeamCode;
 import com.sarangchurch.follower.department.command.domain.repository.DepartmentRepository;
 import com.sarangchurch.follower.department.command.domain.repository.SeasonRepository;
 import com.sarangchurch.follower.department.command.domain.repository.TeamRepository;
-import com.sarangchurch.follower.department.command.domain.service.TeamMemberValidator;
+import com.sarangchurch.follower.department.command.domain.service.TeamMemberAssigner;
 import com.sarangchurch.follower.member.command.domain.model.Member;
 import com.sarangchurch.follower.member.command.domain.repository.MemberRepository;
 import com.sarangchurch.follower.prayer.command.domain.model.Card;
@@ -44,7 +44,7 @@ public class DataLoader {
     private final PrayerRepository prayerRepository;
     private final EntityManager em;
     private final PasswordEncoder passwordEncoder;
-    private final TeamMemberValidator teamMemberValidator;
+    private final TeamMemberAssigner teamMemberAssigner;
 
     @Transactional
     public void loadData() {
@@ -114,7 +114,7 @@ public class DataLoader {
                 .build();
 
         for (Member member : members) {
-            team.addMember(teamMemberValidator, member, code);
+            team.addMember(teamMemberAssigner, member, code);
         }
 
         return team;

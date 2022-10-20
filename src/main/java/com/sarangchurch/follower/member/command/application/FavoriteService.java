@@ -14,11 +14,11 @@ import static com.sarangchurch.follower.member.command.domain.exception.IllegalM
 
 @Service
 @Transactional
-public class MemberService {
+public class FavoriteService {
 
     private final MemberRepository memberRepository;
 
-    public MemberService(MemberRepository memberRepository) {
+    public FavoriteService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
@@ -36,11 +36,6 @@ public class MemberService {
         if (memberRepository.existsByName(member.getName())) {
             throw new IllegalMemberException(DUPLICATE_NAME);
         }
-    }
-
-    public Member findById(Long id) {
-        return memberRepository.findById(id)
-                .orElseThrow(EntityNotFoundException::new);
     }
 
     public void toggleFavorites(Long fromMemberId, Long toMemberId) {
