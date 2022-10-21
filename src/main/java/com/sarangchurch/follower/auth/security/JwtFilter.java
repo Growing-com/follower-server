@@ -12,21 +12,22 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @Slf4j
 public class JwtFilter extends OncePerRequestFilter {
-    public static final String AUTH_API_PATH = "/api/auth/";
-
     private final AuthenticationManager authenticationManager;
+    private final List<String> whiteList;
 
-    public JwtFilter(AuthenticationManager authenticationManager) {
+    public JwtFilter(AuthenticationManager authenticationManager, String[] whiteList) {
         this.authenticationManager = authenticationManager;
+        this.whiteList = List.of(whiteList);
     }
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String requestURI = request.getRequestURI();
-        return requestURI.startsWith(AUTH_API_PATH);
+        return requestURI.startsWith("/api/auth/") || whiteList.contains(requestURI);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.sarangchurch.follower.member.command.domain.repository;
 
+import com.sarangchurch.follower.common.types.vo.PhoneNumber;
 import com.sarangchurch.follower.member.command.domain.model.Member;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface MemberRepository {
     boolean existsByName(String name);
 
     boolean existsByUsername(String username);
+
+    boolean existsByPhoneNumber(PhoneNumber phoneNumber);
 }

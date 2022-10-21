@@ -68,7 +68,7 @@ public class DataLoader {
         // 대학부 팀 3개
         teamRepository.save(createTeam(univPastSeason, "1학기 순모임", 우상욱));
         teamRepository.save(createTeam(univCurrentSeason, "2학기 순모임", 이순종, 우상욱));
-        teamRepository.save(createTeam(univCurrentSeason, "간사 모임", 이순종));
+        teamRepository.save(createTeam(univCurrentSeason, "2학기 간사 모임", 이순종));
 
         // 청년부 회원 2명
         Department youth = departmentRepository.save(createDepartment("청년 6부", "이원준 목사"));
@@ -79,7 +79,7 @@ public class DataLoader {
         Season youthCurrentSeason = seasonRepository.save(Season.builder().name("2022-2학기").departmentId(youth.getId()).isActive(true).build());
 
         // 청년부 팀 1개
-        teamRepository.save(createTeam(youthCurrentSeason, "청년부 모임", 이원준, 이종민));
+        teamRepository.save(createTeam(youthCurrentSeason, "청년부 2학기 모임", 이원준, 이종민));
     }
 
     private Department createDepartment(String name, String ministerName) {
@@ -104,12 +104,12 @@ public class DataLoader {
                 .build();
     }
 
-    private Team createTeam(Season past, String name, Member... members) {
+    private Team createTeam(Season season, String name, Member... members) {
         TeamCode code = new TeamCode();
 
         Team team = Team.builder()
                 .name(name)
-                .seasonId(past.getId())
+                .seasonId(season.getId())
                 .code(code)
                 .build();
 

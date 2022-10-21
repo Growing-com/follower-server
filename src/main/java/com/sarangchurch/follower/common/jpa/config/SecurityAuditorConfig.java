@@ -18,12 +18,11 @@ public class SecurityAuditorConfig {
     public AuditorAware<String> auditorProvider() {
         return () -> {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication == null) {
-                return Optional.empty();
+            if (authentication != null && authentication.getPrincipal() instanceof LoginMember) {
+                LoginMember loginMember = (LoginMember) authentication.getPrincipal();
+                return Optional.of(loginMember.getName());
             }
-
-            LoginMember loginMember = (LoginMember) authentication.getPrincipal();
-            return Optional.of(loginMember.getName());
+            return Optional.empty();
         };
     }
 }
