@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
-import static com.sarangchurch.follower.member.command.domain.exception.IllegalMemberException.DUPLICATE_NAME;
+import static com.sarangchurch.follower.member.command.domain.exception.IllegalMemberException.DUPLICATE_PHONE;
 import static com.sarangchurch.follower.member.command.domain.exception.IllegalMemberException.DUPLICATE_USERNAME;
 
 @Service
@@ -34,7 +34,7 @@ public class FavoriteService {
         }
 
         if (memberRepository.existsByName(member.getName())) {
-            throw new IllegalMemberException(DUPLICATE_NAME);
+            throw new IllegalMemberException(DUPLICATE_PHONE);
         }
     }
 

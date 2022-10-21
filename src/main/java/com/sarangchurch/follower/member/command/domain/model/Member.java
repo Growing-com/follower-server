@@ -2,9 +2,11 @@ package com.sarangchurch.follower.member.command.domain.model;
 
 import com.sarangchurch.follower.auth.domain.model.RoleType;
 import com.sarangchurch.follower.common.jpa.entity.BaseEntity;
+import com.sarangchurch.follower.common.types.vo.PhoneNumber;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -35,13 +37,18 @@ public class Member extends BaseEntity {
     private Boolean earlyBorn;
     @Enumerated(EnumType.STRING)
     private Gender gender;
+    @Embedded
+    private PhoneNumber phoneNumber;
     @Enumerated(EnumType.STRING)
     private RoleType role;
     private Long departmentId;
     private Favorites favorites = new Favorites();
 
     @Builder
-    public Member(Long id, String username, String password, String name, LocalDate birthDate, Boolean earlyBorn, Gender gender, RoleType role, Long departmentId) {
+    public Member(Long id, String username, String password, String name,
+                  LocalDate birthDate, Boolean earlyBorn, Gender gender,
+                  PhoneNumber phoneNumber, RoleType role, Long departmentId
+    ) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -49,6 +56,7 @@ public class Member extends BaseEntity {
         this.birthDate = birthDate;
         this.earlyBorn = earlyBorn;
         this.gender = gender;
+        this.phoneNumber = phoneNumber;
         this.role = role;
         this.departmentId = departmentId;
     }

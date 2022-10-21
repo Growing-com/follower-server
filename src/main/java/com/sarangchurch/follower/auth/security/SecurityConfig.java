@@ -22,6 +22,13 @@ import static org.springframework.http.HttpMethod.POST;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
+    private static final String[] WHITE_LIST = new String[]{
+            "/api/auth/**",
+            "/api/members",
+            "/api/members/requestSms",
+            "/api/members/verifySms"
+    };
+
     private final TokenUserLoader tokenUserLoader;
     private final UserDetailsService userDetailsService;
 
@@ -48,7 +55,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll()
-                .antMatchers(POST, "/api/auth/**").permitAll()
+                .antMatchers(POST, WHITE_LIST).permitAll()
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .anyRequest().hasAnyRole("MEMBER", "LEADER", "MANAGER");
 
@@ -70,7 +77,7 @@ public class SecurityConfig {
 
     @Bean
     JwtFilter jwtFilter() {
-        return new JwtFilter(authenticationManager());
+        return new JwtFilter(authenticationManager(), WHITE_LIST);
     }
 
     @Bean

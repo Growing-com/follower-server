@@ -2,6 +2,7 @@ package com.sarangchurch.follower.member.command.application.dto;
 
 import com.sarangchurch.follower.auth.domain.model.RoleType;
 import com.sarangchurch.follower.common.types.marker.EntitySupplier;
+import com.sarangchurch.follower.common.types.vo.PhoneNumber;
 import com.sarangchurch.follower.member.command.domain.model.Gender;
 import com.sarangchurch.follower.member.command.domain.model.Member;
 import lombok.Builder;
@@ -39,6 +40,9 @@ public class RegisterRequest implements EntitySupplier<Member> {
     private Boolean earlyBorn;
     @NotNull(message = "성별을 입력해주세요.")
     private Gender gender;
+    @NotBlank(message = "번호를 입력해주세요.")
+    @Pattern(regexp = "\\d{3}-\\d{4}-\\d{4}", message = "올바르지 않은 번호입니다.")
+    private String phoneNumber;
     @NotNull(message = "팀 코드를 입력해주세요.")
     @Size(min = 6, max = 6)
     private String teamCode;
@@ -62,6 +66,7 @@ public class RegisterRequest implements EntitySupplier<Member> {
                 .earlyBorn(getEarlyBorn())
                 .gender(getGender())
                 .role(RoleType.MEMBER)
+                .phoneNumber(new PhoneNumber(phoneNumber))
                 .build();
     }
 }

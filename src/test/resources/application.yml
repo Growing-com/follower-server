@@ -23,8 +23,6 @@ spring:
       ddl-auto: create
     show-sql: 'true'
 
-
-
 logging:
   level:
     org:
