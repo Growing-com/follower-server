@@ -48,3 +48,6 @@ docker/db/mysql/init/*
 follower.mv.db
 sql/**
 spy.log
+
+### profiles
+src/main/resources/application.yml
